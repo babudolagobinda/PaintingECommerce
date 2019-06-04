@@ -1,0 +1,5 @@
+B:\Workspace\Ecommerce Project\ArtGalleryECommerce\ArtGalleryECommerce.Model\bin\Debug\ArtGalleryECommerce.Model.dll
+B:\Workspace\Ecommerce Project\ArtGalleryECommerce\ArtGalleryECommerce.Model\bin\Debug\ArtGalleryECommerce.Model.pdb
+B:\Workspace\Ecommerce Project\ArtGalleryECommerce\ArtGalleryECommerce.Model\obj\Debug\ArtGalleryECommerce.Model.dll
+B:\Workspace\Ecommerce Project\ArtGalleryECommerce\ArtGalleryECommerce.Model\obj\Debug\ArtGalleryECommerce.Model.pdb
+B:\Workspace\Ecommerce Project\ArtGalleryECommerce\ArtGalleryECommerce.Model\obj\Debug\ArtGalleryECommerce.Model.csprojResolveAssemblyReference.cache

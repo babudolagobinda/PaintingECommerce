@@ -1,0 +1,530 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8FCC8508-9EE8-4899-BBB9-D02D38A31628}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ArtGalleryECommerce.UI</RootNamespace>
+    <AssemblyName>ArtGalleryECommerce.UI</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.2.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.6\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.2.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.2.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.2.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.2.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.2.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AdminLoginModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AdminTemplate\backblue.gif" />
+    <Content Include="AdminTemplate\fade.gif" />
+    <Content Include="AdminTemplate\hts-cache\new.lst" />
+    <Content Include="AdminTemplate\hts-cache\new.txt" />
+    <Content Include="AdminTemplate\hts-cache\readme.txt" />
+    <Content Include="AdminTemplate\hts-log.txt" />
+    <Content Include="AdminTemplate\index.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\css\bracket.css" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img1.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img10.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img11.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img12.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img13.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img14.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img15.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img16.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img17.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img18.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img19.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img2.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img20.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img21.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img22.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img23.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img24.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img25.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img26.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img27.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img28.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img29.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img3.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img30.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img31.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img32.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img33.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img34.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img35.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img36.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img37.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img38.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img39.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img4.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img40.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img41.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img42.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img43.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img44.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img45.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img46.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img47.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img48.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img49.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img5.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img50.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img53.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img6.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img7.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img8.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img9.jpg" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\screen1.png" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\screen10.png" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\screen11.png" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\screen12.png" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\screen13.png" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\screen17.png" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\screen18.png" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\screen19.png" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\screen2.png" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\screen20.png" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\screen22.png" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\screen28.png" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\screen29.png" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\screen3.png" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\screen32.png" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\screen4.png" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\screen5.png" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\screen6.png" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\screen7.png" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\screen8.png" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\screen9.png" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\js\bracket.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\js\chart.chartist.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\js\chart.chartjs.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\js\chart.echarts.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\js\chart.flot.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\js\chart.morris.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\js\chart.peity.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\js\chart.rickshaw.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\js\chart.sparkline.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\js\dashboard.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\js\jquery.vmap.sampledata.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\js\map.apple.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\js\map.bluewater.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\js\map.mapbox.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\js\map.shadesofgray.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\js\map.shiftworker.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\js\popover-colored.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\js\ResizeSensor.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\js\tooltip-colored.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\js\widgets.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\fortawesome\fontawesome-free\css\all.min.css" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\bootstrap-tagsinput\bootstrap-tagsinput.css" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\bootstrap-tagsinput\bootstrap-tagsinput.min.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\bootstrap\js\bootstrap.bundle.min.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\chart.js\Chart.min.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\chartist\chartist.min.css" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\chartist\chartist.min.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\codemirror\addon\scroll\simplescrollbars.css" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\codemirror\addon\scroll\simplescrollbars.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\codemirror\lib\codemirror.css" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\codemirror\lib\codemirror.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\codemirror\mode\javascript\javascript.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\codemirror\theme\base16-light.css" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\codemirror\theme\dracula.css" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\codemirror\theme\eclipse.css" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\codemirror\theme\lesser-dark.css" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\cropperjs\cropper.min.css" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\cropperjs\cropper.min.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\datatables.net-dt\css\jquery.dataTables.min.css" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\datatables.net-dt\images\sort_asc.png" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\datatables.net-dt\images\sort_asc_disabled.png" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\datatables.net-dt\images\sort_both.png" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\datatables.net-dt\images\sort_desc.png" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\datatables.net-dt\images\sort_desc_disabled.png" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\datatables.net-dt\js\dataTables.dataTables.min.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\datatables.net-responsive-dt\css\responsive.dataTables.min.css" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\datatables.net-responsive-dt\js\responsive.dataTables.min.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\datatables.net-responsive\js\dataTables.responsive.min.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\datatables.net\js\jquery.dataTables.min.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\echarts\echarts.min.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\flot-spline\js\jquery.flot.spline.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\flot-spline\js\jquery.flot.spline.min.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\gmaps\gmaps.min.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\highlightjs\highlight.pack.min.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\highlightjs\styles\github.css" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\ion-rangeslider\css\ion.rangeSlider.css" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\ion-rangeslider\css\ion.rangeSlider.skinFlat.css" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\ion-rangeslider\img\sprite-skin-flat.png" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\ion-rangeslider\js\ion.rangeSlider.min.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\ionicons\css\ionicons.min.css" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\jquery-cropper\jquery-cropper.min.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\jquery-sparkline\jquery.sparkline.min.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\jquery-steps\build\jquery.steps.min.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\jquery-ui\ui\widgets\datepicker.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\jquery.flot\jquery.flot.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\jquery.flot\jquery.flot.pie.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\jquery.flot\jquery.flot.resize.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\jquery.maskedinput\jquery.maskedinput.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\jquery\jquery.min.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\jqvmap\jquery.vmap.min.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\jqvmap\jqvmap.min.css" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\jqvmap\maps\jquery.vmap.canada.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\jqvmap\maps\jquery.vmap.usa.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\jqvmap\maps\jquery.vmap.world.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\leaflet\images\layers-2x.png" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\leaflet\images\layers.png" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\leaflet\images\marker-icon.png" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\leaflet\leaflet-src.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\leaflet\leaflet.css" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\medium-editor\css\medium-editor.min.css" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\medium-editor\css\themes\default.min.css" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\medium-editor\js\medium-editor.min.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\moment\min\moment.min.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\morris.js\morris.css" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\morris.js\morris.min.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\parsleyjs\parsley.min.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\peity\jquery.peity.min.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\perfect-scrollbar\perfect-scrollbar.min.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\raphael\raphael.min.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\rickshaw\rickshaw.min.css" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\rickshaw\rickshaw.min.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\rickshaw\vendor\d3.layout.min.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\rickshaw\vendor\d3.min.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\select2\css\select2.min.css" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\select2\js\select2.full.min.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\select2\js\select2.min.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\spectrum-colorpicker\spectrum.css" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\spectrum-colorpicker\spectrum.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\spinkit\css\spinkit.css" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\summernote\summernote-bs4.css" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\summernote\summernote-bs4.min.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\timepicker\jquery.timepicker.css" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\timepicker\jquery.timepicker.min.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\accordion.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\alerts.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\background.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\blank-2.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\blank.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\border.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\buttons.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\card-dashboard.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\card-listing.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\card-social.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\cards.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\carousel.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\chart-chartist.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\chart-chartjs.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\chart-echarts.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\chart-flot.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\chart-morris.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\chart-peity.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\chart-rickshaw.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\chart-sparkline.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\dropdowns.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\form-editor-code.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\form-editor-text.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\form-elements.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\form-layouts.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\form-validation.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\form-wizards.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\height.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\icons.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\images.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\index-2.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\index.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\layouts.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\list.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\mailbox.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\map-google.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\map-leaflet.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\map-vector.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\margin.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\media.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\modal.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\navigation-effects.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\navigation-layouts.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\navigation.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\padding.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\page-assets.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\page-chat.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\page-contacts.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\page-invoice.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\page-not-found.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\page-profile.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\pages.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\pagination.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\popups.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\position.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\progress.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\signin-img.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\signin-simple.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\signin-split.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\signin-video.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\signup-simple.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\signup-split.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\sitemap.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\skin-datepicker.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\skin-file-browser.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\skin-input-form.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\skin-rangeslider.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\skin-select2.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\skin-sidebar.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\skin-template.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\spinners.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\table-basic.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\table-datatable.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\typography-util.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\typography.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\template\width.html" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\img\bracketplus-social.png" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="CustomScripts\AdminLogin.js" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="AdminTemplate\api.tiles.mapbox.com\v4\{id}\{z}\{x}\{y}82fd.json" />
+    <Content Include="AdminTemplate\hts-cache\doit.log" />
+    <Content Include="AdminTemplate\hts-cache\new.zip" />
+    <Content Include="AdminTemplate\hts-cache\winprofile.ini" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\fortawesome\fontawesome-free\webfonts\fa-brands-400.woff2" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\fortawesome\fontawesome-free\webfonts\fa-solid-900.woff2" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\ionicons\fonts\ionicons.eot" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\ionicons\fonts\ionicons.ttf" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\ionicons\fonts\ionicons.woff" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\summernote\font\summernotec360.eot" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\summernote\font\summernotec360.ttf" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\summernote\font\summernotec360.woff" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\Admin\DashBoard.cshtml" />
+    <Content Include="Views\Admin\ItemGroup.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ArtGalleryECommerce.Model\ArtGalleryECommerce.Model.csproj">
+      <Project>{8e64286f-820a-4288-9996-62166173bdf5}</Project>
+      <Name>ArtGalleryECommerce.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>64535</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:64535/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.3.2\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.15
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtGalleryECommerce.UI", "ArtGalleryECommerce.UI\ArtGalleryECommerce.UI.csproj", "{8FCC8508-9EE8-4899-BBB9-D02D38A31628}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtGalleryECommerce.Model", "ArtGalleryECommerce.Model\ArtGalleryECommerce.Model.csproj", "{8E64286F-820A-4288-9996-62166173BDF5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8FCC8508-9EE8-4899-BBB9-D02D38A31628}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FCC8508-9EE8-4899-BBB9-D02D38A31628}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FCC8508-9EE8-4899-BBB9-D02D38A31628}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FCC8508-9EE8-4899-BBB9-D02D38A31628}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E64286F-820A-4288-9996-62166173BDF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E64286F-820A-4288-9996-62166173BDF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E64286F-820A-4288-9996-62166173BDF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E64286F-820A-4288-9996-62166173BDF5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

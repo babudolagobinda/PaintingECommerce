@@ -1,0 +1,157 @@
+﻿
+@{
+    ViewBag.Title = "ItemGroup";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<link href="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/highlightjs/styles/github.css" rel="stylesheet">
+<link href="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-dt/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-responsive-dt/css/responsive.dataTables.min.css" rel="stylesheet">
+<link href="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/css/bracket.css" rel="stylesheet" />
+<script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-dt/js/dataTables.dataTables.min.js"></script>
+<script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-responsive-dt/js/responsive.dataTables.min.js"></script>
+<script>
+    $(function () {
+        $('.modal-effect').on('click', function (e) {
+            e.preventDefault();
+            var effect = $(this).attr('data-effect');
+            $('#modaldemo1').addClass(effect);
+            $('#modaldemo1').modal('show');
+        });
+        $('#modaldemo1').on('hidden.bs.modal', function (e) {
+            $(this).removeClass(function (index, className) {
+                return (className.match(/(^|\s)effect-\S+/g) || []).join(' ');
+            });
+        });
+    });
+</script>
+<script>
+    $(function () {
+        'use strict';
+
+        $('#datatable1').DataTable({
+            responsive: true,
+            language: {
+                searchPlaceholder: 'Search...',
+                sSearch: '',
+                lengthMenu: '_MENU_ items/page',
+            }
+        });
+        //$('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });
+
+    });
+</script>
+
+<div class="br-mainpanel">
+    <div id="modaldemo1" class="modal fade">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content bd-0 tx-14">
+                <div class="modal-header pd-y-20 pd-x-25">
+                    <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Message Preview</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="form-layout form-layout-5">
+                    <div class="row">
+                        <label class="col-sm-4 form-control-label"><span class="tx-danger">*</span> Firstname:</label>
+                        <div class="col-sm-8 mg-t-10 mg-sm-t-0">
+                            <input type="text" class="form-control" placeholder="Enter firstname">
+                        </div>
+                    </div><!-- row -->
+                    <div class="row mg-t-20">
+                        <label class="col-sm-4 form-control-label"><span class="tx-danger">*</span> Lastname:</label>
+                        <div class="col-sm-8 mg-t-10 mg-sm-t-0">
+                            <input type="text" class="form-control" placeholder="Enter lastname">
+                        </div>
+                    </div>
+                    <div class="row mg-t-20">
+                        <label class="col-sm-4 form-control-label"><span class="tx-danger">*</span> Email:</label>
+                        <div class="col-sm-8 mg-t-10 mg-sm-t-0">
+                            <input type="text" class="form-control" placeholder="Enter email address">
+                        </div>
+                    </div>
+                    <div class="row mg-t-20">
+                        <label class="col-sm-4 form-control-label"><span class="tx-danger">*</span> Address:</label>
+                        <div class="col-sm-8 mg-t-10 mg-sm-t-0">
+                            <textarea rows="2" class="form-control" placeholder="Enter your address"></textarea>
+                        </div>
+                    </div><!-- row -->
+                    <div class="row mg-t-30">
+                        <div class="col-sm-8 mg-l-auto">
+                            <div class="form-layout-footer">
+                                <button class="btn btn-info">Submit Form</button>
+                                <button class="btn btn-secondary">Cancel</button>
+                            </div><!-- form-layout-footer -->
+                        </div><!-- col-8 -->
+                    </div>
+                </div><!-- form-layout -->
+
+                @*<div class="modal-footer">
+                    <button type="button" class="btn btn-primary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium">Save changes</button>
+                    <button type="button" class="btn btn-secondary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium" data-dismiss="modal">Close</button>
+                </div>*@
+            </div>
+        </div><!-- modal-dialog -->
+    </div><!-- modal -->
+
+
+    <div class="br-pagetitle">
+        @*<i class="icon icon ion-ios-bookmarks-outline"></i>*@
+        <div>
+            <h4>ITEM GROUP DATATABLE </h4>
+            <p class="mg-b-0">Searching, Ordering and Paging goodness will be immediately added to the table.</p>
+        </div>
+        <div class="pull-right">
+            <button class="btn btn-info modal-effect pull-right" data-effect="effect-newspaper">Add Item Group</button>
+
+        </div>
+
+    </div><!-- d-flex -->
+    <div class="br-pagebody">
+        <div class="br-section-wrapper">
+            @*<h6 class="br-section-label">Basic Responsive DataTable</h6>
+                <p class="br-section-text">Searching, ordering and paging goodness will be immediately added to the table, as shown in this example.</p>*@
+
+            <div class="table-wrapper">
+                <table id="datatable1" class="table display responsive nowrap">
+                    <thead>
+                        <tr>
+                            <th class="wd-15p">First name</th>
+                            <th class="wd-15p">Last name</th>
+                            <th class="wd-20p">Position</th>
+                            <th class="wd-15p">Start date</th>
+                            <th class="wd-10p">Salary</th>
+                            <th class="wd-10p">E-mail</th>
+                            <th class="wd-15p">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Tiger</td>
+                            <td>Nixon</td>
+                            <td>System Architect</td>
+                            <td>2011/04/25</td>
+                            <td>$320,800</td>
+                            <td>t.nixon@datatables.net</td>
+                            <td><input type="button" value="edit"/></td>
+                        </tr>
+                        <tr>
+                            <td>Garrett</td>
+                            <td>Winters</td>
+                            <td>Accountant</td>
+                            <td>2011/07/25</td>
+                            <td>$170,750</td>
+                            <td>g.winters@datatables.net</td>
+                            <td><input type="button" value="Edit" /></td>
+                        </tr>
+                       
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
