@@ -1,0 +1,9 @@
+D:\Dolagobinda\Project\WorkSpace\PaintingEcommerce\ArtGalleryECommerce\ArtGalleryECommerce.Dal\bin\Debug\ArtGalleryECommerce.Dal.dll
+D:\Dolagobinda\Project\WorkSpace\PaintingEcommerce\ArtGalleryECommerce\ArtGalleryECommerce.Dal\bin\Debug\ArtGalleryECommerce.Dal.pdb
+D:\Dolagobinda\Project\WorkSpace\PaintingEcommerce\ArtGalleryECommerce\ArtGalleryECommerce.Dal\bin\Debug\ArtGalleryECommerce.Model.dll
+D:\Dolagobinda\Project\WorkSpace\PaintingEcommerce\ArtGalleryECommerce\ArtGalleryECommerce.Dal\bin\Debug\ArtGalleryECommerce.Model.pdb
+D:\Dolagobinda\Project\WorkSpace\PaintingEcommerce\ArtGalleryECommerce\ArtGalleryECommerce.Dal\obj\Debug\ArtGalleryECommerce.Dal.csprojAssemblyReference.cache
+D:\Dolagobinda\Project\WorkSpace\PaintingEcommerce\ArtGalleryECommerce\ArtGalleryECommerce.Dal\obj\Debug\ArtGalleryECommerce.Dal.csproj.CoreCompileInputs.cache
+D:\Dolagobinda\Project\WorkSpace\PaintingEcommerce\ArtGalleryECommerce\ArtGalleryECommerce.Dal\obj\Debug\ArtGalleryECommerce.Dal.csproj.CopyComplete
+D:\Dolagobinda\Project\WorkSpace\PaintingEcommerce\ArtGalleryECommerce\ArtGalleryECommerce.Dal\obj\Debug\ArtGalleryECommerce.Dal.dll
+D:\Dolagobinda\Project\WorkSpace\PaintingEcommerce\ArtGalleryECommerce\ArtGalleryECommerce.Dal\obj\Debug\ArtGalleryECommerce.Dal.pdb
