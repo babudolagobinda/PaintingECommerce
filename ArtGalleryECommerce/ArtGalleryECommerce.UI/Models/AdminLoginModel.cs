@@ -10,10 +10,10 @@ namespace ArtGalleryECommerce.UI.Models
     {
 
         [DataType(DataType.Text)]
-        [Required(ErrorMessage = "Please Enter UserName"), MaxLength(10)]
+        [Required(ErrorMessage = "Please Enter UserName"), MaxLength(40)]
         public string UserName { get; set; }
         [DataType(DataType.Text)]
-        [Required(ErrorMessage = "Please Enter Password"), MaxLength(10)]
+        [Required(ErrorMessage = "Please Enter Password"), MaxLength(40)]
         public string Password { get; set; }
 
     }

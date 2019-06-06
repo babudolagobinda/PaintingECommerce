@@ -3,3 +3,9 @@ B:\Workspace\Ecommerce Project\ArtGalleryECommerce\ArtGalleryECommerce.Model\bin
 B:\Workspace\Ecommerce Project\ArtGalleryECommerce\ArtGalleryECommerce.Model\obj\Debug\ArtGalleryECommerce.Model.dll
 B:\Workspace\Ecommerce Project\ArtGalleryECommerce\ArtGalleryECommerce.Model\obj\Debug\ArtGalleryECommerce.Model.pdb
 B:\Workspace\Ecommerce Project\ArtGalleryECommerce\ArtGalleryECommerce.Model\obj\Debug\ArtGalleryECommerce.Model.csprojResolveAssemblyReference.cache
+D:\Dolagobinda\Project\WorkSpace\PaintingEcommerce\ArtGalleryECommerce\ArtGalleryECommerce.Model\bin\Debug\ArtGalleryECommerce.Model.dll
+D:\Dolagobinda\Project\WorkSpace\PaintingEcommerce\ArtGalleryECommerce\ArtGalleryECommerce.Model\bin\Debug\ArtGalleryECommerce.Model.pdb
+D:\Dolagobinda\Project\WorkSpace\PaintingEcommerce\ArtGalleryECommerce\ArtGalleryECommerce.Model\obj\Debug\ArtGalleryECommerce.Model.csproj.CoreCompileInputs.cache
+D:\Dolagobinda\Project\WorkSpace\PaintingEcommerce\ArtGalleryECommerce\ArtGalleryECommerce.Model\obj\Debug\ArtGalleryECommerce.Model.dll
+D:\Dolagobinda\Project\WorkSpace\PaintingEcommerce\ArtGalleryECommerce\ArtGalleryECommerce.Model\obj\Debug\ArtGalleryECommerce.Model.pdb
+D:\Dolagobinda\Project\WorkSpace\PaintingEcommerce\ArtGalleryECommerce\ArtGalleryECommerce.Model\obj\Debug\ArtGalleryECommerce.Model.csprojAssemblyReference.cache

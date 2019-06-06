@@ -48,7 +48,7 @@
                         @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
                     </div><!-- form-group -->
                     <div class="form-group">
-                        @Html.TextBox("Password", "", new { @class = "form-control fc-outline-dark", @placeholder = "Enter Your Password" })
+                        @Html.Password("Password", "", new { @class = "form-control fc-outline-dark", @placeholder = "Enter Your Password" })
                         @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                         @if (ViewBag.LoginError != null || ViewBag.LoginError != "")
                         {

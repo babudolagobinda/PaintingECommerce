@@ -1,4 +1,4 @@
-﻿
+﻿@model ArtGalleryECommerce.UI.Models.ItemGroupModel
 @{
     ViewBag.Title = "ItemGroup";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
@@ -53,105 +53,104 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-
-                <div class="form-layout form-layout-5">
-                    <div class="row">
-                        <label class="col-sm-4 form-control-label"><span class="tx-danger">*</span> Firstname:</label>
-                        <div class="col-sm-8 mg-t-10 mg-sm-t-0">
-                            <input type="text" class="form-control" placeholder="Enter firstname">
+                @using (Html.BeginForm("ItemGroup", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <div class="form-layout form-layout-5">
+                        <div class="row">
+                            <label class="col-sm-2 form-control-label"><span class="tx-danger">*</span> Group Name:</label>
+                            <div class="col-sm-10 mg-t-10 mg-sm-t-0">
+                                @Html.TextBoxFor(m => m.GroupName, "", new { @class = "form-control", @placeholder = "Enter GroupName" })
+                                @Html.ValidationMessageFor(model => model.GroupName, "", new { @class = "text-danger" })
+                            </div>
+                        </div><!-- row -->
+                        <div class="row mg-t-20">
+                            <label class="col-sm-2 form-control-label"><span class="tx-danger">*</span> Group Desc:</label>
+                            <div class="col-sm-10 mg-t-10 mg-sm-t-0">
+                                @*@Html.TextAreaFor(m => m.GroupDesc, "", new { @class = "form-control", @placeholder = "Enter GroupDesc", @rows = "2" })*@
+                                @Html.TextAreaFor(m => m.GroupDesc, new { @class = "form-control", @placeholder = "Enter GroupDesc", @rows = "2" })
+                                @Html.ValidationMessageFor(model => model.GroupDesc, "", new { @class = "text-danger" })
+                            </div>
                         </div>
-                    </div><!-- row -->
-                    <div class="row mg-t-20">
-                        <label class="col-sm-4 form-control-label"><span class="tx-danger">*</span> Lastname:</label>
-                        <div class="col-sm-8 mg-t-10 mg-sm-t-0">
-                            <input type="text" class="form-control" placeholder="Enter lastname">
+                        <div class="row mg-t-20">
+                            <label class="col-sm-2 form-control-label"><span class="tx-danger">*</span> Group Image:</label>
+                            <div class="col-sm-10 mg-t-10 mg-sm-t-0">
+                                @*<input type="file" class="form-control" />*@
+                                @Html.TextBoxFor(m => m.GroupImage, new { type = "file", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.GroupImage)
+                                <input type="file" name="GroupImage" class="form-control" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="row mg-t-20">
-                        <label class="col-sm-4 form-control-label"><span class="tx-danger">*</span> Email:</label>
-                        <div class="col-sm-8 mg-t-10 mg-sm-t-0">
-                            <input type="text" class="form-control" placeholder="Enter email address">
+                        <!-- row -->
+                        <div class="row mg-t-30">
+                            <div class="col-sm-8 mg-l-auto">
+                                <div class="form-layout-footer">
+                                    <button class="btn btn-info" type="submit">Submit Form</button>
+                                    <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                </div><!-- form-layout-footer -->
+                            </div><!-- col-8 -->
                         </div>
-                    </div>
-                    <div class="row mg-t-20">
-                        <label class="col-sm-4 form-control-label"><span class="tx-danger">*</span> Address:</label>
-                        <div class="col-sm-8 mg-t-10 mg-sm-t-0">
-                            <textarea rows="2" class="form-control" placeholder="Enter your address"></textarea>
-                        </div>
-                    </div><!-- row -->
-                    <div class="row mg-t-30">
-                        <div class="col-sm-8 mg-l-auto">
-                            <div class="form-layout-footer">
-                                <button class="btn btn-info">Submit Form</button>
-                                <button class="btn btn-secondary">Cancel</button>
-                            </div><!-- form-layout-footer -->
-                        </div><!-- col-8 -->
-                    </div>
-                </div><!-- form-layout -->
-
+                    </div><!-- form-layout -->
+                }
                 @*<div class="modal-footer">
-                    <button type="button" class="btn btn-primary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium">Save changes</button>
-                    <button type="button" class="btn btn-secondary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium" data-dismiss="modal">Close</button>
-                </div>*@
+                        <button type="button" class="btn btn-primary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium">Save changes</button>
+                        <button type="button" class="btn btn-secondary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium" data-dismiss="modal">Close</button>
+                    </div>*@
             </div>
         </div><!-- modal-dialog -->
     </div><!-- modal -->
 
-
-    <div class="br-pagetitle">
-        @*<i class="icon icon ion-ios-bookmarks-outline"></i>*@
-        <div>
-            <h4>ITEM GROUP DATATABLE </h4>
-            <p class="mg-b-0">Searching, Ordering and Paging goodness will be immediately added to the table.</p>
-        </div>
-        <div class="pull-right">
-            <button class="btn btn-info modal-effect pull-right" data-effect="effect-newspaper">Add Item Group</button>
-
-        </div>
-
-    </div><!-- d-flex -->
-    <div class="br-pagebody">
-        <div class="br-section-wrapper">
-            @*<h6 class="br-section-label">Basic Responsive DataTable</h6>
-                <p class="br-section-text">Searching, ordering and paging goodness will be immediately added to the table, as shown in this example.</p>*@
-
-            <div class="table-wrapper">
-                <table id="datatable1" class="table display responsive nowrap">
-                    <thead>
-                        <tr>
-                            <th class="wd-15p">First name</th>
-                            <th class="wd-15p">Last name</th>
-                            <th class="wd-20p">Position</th>
-                            <th class="wd-15p">Start date</th>
-                            <th class="wd-10p">Salary</th>
-                            <th class="wd-10p">E-mail</th>
-                            <th class="wd-15p">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Tiger</td>
-                            <td>Nixon</td>
-                            <td>System Architect</td>
-                            <td>2011/04/25</td>
-                            <td>$320,800</td>
-                            <td>t.nixon@datatables.net</td>
-                            <td><input type="button" value="edit"/></td>
-                        </tr>
-                        <tr>
-                            <td>Garrett</td>
-                            <td>Winters</td>
-                            <td>Accountant</td>
-                            <td>2011/07/25</td>
-                            <td>$170,750</td>
-                            <td>g.winters@datatables.net</td>
-                            <td><input type="button" value="Edit" /></td>
-                        </tr>
-                       
-                    </tbody>
-                </table>
+    <div class="br-pagetitle"> 
+            <div>
+                <h4>ITEM GROUP DATATABLE </h4>
+                <p class="mg-b-0">Searching, Ordering and Paging goodness will be immediately added to the table.</p>
             </div>
+            <div class="selected">
+                <button class="btn btn-info modal-effect" data-effect="effect-newspaper">Add Item Group</button>
+            </div><!-- d-flex -->
+        </div> 
+
+<div class="br-pagebody">
+    <div class="br-section-wrapper">
+        @*<h6 class="br-section-label">Basic Responsive DataTable</h6>
+            <p class="br-section-text">Searching, ordering and paging goodness will be immediately added to the table, as shown in this example.</p>*@
+
+        <div class="table-wrapper">
+            <table id="datatable1" class="table display responsive nowrap">
+                <thead>
+                    <tr>
+                        <th class="wd-15p">First name</th>
+                        <th class="wd-15p">Last name</th>
+                        <th class="wd-20p">Position</th>
+                        <th class="wd-15p">Start date</th>
+                        <th class="wd-10p">Salary</th>
+                        <th class="wd-10p">E-mail</th>
+                        <th class="wd-15p">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Tiger</td>
+                        <td>Nixon</td>
+                        <td>System Architect</td>
+                        <td>2011/04/25</td>
+                        <td>$320,800</td>
+                        <td>t.nixon@datatables.net</td>
+                        <td><input type="button" value="edit" /></td>
+                    </tr>
+                    <tr>
+                        <td>Garrett</td>
+                        <td>Winters</td>
+                        <td>Accountant</td>
+                        <td>2011/07/25</td>
+                        <td>$170,750</td>
+                        <td>g.winters@datatables.net</td>
+                        <td><input type="button" value="Edit" /></td>
+                    </tr>
+
+                </tbody>
+            </table>
         </div>
     </div>
-
 </div>
+
+    </div>
