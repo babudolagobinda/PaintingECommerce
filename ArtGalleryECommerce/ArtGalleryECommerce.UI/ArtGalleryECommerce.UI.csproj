@@ -415,6 +415,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="CustomScripts\AdminLogin.js" />
+    <Content Include="CustomScripts\ItemGroup.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -465,6 +466,7 @@
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\Admin\DashBoard.cshtml" />
     <Content Include="Views\Admin\ItemGroup.cshtml" />
+    <Content Include="Views\Shared\_PartialItemGroup.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

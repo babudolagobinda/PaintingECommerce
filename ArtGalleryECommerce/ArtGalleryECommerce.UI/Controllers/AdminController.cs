@@ -68,32 +68,82 @@ namespace ArtGalleryECommerce.UI.Controllers
             TempData.Keep();
             return View();
         }
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult ItemGroup(FormCollection form)
+        [HttpPost]
+        public ContentResult SaveItemGroup(FormCollection formCollection)
         {
-            string name = form["GroupName"];
             if (Request.Files.Count > 0)
             {
-                var docFiles = new List<string>();
-                foreach (string file in Request.Files)
+                try
                 {
-                    var postedFile = Request.Files[file];
-                    var fileName = Guid.NewGuid() + Path.GetFileName(postedFile.FileName);
-                    //var filePath = Server.MapPath("~/images/" + fileName);
-                    var filePath = Path.Combine(Server.MapPath("../UploadImages/"), fileName);
-                    postedFile.SaveAs(filePath);
-                    string fl = filePath.Substring(filePath.LastIndexOf("\\"));
-                    string[] split = fl.Split('\\');
-                    string newpath = split[1];
-                    string imagepath = "~/UploadImages/" + newpath;
-                    docFiles.Add(filePath);
+                    HttpFileCollectionBase files = Request.Files;
+                    for (int i = 0; i < files.Count; i++)
+                    {
+                        HttpPostedFileBase file = files[i];
+                        string fname;
+                        if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
+                        {
+                            string[] testfiles = file.FileName.Split(new char[] { '\\' });
+                            fname = testfiles[testfiles.Length - 1];
+                        }
+                        else
+                        {
+                            fname = file.FileName;
+                        }
+                        var fileName = Guid.NewGuid() + Path.GetFileName(fname);
+                        var filePath = Path.Combine(Server.MapPath("../UploadImages/"), fileName);
+                        string fl = filePath.Substring(filePath.LastIndexOf("\\"));
+                        string[] split = fl.Split('\\');
+                        string newpath = split[1];
+                        string imagepath = "~/UploadImages/" + newpath;
+                        file.SaveAs(filePath);
+                        ItemGroupDto itemGroupDto = new ItemGroupDto();
+                        itemGroupDto.GroupName = formCollection["GroupName"];
+                        itemGroupDto.GroupDesc = formCollection["GroupDesc"];
+                        itemGroupDto.GroupImage = imagepath;
+                       
+                    }
+                    return Content("File Uploaded Successfully!");
+                }
+                catch (Exception ex)
+                {
+                    return Content("Error occurred. Error details: " + ex.Message);
                 }
             }
             else
             {
-                // else code whatever you want
+                return Content("No files selected.");
             }
-            return View();
         }
+        //public ActionResult ItemGroup(FormCollection form)
+        //{
+        //    if(!ModelState.IsValid)
+        //    {
+        //        ItemGroupDto itemGroupDto = new ItemGroupDto();
+        //        itemGroupDto.GroupName = form["GroupName"];
+        //        itemGroupDto.GroupDesc = form["GroupDesc"];
+        //        if (Request.Files.Count > 0)
+        //        {
+        //            var docFiles = new List<string>();
+        //            foreach (string file in Request.Files)
+        //            {
+        //                var postedFile = Request.Files[file];
+        //                var fileName = Guid.NewGuid() + Path.GetFileName(postedFile.FileName);
+        //                var filePath = Path.Combine(Server.MapPath("../UploadImages/"), fileName);
+        //                postedFile.SaveAs(filePath);
+        //                string fl = filePath.Substring(filePath.LastIndexOf("\\"));
+        //                string[] split = fl.Split('\\');
+        //                string newpath = split[1];
+        //                string imagepath = "~/UploadImages/" + newpath;
+        //                docFiles.Add(filePath);
+        //            }
+        //        }
+        //        else
+        //        {
+        //            // else code whatever you want
+        //        }
+        //    }
+
+        //    return View();
+        //}
     }
 }

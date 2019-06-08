@@ -11,7 +11,8 @@
 <script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-dt/js/dataTables.dataTables.min.js"></script>
 <script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
 <script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-responsive-dt/js/responsive.dataTables.min.js"></script>
-<script>
+<script src="~/CustomScripts/ItemGroup.js"></script>
+@*<script>
     $(function () {
         $('.modal-effect').on('click', function (e) {
             e.preventDefault();
@@ -25,7 +26,7 @@
             });
         });
     });
-</script>
+</script>*@
 <script>
     $(function () {
         'use strict';
@@ -44,52 +45,61 @@
 </script>
 
 <div class="br-mainpanel">
-    <div id="modaldemo1" class="modal fade">
+    @*@{
+            Html.RenderPartial("_PartialItemGroup");
+        }*@
+    @*<div id="progress" class="modal">
+            <div class="center">
+                <img src="~/images/loader4.gif" />
+            </div>
+        </div>*@
+    <div id="modalItemGroup" class="modal fade">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
             <div class="modal-content bd-0 tx-14">
                 <div class="modal-header pd-y-20 pd-x-25">
-                    <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Message Preview</h6>
+                    <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Item Group</h6>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                @using (Html.BeginForm("ItemGroup", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                {
-                    <div class="form-layout form-layout-5">
-                        <div class="row">
-                            <label class="col-sm-2 form-control-label"><span class="tx-danger">*</span> Group Name:</label>
-                            <div class="col-sm-10 mg-t-10 mg-sm-t-0">
-                                @Html.TextBoxFor(m => m.GroupName, "", new { @class = "form-control", @placeholder = "Enter GroupName" })
-                                @Html.ValidationMessageFor(model => model.GroupName, "", new { @class = "text-danger" })
-                            </div>
-                        </div><!-- row -->
-                        <div class="row mg-t-20">
-                            <label class="col-sm-2 form-control-label"><span class="tx-danger">*</span> Group Desc:</label>
-                            <div class="col-sm-10 mg-t-10 mg-sm-t-0">
-                                @*@Html.TextAreaFor(m => m.GroupDesc, "", new { @class = "form-control", @placeholder = "Enter GroupDesc", @rows = "2" })*@
-                                @Html.TextAreaFor(m => m.GroupDesc, new { @class = "form-control", @placeholder = "Enter GroupDesc", @rows = "2" })
-                                @Html.ValidationMessageFor(model => model.GroupDesc, "", new { @class = "text-danger" })
-                            </div>
+                <div class="form-layout form-layout-5">
+                    <div class="row">
+                        <label class="col-sm-2 form-control-label"><span class="tx-danger">*</span> Group Name:</label>
+                        <div class="col-sm-10 mg-t-10 mg-sm-t-0">
+                            @*@Html.TextBoxFor(m => m.GroupName, "", new { @class = "form-control", @placeholder = "Enter GroupName" })
+                                @Html.ValidationMessageFor(model => model.GroupName, "", new { @class = "text-danger" })*@
+                            <input type="text" class="form-control" placeholder="Enter GroupName" id="txtGrouName" />
                         </div>
-                        <div class="row mg-t-20">
-                            <label class="col-sm-2 form-control-label"><span class="tx-danger">*</span> Group Image:</label>
-                            <div class="col-sm-10 mg-t-10 mg-sm-t-0">
-                                @*<input type="file" class="form-control" />*@
-                                @Html.TextBoxFor(m => m.GroupImage, new { type = "file", @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.GroupImage)
-                                <input type="file" name="GroupImage" class="form-control" />
-                            </div>
+                    </div><!-- row -->
+                    <div class="row mg-t-20">
+                        <label class="col-sm-2 form-control-label"><span class="tx-danger">*</span> Group Desc:</label>
+                        <div class="col-sm-10 mg-t-10 mg-sm-t-0">
+                            <input type="text" class="form-control" placeholder="Enter GroupDesc" id="txtGrouDesc" rows="2" />
+                            @*@Html.TextAreaFor(m => m.GroupDesc, "", new { @class = "form-control", @placeholder = "Enter GroupDesc", @rows = "2" })*@
+                            @*@Html.TextAreaFor(m => m.GroupDesc, new { @class = "form-control", @placeholder = "Enter GroupDesc", @rows = "2" })
+                                @Html.ValidationMessageFor(model => model.GroupDesc, "", new { @class = "text-danger" })*@
                         </div>
-                        <!-- row -->
-                        <div class="row mg-t-30">
-                            <div class="col-sm-8 mg-l-auto">
-                                <div class="form-layout-footer">
-                                    <button class="btn btn-info" type="submit">Submit Form</button>
-                                    <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                </div><!-- form-layout-footer -->
-                            </div><!-- col-8 -->
+                    </div>
+                    <div class="row mg-t-20">
+                        <label class="col-sm-2 form-control-label"><span class="tx-danger">*</span> Group Image:</label>
+                        <div class="col-sm-10 mg-t-10 mg-sm-t-0">
+                            <input type="file" id="flGroupImage" class="form-control" />
+                            @*<input type="file" class="form-control" />*@
+                            @*@Html.TextBoxFor(m => m.GroupImage, new { type = "file", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.GroupImage, "", new { @class = "text-danger" })*@
+                            @*<input type="file" name="GroupImage" class="form-control" />*@
                         </div>
-                    </div><!-- form-layout -->
+                    </div>
+                    <!-- row -->
+                    <div class="row mg-t-30">
+                        <div class="col-sm-8 mg-l-auto">
+                            <div class="form-layout-footer">
+                                <button class="btn btn-info" type="button" id="btnSaveItemGroup">Save</button>
+                                <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            </div><!-- form-layout-footer -->
+                        </div><!-- col-8 -->
+                    </div>
+                </div><!-- form-layout -->
                 }
                 @*<div class="modal-footer">
                         <button type="button" class="btn btn-primary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium">Save changes</button>
@@ -97,8 +107,7 @@
                     </div>*@
             </div>
         </div><!-- modal-dialog -->
-    </div><!-- modal -->
-
+    </div>
     <div class="br-pagetitle">
         <div>
             <h4>ITEM GROUP DATATABLE </h4>
