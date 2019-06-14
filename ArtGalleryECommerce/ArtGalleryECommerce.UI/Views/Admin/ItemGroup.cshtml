@@ -7,157 +7,146 @@
 <link href="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-dt/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-responsive-dt/css/responsive.dataTables.min.css" rel="stylesheet">
 <link href="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/css/bracket.css" rel="stylesheet" />
+<link href="~/Content/roundButton.css" rel="stylesheet" />
 <script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-dt/js/dataTables.dataTables.min.js"></script>
 <script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
 <script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-responsive-dt/js/responsive.dataTables.min.js"></script>
+<script src="~/Scripts/angular.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+
+<link src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.css" rel="stylesheet" />
+<script src="~/Scripts/dirPagination.js"></script>
 <script src="~/CustomScripts/ItemGroup.js"></script>
-@*<script>
-    $(function () {
-        $('.modal-effect').on('click', function (e) {
-            e.preventDefault();
-            var effect = $(this).attr('data-effect');
-            $('#modaldemo1').addClass(effect);
-            $('#modaldemo1').modal('show');
-        });
-        $('#modaldemo1').on('hidden.bs.modal', function (e) {
-            $(this).removeClass(function (index, className) {
-                return (className.match(/(^|\s)effect-\S+/g) || []).join(' ');
-            });
-        });
-    });
-</script>*@
-<script>
-    $(function () {
-        'use strict';
+<style>
 
-        $('#datatable1').DataTable({
-            responsive: true,
-            language: {
-                searchPlaceholder: 'Search...',
-                sSearch: '',
-                lengthMenu: '_MENU_ items/page',
-            }
-        });
-        //$('.dataTables_length select').select2({ minimumResultsForSearch: Infinity });
+    form.submitted .ng-invalid {
+        border: 1px solid #f00;
+    }
+</style>
+<style>
+    .textBoxForSearch {
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid #000000;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        border-radius: 0;
+    }
 
-    });
-</script>
+    .textBoxForSearchs {
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+</style>
 
-<div class="br-mainpanel">
-    @*@{
-            Html.RenderPartial("_PartialItemGroup");
-        }*@
-    @*<div id="progress" class="modal">
-            <div class="center">
-                <img src="~/images/loader4.gif" />
+<div class="br-mainpanel" ng-app="divItemGroupApp" ng-controller="divItemGroupController">
+    @*<alert type="danger" close="closeAlert()" ng-if="show" data-dismiss="alert"
+               dismiss-on-timeout="2000">
+            <div class="alert alert-success" role="alert">
+                <button type="button" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong class="d-block d-sm-inline-block-force">Well done!</strong> You successfully read this important alert message.
             </div>
-        </div>*@
-    <div id="modalItemGroup" class="modal fade">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content bd-0 tx-14">
-                <div class="modal-header pd-y-20 pd-x-25">
-                    <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Item Group</h6>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+        </alert>*@
+
+
+    <form name="ItemGroupForm" required>
+        <div id="modalItemGroup" class="modal fade">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content bd-0 tx-14">
+                    <div class="modal-header pd-y-20 pd-x-25">
+                        <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Item Group</h6>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="form-layout form-layout-5">
+                        <div class="row">
+                            <input type="hidden" name="GroupId" ng-model="GroupId" />
+                            <label class="col-sm-2 form-control-label"><span class="tx-danger">*</span> Group Name:</label>
+                            <div class="col-sm-10 mg-t-10 mg-sm-t-0">
+                                <input type="text" class="form-control" placeholder="Enter GroupName" name="GroupName" ng-model="GroupName" required />
+                                <span style="color:red" ng-if="!ItemGroupForm.GroupName.$valid">
+                                    Please Provide Your Group Name
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row mg-t-20">
+                            <label class="col-sm-2 form-control-label"><span class="tx-danger">*</span> Group Desc:</label>
+                            <div class="col-sm-10 mg-t-10 mg-sm-t-0">
+                                <input type="text" class="form-control" placeholder="Enter GroupDesc" name="GroupDesc" ng-model="GroupDesc" rows="2" required />
+                                <span style="color:red" ng-if="!ItemGroupForm.GroupDesc.$valid">
+                                    Please Provide Your Group Desc
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row mg-t-20">
+                            <label class="col-sm-2 form-control-label"> Group Image:</label>
+                            <div class="col-sm-10 mg-t-10 mg-sm-t-0">
+                                <input type="file" id="flGroupImage" class="form-control" name="GroupImage" file-model="GroupImage" />
+                            </div>
+                        </div>
+                        <!-- row -->
+                        <div class="row mg-t-30">
+                            <div class="col-sm-8 mg-l-auto">
+                                <div class="form-layout-footer">
+                                    <button class="btn btn-info" type="button" id="btnSaveItemGroup" data-loading-text="Loading..." ng-disabled="ItemGroupForm.$invalid" ng-click="SaveItemGroup()">Save</button>
+                                    <button class="btn btn-secondary" data-dismiss="modal" ng-click="resetAll();">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-layout form-layout-5">
-                    <div class="row">
-                        <label class="col-sm-2 form-control-label"><span class="tx-danger">*</span> Group Name:</label>
-                        <div class="col-sm-10 mg-t-10 mg-sm-t-0">
-                            @*@Html.TextBoxFor(m => m.GroupName, "", new { @class = "form-control", @placeholder = "Enter GroupName" })
-                                @Html.ValidationMessageFor(model => model.GroupName, "", new { @class = "text-danger" })*@
-                            <input type="text" class="form-control" placeholder="Enter GroupName" id="txtGrouName" />
-                        </div>
-                    </div><!-- row -->
-                    <div class="row mg-t-20">
-                        <label class="col-sm-2 form-control-label"><span class="tx-danger">*</span> Group Desc:</label>
-                        <div class="col-sm-10 mg-t-10 mg-sm-t-0">
-                            <input type="text" class="form-control" placeholder="Enter GroupDesc" id="txtGrouDesc" rows="2" />
-                            @*@Html.TextAreaFor(m => m.GroupDesc, "", new { @class = "form-control", @placeholder = "Enter GroupDesc", @rows = "2" })*@
-                            @*@Html.TextAreaFor(m => m.GroupDesc, new { @class = "form-control", @placeholder = "Enter GroupDesc", @rows = "2" })
-                                @Html.ValidationMessageFor(model => model.GroupDesc, "", new { @class = "text-danger" })*@
-                        </div>
-                    </div>
-                    <div class="row mg-t-20">
-                        <label class="col-sm-2 form-control-label"><span class="tx-danger">*</span> Group Image:</label>
-                        <div class="col-sm-10 mg-t-10 mg-sm-t-0">
-                            <input type="file" id="flGroupImage" class="form-control" />
-                            @*<input type="file" class="form-control" />*@
-                            @*@Html.TextBoxFor(m => m.GroupImage, new { type = "file", @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.GroupImage, "", new { @class = "text-danger" })*@
-                            @*<input type="file" name="GroupImage" class="form-control" />*@
-                        </div>
-                    </div>
-                    <!-- row -->
-                    <div class="row mg-t-30">
-                        <div class="col-sm-8 mg-l-auto">
-                            <div class="form-layout-footer">
-                                <button class="btn btn-info" type="button" id="btnSaveItemGroup">Save</button>
-                                <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            </div><!-- form-layout-footer -->
-                        </div><!-- col-8 -->
-                    </div>
-                </div><!-- form-layout -->
-                }
-                @*<div class="modal-footer">
-                        <button type="button" class="btn btn-primary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium">Save changes</button>
-                        <button type="button" class="btn btn-secondary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium" data-dismiss="modal">Close</button>
-                    </div>*@
             </div>
-        </div><!-- modal-dialog -->
-    </div>
+        </div>
+    </form>
+
     <div class="br-pagetitle">
         <div>
             <h4>ITEM GROUP DATATABLE </h4>
             <p class="mg-b-0">Searching, Ordering and Paging goodness will be immediately added to the table.</p>
         </div>
         <div class="selected">
-            <button class="btn btn-info modal-effect" data-effect="effect-newspaper">Add Item Group</button>
-        </div><!-- d-flex -->
+            <button class="btn btn-info modal-effect" data-effect="effect-newspaper" ng-click="resetAll();">Add Item Group</button>
+        </div>
     </div>
 
     <div class="br-pagebody">
-        <div class="br-section-wrapper">
-            @*<h6 class="br-section-label">Basic Responsive DataTable</h6>
-                <p class="br-section-text">Searching, ordering and paging goodness will be immediately added to the table, as shown in this example.</p>*@
+        <input type="text" ng-model="search" class="textBoxForSearch textBoxForSearchs form-control" placeholder="Click Here For Search....">
+        <div class="table-responsive">
+            <table class="table table-bordered table-colored table-dark">
+                <thead>
+                    <tr>
+                        <th class="wd-15p">Group Name</th>
+                        <th class="wd-20p">Description</th>
+                        <th class="wd-15p">Group Image</th>
+                        <th class="wd-10p">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr dir-paginate="dataItemGroup in dataItemGroups |orderBy:sortKey:reverse|filter:search|itemsPerPage:5">
+                        <td>{{dataItemGroup.GroupName}}</td>
+                        <td>{{dataItemGroup.GroupDesc}}</td>
+                        <td><img src="~/UploadImages/{{dataItemGroup.GroupImage}}" height="50" width="50" /></td>
+                        <td>
+                            <button class="btn btn-info btn-circle" ng-click="EditItemGroup(dataItemGroup)"><i class="fa fa-pencil-alt"></i></button>
+                            <button class="btn btn-danger btn-circle" ng-click="DeleteItemGroup(dataItemGroup.GroupId)"><i class="fa fa-trash-alt"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
-            <div class="table-wrapper">
-                <table id="datatable1" class="table display responsive nowrap">
-                    <thead>
-                        <tr>
-                            <th class="wd-15p">First name</th>
-                            <th class="wd-15p">Last name</th>
-                            <th class="wd-20p">Position</th>
-                            <th class="wd-15p">Start date</th>
-                            <th class="wd-10p">Salary</th>
-                            <th class="wd-10p">E-mail</th>
-                            <th class="wd-15p">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Tiger</td>
-                            <td>Nixon</td>
-                            <td>System Architect</td>
-                            <td>2011/04/25</td>
-                            <td>$320,800</td>
-                            <td>t.nixon@datatables.net</td>
-                            <td><input type="button" value="edit" /></td>
-                        </tr>
-                        <tr>
-                            <td>Garrett</td>
-                            <td>Winters</td>
-                            <td>Accountant</td>
-                            <td>2011/07/25</td>
-                            <td>$170,750</td>
-                            <td>g.winters@datatables.net</td>
-                            <td><input type="button" value="Edit" /></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+
+
+            <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
+            </dir-pagination-controls>
+
+
+
         </div>
+
     </div>
 </div>

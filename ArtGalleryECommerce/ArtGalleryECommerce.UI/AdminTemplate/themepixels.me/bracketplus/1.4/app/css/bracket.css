@@ -65688,3 +65688,9 @@ a.hover-white-8:hover, a.hover-white-8:focus {
 .mx-wd-1350 {
     max-width: 1350px;
 }
+
+
+
+.table td {
+    word-break: break-word;
+}

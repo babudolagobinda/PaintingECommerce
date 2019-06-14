@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using ArtGalleryECommerce.Model.AdminDTO;
 using ArtGalleryECommerce.Dal.Repository;
+using ArtGalleryECommerce.Dal.Admin;
 using ArtGalleryECommerce.UI.Models;
 using System.Web.Security;
 using System.IO;
@@ -40,6 +41,7 @@ namespace ArtGalleryECommerce.UI.Controllers
                 HttpContext.Response.Cookies.Add(authCookie);
                 TempData["AdminDetails"] = admin;
                 TempData.Keep();
+                Session["AdminId"] = admin.AdminId;
                 return RedirectToAction("DashBoard", "Admin");
             }
 
@@ -69,81 +71,135 @@ namespace ArtGalleryECommerce.UI.Controllers
             return View();
         }
         [HttpPost]
-        public ContentResult SaveItemGroup(FormCollection formCollection)
+        public ActionResult GetAllItemGroup()
         {
-            if (Request.Files.Count > 0)
+            ItemGroupDal itemGroupDal = new ItemGroupDal();
+            List<ItemGroupDto> lstItemGroupDto = itemGroupDal.GetAndEditItemGroup(0, 1);
+            return Json(lstItemGroupDto, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult SaveItemGroup()
+        {
+            try
             {
-                try
+                ItemGroupDal itemGroupDal = new ItemGroupDal();
+                ItemGroupDto itemGroupDto = new ItemGroupDto();
+                itemGroupDto.GroupId = Convert.ToInt32(System.Web.HttpContext.Current.Request["GroupId"] == "" ? "0" : System.Web.HttpContext.Current.Request["GroupId"]);
+                string Message, fileName, actualFileName;
+                Message = fileName = actualFileName = string.Empty;
+                if (Request.Files.Count > 0)
                 {
-                    HttpFileCollectionBase files = Request.Files;
-                    for (int i = 0; i < files.Count; i++)
+                    var fileContent = Request.Files[0];
+                    if (fileContent != null && fileContent.ContentLength > 0)
                     {
-                        HttpPostedFileBase file = files[i];
-                        string fname;
-                        if (Request.Browser.Browser.ToUpper() == "IE" || Request.Browser.Browser.ToUpper() == "INTERNETEXPLORER")
-                        {
-                            string[] testfiles = file.FileName.Split(new char[] { '\\' });
-                            fname = testfiles[testfiles.Length - 1];
-                        }
-                        else
-                        {
-                            fname = file.FileName;
-                        }
-                        var fileName = Guid.NewGuid() + Path.GetFileName(fname);
-                        var filePath = Path.Combine(Server.MapPath("../UploadImages/"), fileName);
-                        string fl = filePath.Substring(filePath.LastIndexOf("\\"));
-                        string[] split = fl.Split('\\');
-                        string newpath = split[1];
-                        string imagepath = "~/UploadImages/" + newpath;
-                        file.SaveAs(filePath);
-                        ItemGroupDto itemGroupDto = new ItemGroupDto();
-                        itemGroupDto.GroupName = formCollection["GroupName"];
-                        itemGroupDto.GroupDesc = formCollection["GroupDesc"];
-                        itemGroupDto.GroupImage = imagepath;
-                       
+                        actualFileName = fileContent.FileName;
+                        fileName = Guid.NewGuid() + Path.GetExtension(fileContent.FileName);
+                        itemGroupDto.GroupImage = fileName;
                     }
-                    return Content("File Uploaded Successfully!");
+                    fileContent.SaveAs(Path.Combine(Server.MapPath("~/UploadImages/"), fileName));
                 }
-                catch (Exception ex)
+                else
                 {
-                    return Content("Error occurred. Error details: " + ex.Message);
+                    fileName = "";
+                    if (itemGroupDto.GroupId > 0)
+                    {
+                        dynamic imgFile = itemGroupDal.GetAndEditItemGroup(itemGroupDto.GroupId, 1);
+                        itemGroupDto.GroupImage = Convert.ToString(imgFile[0].GroupImage);
+                    }
+                    else
+                    {
+                        itemGroupDto.GroupImage = fileName;
+                    }
                 }
+                itemGroupDto.GroupName = System.Web.HttpContext.Current.Request["GroupName"];
+                itemGroupDto.GroupDesc = System.Web.HttpContext.Current.Request["GroupDesc"];
+                itemGroupDto.CreatedBy = Convert.ToInt32(Session["AdminId"]);
+                itemGroupDto.ModifiedBy = Convert.ToInt32(Session["AdminId"]);
+                itemGroupDto.IsActive = 1;
+
+                int i = itemGroupDal.SaveItemGroup(itemGroupDto);
+                return Json(i, JsonRequestBehavior.AllowGet);
             }
-            else
+            catch (Exception ex)
             {
-                return Content("No files selected.");
+                throw ex;
             }
         }
-        //public ActionResult ItemGroup(FormCollection form)
-        //{
-        //    if(!ModelState.IsValid)
-        //    {
-        //        ItemGroupDto itemGroupDto = new ItemGroupDto();
-        //        itemGroupDto.GroupName = form["GroupName"];
-        //        itemGroupDto.GroupDesc = form["GroupDesc"];
-        //        if (Request.Files.Count > 0)
-        //        {
-        //            var docFiles = new List<string>();
-        //            foreach (string file in Request.Files)
-        //            {
-        //                var postedFile = Request.Files[file];
-        //                var fileName = Guid.NewGuid() + Path.GetFileName(postedFile.FileName);
-        //                var filePath = Path.Combine(Server.MapPath("../UploadImages/"), fileName);
-        //                postedFile.SaveAs(filePath);
-        //                string fl = filePath.Substring(filePath.LastIndexOf("\\"));
-        //                string[] split = fl.Split('\\');
-        //                string newpath = split[1];
-        //                string imagepath = "~/UploadImages/" + newpath;
-        //                docFiles.Add(filePath);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            // else code whatever you want
-        //        }
-        //    }
+        public ActionResult DeleteItemGroup(int GroupId)
+        {
+            ItemGroupDal itemGroupDal = new ItemGroupDal();
+            int i = itemGroupDal.DeleteItemGroup(GroupId);
+            return Json(i, JsonRequestBehavior.AllowGet);
+        }
+        [Authorize(Roles = "Admin")]
+        public ActionResult ItemCategory()
+        {
+            ViewBag.AdminDetails = TempData["AdminDetails"];
+            TempData.Keep();
+            return View();
+        }
+        [HttpPost]
+        public ActionResult GetAllItemCategory()
+        {
+            ItemCategoryDal itemCategoryDal = new ItemCategoryDal();
+            List<ItemCategoryDto> lstItemCategoryDto = itemCategoryDal.GetAndEditItemCategory(0, 1);
+            return Json(lstItemCategoryDto, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult SaveItemCategory()
+        {
+            try
+            {
+                ItemCategoryDal itemCategoryDal = new ItemCategoryDal();
+                ItemCategoryDto itemCategoryDto = new ItemCategoryDto();
+                itemCategoryDto.CategoryId = Convert.ToInt32(System.Web.HttpContext.Current.Request["CategoryId"] == "" ? "0" : System.Web.HttpContext.Current.Request["CategoryId"]);
+                string Message, fileName, actualFileName;
+                Message = fileName = actualFileName = string.Empty;
+                if (Request.Files.Count > 0)
+                {
+                    var fileContent = Request.Files[0];
+                    if (fileContent != null && fileContent.ContentLength > 0)
+                    {
+                        actualFileName = fileContent.FileName;
+                        fileName = Guid.NewGuid() + Path.GetExtension(fileContent.FileName);
+                        itemCategoryDto.CategoryImage = fileName;
+                    }
+                    fileContent.SaveAs(Path.Combine(Server.MapPath("~/UploadImages/"), fileName));
+                }
+                else
+                {
+                    fileName = "";
+                    if (itemCategoryDto.CategoryId > 0)
+                    {
+                        dynamic imgFile = itemCategoryDal.GetAndEditItemCategory(itemCategoryDto.CategoryId, 1);
+                        itemCategoryDto.CategoryImage = Convert.ToString(imgFile[0].CategoryImage);
+                    }
+                    else
+                    {
+                        itemCategoryDto.CategoryImage = fileName;
+                    }
+                }
+                itemCategoryDto.GroupId =Convert.ToInt32(System.Web.HttpContext.Current.Request["GroupId"]);
+                itemCategoryDto.CategoryName = System.Web.HttpContext.Current.Request["CategoryName"];
+                itemCategoryDto.CategoryDesc = System.Web.HttpContext.Current.Request["CategoryDesc"];
+                itemCategoryDto.CreatedBy = Convert.ToInt32(Session["AdminId"]);
+                itemCategoryDto.ModifiedBy = Convert.ToInt32(Session["AdminId"]);
+                itemCategoryDto.IsActive = 1;
 
-        //    return View();
-        //}
+                int i = itemCategoryDal.SaveItemCategory(itemCategoryDto);
+                return Json(i, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        [HttpPost]
+        public ActionResult DeleteItemCategory(int CategoryId)
+        {
+            ItemCategoryDal itemCategoryDal = new ItemCategoryDal();
+            int i = itemCategoryDal.DeleteItemCategory(CategoryId);
+            return Json(i, JsonRequestBehavior.AllowGet);
+        }
     }
 }

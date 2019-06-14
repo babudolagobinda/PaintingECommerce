@@ -36,7 +36,12 @@
 </head>
 <body>
     <div class="d-flex align-items-center justify-content-center ht-100v">
-        <img src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/img/img22.jpg" class="wd-100p ht-100p object-fit-cover" alt="">
+        @*<img src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/img/img22.jpg" class="wd-100p ht-100p object-fit-cover" alt="">*@
+        <video id="headVideo" class="pos-absolute a-0 wd-100p ht-100p object-fit-cover" autoplay muted loop>
+            <source src="~/VideoUrl/video1.mp4" type="video/mp4">
+            <source src="~/VideoUrl/video1.ogv" type="video/ogg">
+            <source src="~/VideoUrl/video1.webm" type="video/webm">
+        </video>
         <div class="overlay-body bg-black-6 d-flex align-items-center justify-content-center">
             <div class="login-wrapper wd-300 wd-xs-350 pd-25 pd-xs-40 rounded bd bd-white-2 bg-black-7">
                 <div class="signin-logo tx-center tx-28 tx-bold tx-white"><span class="tx-normal">[</span> Admin <span class="tx-info">Login</span> <span class="tx-normal">]</span></div>
@@ -55,8 +60,8 @@
                             <div class="tx-info tx-12 d-block mg-t-10 text-danger">@ViewBag.LoginError</div>
                         }
                     </div><!-- form-group -->
-                    <button type="submit" id="btnLogIn" class="btn btn-info btn-block">Sign In</button>
-
+                    <button type="submit" id="btnLogIn" class="btn btn-info btn-block" onclick="ShowLoader();">Sign In</button>
+                    
                 }
 
 
@@ -68,5 +73,22 @@
     <script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/jquery/jquery.min.js"></script>
     <script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/jquery-ui/ui/widgets/datepicker.js"></script>
     <script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(function () {
+            'use strict';
+
+            // Check if video can play, and play it
+            var video = document.getElementById('headVideo');
+            video.addEventListener('canplay', function () {
+                video.play();
+            });
+
+        });
+    </script>
+    <script>
+        function ShowLoader() {
+             $("#btnLogIn").html('<i class="fa fa-spinner fa-spin"></i>Loading');
+        }      
+    </script>
 </body>
 </html>
