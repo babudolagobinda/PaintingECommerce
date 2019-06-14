@@ -414,7 +414,9 @@
     <Content Include="AdminTemplate\themepixels.me\bracketplus\img\bracketplus-social.png" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\roundButton.css" />
     <Content Include="CustomScripts\AdminLogin.js" />
+    <Content Include="CustomScripts\ItemCategory.js" />
     <Content Include="CustomScripts\ItemGroup.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -436,6 +438,7 @@
     <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\summernote\font\summernotec360.ttf" />
     <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\summernote\font\summernotec360.woff" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\dirPagination.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -446,6 +449,69 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="UploadImages\03283119-d44e-4ab4-8f8b-9d0dc52de64d.png" />
+    <Content Include="UploadImages\06c3483e-7ea5-4028-ab86-eb407f3c38e61.png" />
+    <Content Include="UploadImages\0d4b6162-eafc-4259-9741-8460c07f9654.png" />
+    <Content Include="UploadImages\0e6d986c-2b3b-4265-9718-66f86c22bd6b.png" />
+    <Content Include="UploadImages\114845f9-1f34-4933-b1de-c8718dba55ca.png" />
+    <Content Include="UploadImages\11f67d20-0b10-4ec3-98b2-e63dc85bfd4b.png" />
+    <Content Include="UploadImages\125abde6-7aec-4b1b-b7df-f256f06100fa.png" />
+    <Content Include="UploadImages\13f0bbbe-4ba7-4246-967d-5fa8560f8477.png" />
+    <Content Include="UploadImages\166598a0-cddc-429c-9add-8259237e3d1a.png" />
+    <Content Include="UploadImages\1dc2202d-2903-4024-a9e9-219acec4f473.png" />
+    <Content Include="UploadImages\2262b98b-1dec-4924-859e-63e8e4715053.png" />
+    <Content Include="UploadImages\297c6501-778b-449f-b322-6ba005d5d7f1.png" />
+    <Content Include="UploadImages\2a1adc5e-ad12-4625-82ea-3cc8c94cd531.png" />
+    <Content Include="UploadImages\2bba031b-925a-4e81-8379-17bb775b7858.png" />
+    <Content Include="UploadImages\2bc97301-c45c-457e-9379-94cab0913453.png" />
+    <Content Include="UploadImages\2c611a7a-83f2-43c6-a0a7-a87731b0822b.png" />
+    <Content Include="UploadImages\36687b5a-80ed-46d7-b602-d99ff4955194.png" />
+    <Content Include="UploadImages\3bcfa3b3-fd90-4f05-a7fb-beb135c926f9.png" />
+    <Content Include="UploadImages\3c22939e-e665-4754-a2e5-66c2894f3bdd.png" />
+    <Content Include="UploadImages\3d209329-1274-4561-b91b-d07df68f5cbe.png" />
+    <Content Include="UploadImages\46215332-c534-45e8-9563-fb47a4c581cf.png" />
+    <Content Include="UploadImages\475eda67-0475-482d-b676-486adaac7e36.png" />
+    <Content Include="UploadImages\4a6603c5-9f4a-4a2e-8105-184b31aafac3.png" />
+    <Content Include="UploadImages\4f3ab32b-314f-4245-be59-f23d033ad728.png" />
+    <Content Include="UploadImages\5bc2ee0e-8b97-4d10-9620-596c57075049.png" />
+    <Content Include="UploadImages\5dcfbf6b-f3ad-4773-ac61-8c2bbc67931e.png" />
+    <Content Include="UploadImages\6dcf226b-c1b4-4f41-bacd-4f0fad49d3111.png" />
+    <Content Include="UploadImages\6de7bf1d-cc37-4d8e-942f-4d04b0b389dc.png" />
+    <Content Include="UploadImages\7b907fad-e0ab-407b-8133-ab413bf65888.png" />
+    <Content Include="UploadImages\7bd7fb78-5bc4-489a-b697-bad25ab1da75.png" />
+    <Content Include="UploadImages\83ff67a4-9edf-46c0-a91f-75535a1d2e41.png" />
+    <Content Include="UploadImages\8727e784-67fe-42f2-880b-8bfc533eeb26.png" />
+    <Content Include="UploadImages\8762104c-c61d-4a7f-96f8-568b06cd70ab.png" />
+    <Content Include="UploadImages\8777a519-137d-4a22-9fcf-5d12d87312c1.png" />
+    <Content Include="UploadImages\8c7c9ef8-2291-4333-b955-4ee95c4b8476.png" />
+    <Content Include="UploadImages\8e8ba84a-71d0-4f08-bdf6-909738eceb86.png" />
+    <Content Include="UploadImages\90d7ad3c-4372-4734-82bf-e3ff2c29d860.png" />
+    <Content Include="UploadImages\90f2e21e-e18b-4d9e-b1d9-e4a782475c95.png" />
+    <Content Include="UploadImages\91a2ab00-9dba-4ea9-adb6-a685e314a943.png" />
+    <Content Include="UploadImages\9316d1ad-9c3e-488a-862c-be8cc4e0ef1b.png" />
+    <Content Include="UploadImages\953cc22a-0d72-4091-b7eb-e1252f0ce7b7.png" />
+    <Content Include="UploadImages\9de699b4-481a-450e-8569-1f476f0afe25sss.png" />
+    <Content Include="UploadImages\9f0ce34b-c7ce-4619-958a-0cb6a4b2656c.png" />
+    <Content Include="UploadImages\a12aac67-8d26-4f85-ac58-3ac1752c75b8.png" />
+    <Content Include="UploadImages\a2591568-42d6-4663-b820-7cc8a5006627.png" />
+    <Content Include="UploadImages\a30d7a0c-9886-4925-8193-716f96a47772.png" />
+    <Content Include="UploadImages\a79ab587-8619-46ae-bfdf-c0e5e57cf68806c3483e-7ea5-4028-ab86-eb407f3c38e61.png" />
+    <Content Include="UploadImages\a7bee77e-d35e-451d-9ea7-2fefa35316c2.png" />
+    <Content Include="UploadImages\ab183297-66cd-4e47-8add-7b58804f62d8.png" />
+    <Content Include="UploadImages\acb76dcf-955b-4188-823f-d6e151bcdab0.png" />
+    <Content Include="UploadImages\af22a860-e534-413e-9741-0e5fc7eb7c5706c3483e-7ea5-4028-ab86-eb407f3c38e61.png" />
+    <Content Include="UploadImages\bf1c9066-59cd-42dc-9e91-fd0f0e0fcefe.png" />
+    <Content Include="UploadImages\c86e7b46-21c7-4701-860f-b12f9d8baf54.png" />
+    <Content Include="UploadImages\cdd64adf-dc39-4512-8fec-e6aabccfed8c.png" />
+    <Content Include="UploadImages\d2fbf6de-d340-4134-a332-efb18a87017f.png" />
+    <Content Include="UploadImages\db40d5bc-2e25-457f-9f94-cb5b7e718137.png" />
+    <Content Include="UploadImages\e586609c-17ad-4744-9a94-efdc88196c06.png" />
+    <Content Include="UploadImages\ea3e3407-732d-491b-afd2-908811c5d756.png" />
+    <Content Include="UploadImages\f0e3421a-6b6d-46cd-9f27-bbcaabfe3a44.png" />
+    <Content Include="UploadImages\f9471f3d-554e-481a-a8aa-181d03116637.png" />
+    <Content Include="UploadImages\fdbe2374-2ff0-4dc9-a979-13f94c57b76c06c3483e-7ea5-4028-ab86-eb407f3c38e61.png" />
+    <Content Include="VideoUrl\video1.mp4" />
+    <Content Include="VideoUrl\video1.webm" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -467,10 +533,11 @@
     <Content Include="Views\Admin\DashBoard.cshtml" />
     <Content Include="Views\Admin\ItemGroup.cshtml" />
     <Content Include="Views\Shared\_PartialItemGroup.cshtml" />
+    <Content Include="VideoUrl\video1.ogv" />
+    <Content Include="Views\Admin\ItemCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="UploadImages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -43,8 +43,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin\AdminLoginDal.cs" />
+    <Compile Include="Admin\ItemCategoryDal.cs" />
+    <Compile Include="Admin\ItemGroupDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AdminAuthenticationRepository.cs" />
+    <Compile Include="Repository\ConnectionRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ArtGalleryECommerce.Model\ArtGalleryECommerce.Model.csproj">
