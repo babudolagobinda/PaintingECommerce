@@ -144,6 +144,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -418,7 +419,9 @@
     <Content Include="CustomScripts\AdminLogin.js" />
     <Content Include="CustomScripts\ItemCategory.js" />
     <Content Include="CustomScripts\ItemGroup.js" />
+    <Content Include="CustomScripts\ItemMaster.js" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\giphy.gif" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -510,6 +513,37 @@
     <Content Include="UploadImages\f0e3421a-6b6d-46cd-9f27-bbcaabfe3a44.png" />
     <Content Include="UploadImages\f9471f3d-554e-481a-a8aa-181d03116637.png" />
     <Content Include="UploadImages\fdbe2374-2ff0-4dc9-a979-13f94c57b76c06c3483e-7ea5-4028-ab86-eb407f3c38e61.png" />
+    <Content Include="UserTemplate\checkout.html" />
+    <Content Include="UserTemplate\css\bootstrap.min.css" />
+    <Content Include="UserTemplate\css\font-awesome.min.css" />
+    <Content Include="UserTemplate\css\nouislider.min.css" />
+    <Content Include="UserTemplate\css\slick-theme.css" />
+    <Content Include="UserTemplate\css\slick.css" />
+    <Content Include="UserTemplate\css\style.css" />
+    <Content Include="UserTemplate\fonts\fontawesome-webfont.svg" />
+    <Content Include="UserTemplate\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="UserTemplate\img\banner01.jpg" />
+    <Content Include="UserTemplate\img\banner02.jpg" />
+    <Content Include="UserTemplate\img\banner03.jpg" />
+    <Content Include="UserTemplate\img\banner04.jpg" />
+    <Content Include="UserTemplate\img\banner05.jpg" />
+    <Content Include="UserTemplate\img\main-product03.jpg" />
+    <Content Include="UserTemplate\img\product01.jpg" />
+    <Content Include="UserTemplate\img\product02.jpg" />
+    <Content Include="UserTemplate\img\product03.jpg" />
+    <Content Include="UserTemplate\img\product04.jpg" />
+    <Content Include="UserTemplate\img\product06.jpg" />
+    <Content Include="UserTemplate\img\thumb-product01.jpg" />
+    <Content Include="UserTemplate\img\thumb-product03.jpg" />
+    <Content Include="UserTemplate\index.html" />
+    <Content Include="UserTemplate\js\bootstrap.min.js" />
+    <Content Include="UserTemplate\js\jquery.min.js" />
+    <Content Include="UserTemplate\js\jquery.zoom.min.js" />
+    <Content Include="UserTemplate\js\main.js" />
+    <Content Include="UserTemplate\js\nouislider.min.js" />
+    <Content Include="UserTemplate\js\slick.min.js" />
+    <Content Include="UserTemplate\product-page.html" />
+    <Content Include="UserTemplate\products.html" />
     <Content Include="VideoUrl\video1.mp4" />
     <Content Include="VideoUrl\video1.webm" />
     <Content Include="Web.config">
@@ -535,6 +569,19 @@
     <Content Include="Views\Shared\_PartialItemGroup.cshtml" />
     <Content Include="VideoUrl\video1.ogv" />
     <Content Include="Views\Admin\ItemCategory.cshtml" />
+    <Content Include="Views\Admin\ItemMaster.cshtml" />
+    <Content Include="UserTemplate\.DS_Store" />
+    <Content Include="UserTemplate\fonts\fontawesome-webfont.eot" />
+    <Content Include="UserTemplate\fonts\fontawesome-webfont.ttf" />
+    <Content Include="UserTemplate\fonts\fontawesome-webfont.woff" />
+    <Content Include="UserTemplate\fonts\fontawesome-webfont.woff2" />
+    <Content Include="UserTemplate\fonts\FontAwesome.otf" />
+    <Content Include="UserTemplate\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="UserTemplate\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="UserTemplate\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="UserTemplate\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Views\Shared\_LayoutUser.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

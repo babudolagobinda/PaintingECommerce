@@ -96,6 +96,7 @@ app.controller("divItemGroupController", function ($scope, $http) {
         angular.element("input[type='file']").val(null);
     }
     function GetAllItemGroup() {
+        $("#divSpinner").show();
         $http({
             method: 'POST',
             dataType: 'JSON',
@@ -104,6 +105,7 @@ app.controller("divItemGroupController", function ($scope, $http) {
         }).then(function (res) {
             if (res.data.length > 0) {
                 $scope.dataItemGroups = res.data;
+                $("#divSpinner").hide();
             }
         });
     }

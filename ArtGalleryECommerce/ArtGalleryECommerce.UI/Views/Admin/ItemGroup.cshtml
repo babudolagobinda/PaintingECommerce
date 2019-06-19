@@ -3,10 +3,10 @@
     ViewBag.Title = "ItemGroup";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
+@*<link href="//netdna.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">*@
 <link href="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/highlightjs/styles/github.css" rel="stylesheet">
 <link href="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-dt/css/jquery.dataTables.min.css" rel="stylesheet">
 <link href="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-responsive-dt/css/responsive.dataTables.min.css" rel="stylesheet">
-<link href="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/css/bracket.css" rel="stylesheet" />
 <link href="~/Content/roundButton.css" rel="stylesheet" />
 <script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-dt/js/dataTables.dataTables.min.js"></script>
@@ -16,7 +16,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 
-<link src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.css" rel="stylesheet" />
 <script src="~/Scripts/dirPagination.js"></script>
 <script src="~/CustomScripts/ItemGroup.js"></script>
 <style>
@@ -39,6 +38,11 @@
         -webkit-box-shadow: none;
         box-shadow: none;
     }
+
+    .loader {
+        left: 50%;
+        margin-left: -4em;
+    }
 </style>
 
 <div class="br-mainpanel" ng-app="divItemGroupApp" ng-controller="divItemGroupController">
@@ -51,6 +55,7 @@
                 <strong class="d-block d-sm-inline-block-force">Well done!</strong> You successfully read this important alert message.
             </div>
         </alert>*@
+    @*<div id="divSpinner" class="loader" style="display: none"> <img src="~/fonts/giphy.gif" /></div>*@
 
 
     <form name="ItemGroupForm" required>
@@ -136,13 +141,16 @@
                             <button class="btn btn-danger btn-circle" ng-click="DeleteItemGroup(dataItemGroup.GroupId)"><i class="fa fa-trash-alt"></i></button>
                         </td>
                     </tr>
-                </tbody>
+
             </table>
 
+            @*<ul uib-pagination total-items="bigTotalItems" ng-model="bigCurrentPage" max-size="maxSize" class="pagination-sm" boundary-links="true" force-ellipses="true"></ul>*@
 
+             <dir-pagination-controls max-size="3"
+                                         direction-links="true"
+                                         boundary-links="true">
+                </dir-pagination-controls> 
 
-            <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
-            </dir-pagination-controls>
 
 
 

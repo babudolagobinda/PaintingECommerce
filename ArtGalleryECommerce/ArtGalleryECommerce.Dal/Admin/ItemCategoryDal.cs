@@ -86,5 +86,24 @@ namespace ArtGalleryECommerce.Dal.Admin
             }
 
         }
+        public List<ItemCategoryDto> GetItemCategoryByGroupId(int GroupId)
+        {
+            List<ItemCategoryDto> lstItemCategoryDto = new List<ItemCategoryDto>();
+            SqlCommand cmd = new SqlCommand("GetItemCategoryByGroupId", connectionRepository.con);
+            cmd.Parameters.AddWithValue("@GroupId", GroupId);
+            cmd.CommandType = CommandType.StoredProcedure;
+            connectionRepository.con.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                ItemCategoryDto itemCategoryDto = new ItemCategoryDto();
+                itemCategoryDto.GroupId = Convert.ToInt32(dr["GroupId"]);               
+                itemCategoryDto.CategoryId = Convert.ToInt32(dr["CategoryId"]);
+                itemCategoryDto.CategoryName = Convert.ToString(dr["CategoryName"]);
+                lstItemCategoryDto.Add(itemCategoryDto);
+            }
+            connectionRepository.con.Close();
+            return lstItemCategoryDto;
+        }
     }
 }

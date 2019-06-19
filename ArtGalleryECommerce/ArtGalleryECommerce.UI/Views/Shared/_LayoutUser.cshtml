@@ -1,0 +1,300 @@
+﻿@using System.Data;
+@using System.Data.SqlClient;
+@using ArtGalleryECommerce.Model.AdminDTO;
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Paintings</title>
+    <link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
+    <link href="~/UserTemplate/css/bootstrap.min.css" rel="stylesheet" />
+    <link type="text/css" rel="stylesheet" href="~/UserTemplate/css/slick.css" />
+    <link type="text/css" rel="stylesheet" href="~/UserTemplate/css/slick-theme.css" />
+    <link type="text/css" rel="stylesheet" href="~/UserTemplate/css/nouislider.min.css" />
+    <link rel="stylesheet" href="~/UserTemplate/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="~/UserTemplate/css/style.css" />
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <!-- header -->
+        <div id="header">
+            <div class="container">
+                <div class="pull-left">
+                    <!-- Logo -->
+                    <div class="header-logo"> <a class="logo" href="#"> COMPANY LOGO </a> </div>
+                    <!-- /Logo -->
+                    <!-- Search -->
+                    <div class="header-search"> </div>
+                    <!-- /Search -->
+                </div>
+                <div class="pull-right">
+                    <ul class="header-btns">
+                        <!-- Account -->
+                        <li class="header-account dropdown default-dropdown">
+                            <div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">
+                                <div class="header-btns-icon"> <i class="fa fa-user-o"></i> </div>
+                                <strong class="text-uppercase">My Account <i class="fa fa-caret-down"></i></strong>
+                            </div>
+                            <a href="#" class="text-uppercase">Login</a>
+                            <ul class="custom-menu">
+                                <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+                                <li><a href="#"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
+                                <li><a href="#"><i class="fa fa-file-text-o"></i> Orders</a></li>
+                            </ul>
+                        </li>
+                        <!-- /Account -->
+                        <!-- Cart -->
+                        <li class="header-cart dropdown default-dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                <div class="header-btns-icon"> <i class="fa fa-shopping-cart"></i> <span class="qty">3</span> </div>
+                                <strong class="text-uppercase">My Cart:</strong> <br>
+                                <span>35.20$</span>
+                            </a>
+                            <div class="custom-menu">
+                                <div id="shopping-cart">
+                                    <div class="shopping-cart-list">
+                                        <div class="product product-widget">
+                                            <div class="product-thumb"> <img src="img/thumb-product01.jpg" alt=""> </div>
+                                            <div class="product-body">
+                                                <h3 class="product-price">$32.50 <span class="qty">x3</span></h3>
+                                                <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
+                                            </div>
+                                            <button class="cancel-btn"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                        <div class="product product-widget">
+                                            <div class="product-thumb"> <img src="img/thumb-product01.jpg" alt=""> </div>
+                                            <div class="product-body">
+                                                <h3 class="product-price">$32.50 <span class="qty">x3</span></h3>
+                                                <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
+                                            </div>
+                                            <button class="cancel-btn"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="shopping-cart-btns">
+                                        <button class="main-btn">View Cart</button>
+                                        <button class="primary-btn">Checkout <i class="fa fa-arrow-circle-right"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- /Cart -->
+                        <!-- Mobile nav toggle-->
+                        <li class="nav-toggle">
+                            <button class="nav-toggle-btn main-btn icon-btn"><i class="fa fa-bars"></i></button>
+                        </li>
+                        <!-- / Mobile nav toggle -->
+                    </ul>
+                </div>
+            </div>
+            <!-- header -->
+        </div>
+        <!-- container -->
+    </header>
+    <!-- /HEADER -->
+    <!-- NAVIGATION -->
+    <div id="navigation">
+        <!-- container -->
+        <div class="container">
+            <div id="responsive-nav">
+                <!-- menu nav -->
+                <div class="menu-nav">
+                    <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
+                    <ul class="menu-list">
+                        <li><a class="active" href="@Url.Action("Index", "User")">Home</a></li>
+
+                        @*<li class="dropdown default-dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Paintings <i class="fa fa-caret-down"></i></a>
+                                <ul class="custom-menu">
+                                    <li><a href="#">Painting01</a></li>
+                                    <li><a href="#">Painting02</a></li>
+                                    <li><a href="#">Painting03</a></li>
+                                    <li><a href="#">Painting04</a></li>
+                                </ul>
+                            </li>*@
+                        <li class="dropdown mega-dropdown full-width">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" aria-expanded="true">Shop By Category <i class="fa fa-caret-down"></i></a>
+                            <div class="custom-menu">
+                                <div class="row">
+                                    @{
+
+                                        foreach (var item in ViewBag.ItemGroups)
+                                        {
+                                            <div class="col-md-2">
+
+                                                <ul class="list-links">
+                                                    <li>
+                                                        <h3 class="list-links-title">@item.GroupName</h3>
+                                                    </li>
+                                                    @{
+                                                        List<ItemCategoryDto> lstItemCategoryDto = new List<ItemCategoryDto>();
+                                                        SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["conn"].ConnectionString);
+                                                        SqlCommand cmd = new SqlCommand("GetItemCategoryByGroupId", con);
+                                                        cmd.Parameters.AddWithValue("@GroupId", item.GroupId);
+                                                        cmd.CommandType = CommandType.StoredProcedure;
+                                                        con.Open();
+                                                        SqlDataReader dr = cmd.ExecuteReader();
+                                                        while (dr.Read())
+                                                        {
+                                                            ItemCategoryDto itemCategoryDto = new ItemCategoryDto();
+                                                            itemCategoryDto.GroupId = Convert.ToInt32(dr["GroupId"]);
+                                                            itemCategoryDto.CategoryId = Convert.ToInt32(dr["CategoryId"]);
+                                                            itemCategoryDto.CategoryName = Convert.ToString(dr["CategoryName"]);
+                                                            lstItemCategoryDto.Add(itemCategoryDto);
+                                                        }
+                                                        con.Close();
+                                                        ViewBag.ItemCategories = lstItemCategoryDto;
+                                                    }
+                                                    @foreach (var itemCategory in ViewBag.ItemCategories)
+                                                    {
+                                                        <li><a href="#">@itemCategory.CategoryName</a></li>
+                                                    }
+                                                    @*<li><a href="#">Painting01</a></li>
+                                                        <li><a href="#">Painting02</a></li>
+                                                        <li><a href="#">Painting03</a></li>
+                                                        <li><a href="#">Painting04</a></li>*@
+                                                </ul>
+                                            </div>
+                                        }
+                                        @*<div class="col-md-2">
+
+                                                <ul class="list-links">
+                                                    <li>
+                                                        <h3 class="list-links-title">Categories</h3>
+                                                    </li>
+                                                    <li><a href="#">Painting01</a></li>
+                                                    <li><a href="#">Painting02</a></li>
+                                                    <li><a href="#">Painting03</a></li>
+                                                    <li><a href="#">Painting04</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-2">
+
+                                                <ul class="list-links">
+                                                    <li>
+                                                        <h3 class="list-links-title">Categories</h3>
+                                                    </li>
+                                                    <li><a href="#">Painting01</a></li>
+                                                    <li><a href="#">Painting02</a></li>
+                                                    <li><a href="#">Painting03</a></li>
+                                                    <li><a href="#">Painting04</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-2">
+
+                                                <ul class="list-links">
+                                                    <li>
+                                                        <h3 class="list-links-title">Categories</h3>
+                                                    </li>
+                                                    <li><a href="#">Painting01</a></li>
+                                                    <li><a href="#">Painting02</a></li>
+                                                    <li><a href="#">Painting03</a></li>
+                                                    <li><a href="#">Painting04</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-2">
+
+                                                <ul class="list-links">
+                                                    <li>
+                                                        <h3 class="list-links-title">Categories</h3>
+                                                    </li>
+                                                    <li><a href="#">Painting01</a></li>
+                                                    <li><a href="#">Painting02</a></li>
+                                                    <li><a href="#">Painting03</a></li>
+                                                    <li><a href="#">Painting04</a></li>
+                                                </ul>
+                                            </div>*@
+                                    }
+                                </div>
+                            </div>
+                        </li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <!-- menu nav -->
+            </div>
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /NAVIGATION -->
+    <div>
+        @RenderBody()
+    </div>
+
+    <!-- FOOTER -->
+    <footer id="footer" class="section section-grey">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <!-- footer widget -->
+                <div class="col-md-3 col-xs-6">
+                    <div class="footer">
+
+                        <p>Share:</p>
+
+                        <!-- footer social -->
+                        <ul class="footer-social">
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                            <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                        </ul>
+                        <!-- /footer social -->
+                    </div>
+                </div>
+                <!-- /footer widget -->
+                <!-- footer widget -->
+                <div class="col-md-3 col-sm-6 col-xs-6">
+                    <div class="footer">
+                        <h3 class="footer-header">My Account</h3>
+                        <ul class="list-links">
+                            <li><a href="#">My Account</a></li>
+                            <li><a href="#">My Wishlist</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /footer widget -->
+
+                <div class="clearfix visible-sm visible-xs"></div>
+
+                <!-- footer widget -->
+                <div class="col-md-3 col-sm-6 col-xs-6">
+                    <div class="footer">
+                        <h3 class="footer-header">Customer Service</h3>
+                        <ul class="list-links">
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Shiping &amp; Return</a></li>
+                            <li><a href="#">FAQ</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /footer widget -->
+
+            </div>
+            <!-- /row -->
+            <hr>
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center">
+                    <div class="footer"> Copyright &copy; 2019 All rights reserved | Designed &amp; Developed <i class="fa fa-heart-o" aria-hidden="true"></i> by DolaGobind Behera. </div>
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </footer>
+    <!-- /FOOTER -->
+
+    <script src="~/UserTemplate/js/jquery.min.js"></script>
+    <script src="~/UserTemplate/js/bootstrap.min.js"></script>
+    <script src="~/UserTemplate/js/slick.min.js"></script>
+    <script src="~/UserTemplate/js/nouislider.min.js"></script>
+    <script src="~/UserTemplate/js/jquery.zoom.min.js"></script>
+    <script src="~/UserTemplate/js/main.js"></script>
+</body>
+</html>

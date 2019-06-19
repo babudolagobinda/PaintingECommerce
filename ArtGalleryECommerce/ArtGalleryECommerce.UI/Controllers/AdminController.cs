@@ -146,6 +146,13 @@ namespace ArtGalleryECommerce.UI.Controllers
             return Json(lstItemCategoryDto, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
+        public ActionResult GetItemCategoryByGroupId(int GroupId)
+        {
+            ItemCategoryDal itemCategoryDal = new ItemCategoryDal();
+            List<ItemCategoryDto> lstItemCategoryDto = itemCategoryDal.GetItemCategoryByGroupId(GroupId);
+            return Json(lstItemCategoryDto, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
         public ActionResult SaveItemCategory()
         {
             try
@@ -199,6 +206,78 @@ namespace ArtGalleryECommerce.UI.Controllers
         {
             ItemCategoryDal itemCategoryDal = new ItemCategoryDal();
             int i = itemCategoryDal.DeleteItemCategory(CategoryId);
+            return Json(i, JsonRequestBehavior.AllowGet);
+        }
+        [Authorize(Roles = "Admin")]
+        public ActionResult ItemMaster()
+        {
+            ViewBag.AdminDetails = TempData["AdminDetails"];
+            TempData.Keep();
+            return View();
+        }
+        [HttpPost]
+        public ActionResult GetAllItemMaster()
+        {
+            ItemMasterDal itemMasterDal = new ItemMasterDal();
+            List<ItemMasterDto> lstItemMasterDto = itemMasterDal.GetAndEditItemMaster(0, 1);
+            return Json(lstItemMasterDto, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult SaveItemMaster()
+        {
+            try
+            {
+                ItemMasterDal itemMasterDal = new ItemMasterDal();
+                ItemMasterDto itemMasterDto = new ItemMasterDto();
+                itemMasterDto.ItemId = Convert.ToInt32(System.Web.HttpContext.Current.Request["ItemId"] == "" ? "0" : System.Web.HttpContext.Current.Request["ItemId"]);
+                string Message, fileName, actualFileName;
+                Message = fileName = actualFileName = string.Empty;
+                if (Request.Files.Count > 0)
+                {
+                    var fileContent = Request.Files[0];
+                    if (fileContent != null && fileContent.ContentLength > 0)
+                    {
+                        actualFileName = fileContent.FileName;
+                        fileName = Guid.NewGuid() + Path.GetExtension(fileContent.FileName);
+                        itemMasterDto.ItemImage = fileName;
+                    }
+                    fileContent.SaveAs(Path.Combine(Server.MapPath("~/UploadImages/"), fileName));
+                }
+                else
+                {
+                    fileName = "";
+                    if (itemMasterDto.ItemId > 0)
+                    {
+                        dynamic imgFile = itemMasterDal.GetAndEditItemMaster(itemMasterDto.ItemId, 1);
+                        itemMasterDto.ItemImage = Convert.ToString(imgFile[0].ItemImage);
+                    }
+                    else
+                    {
+                        itemMasterDto.ItemImage = fileName;
+                    }
+                }
+                itemMasterDto.GroupId = Convert.ToInt32(System.Web.HttpContext.Current.Request["GroupId"]);
+                itemMasterDto.CategoryId = Convert.ToInt32(System.Web.HttpContext.Current.Request["CategoryId"]);
+                itemMasterDto.ItemName = System.Web.HttpContext.Current.Request["ItemName"];
+                itemMasterDto.ItemDesc = System.Web.HttpContext.Current.Request["ItemDesc"];
+                itemMasterDto.CreatedBy = Convert.ToInt32(Session["AdminId"]);
+                itemMasterDto.ModifiedBy = Convert.ToInt32(Session["AdminId"]);
+                itemMasterDto.IsActive = 1;
+
+                int i = itemMasterDal.SaveItemMaster(itemMasterDto);
+                return Json(i, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [HttpPost]
+        public ActionResult DeleteItemMaster(int ItemId)
+        {
+            ItemMasterDal itemMasterDal = new ItemMasterDal();
+            int i = itemMasterDal.DeleteItemMaster(ItemId);
             return Json(i, JsonRequestBehavior.AllowGet);
         }
     }

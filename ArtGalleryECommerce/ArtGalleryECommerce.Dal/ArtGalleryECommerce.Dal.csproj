@@ -45,6 +45,7 @@
     <Compile Include="Admin\AdminLoginDal.cs" />
     <Compile Include="Admin\ItemCategoryDal.cs" />
     <Compile Include="Admin\ItemGroupDal.cs" />
+    <Compile Include="Admin\ItemMasterDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AdminAuthenticationRepository.cs" />
     <Compile Include="Repository\ConnectionRepository.cs" />
