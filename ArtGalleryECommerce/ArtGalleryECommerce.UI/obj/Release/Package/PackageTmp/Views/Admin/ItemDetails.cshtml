@@ -1,0 +1,229 @@
+﻿
+@{
+    ViewBag.Title = "ItemDetails";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<link href="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/highlightjs/styles/github.css" rel="stylesheet">
+<link href="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-dt/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-responsive-dt/css/responsive.dataTables.min.css" rel="stylesheet">
+<link href="~/Content/roundButton.css" rel="stylesheet" />
+<script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-dt/js/dataTables.dataTables.min.js"></script>
+<script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-responsive-dt/js/responsive.dataTables.min.js"></script>
+<script src="~/Scripts/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<script src="~/CustomScripts/ItemDetails.js"></script>
+<script src="~/Scripts/dirPagination.js"></script>
+
+
+<style>
+
+    form.submitted .ng-invalid {
+        border: 1px solid #f00;
+    }
+</style>
+<style>
+    .textBoxForSearch {
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid #000000;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    .textBoxForSearchs {
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+
+    .loader {
+        left: 50%;
+        margin-left: -4em;
+    }
+</style>
+
+<div class="br-mainpanel" ng-app="divItemDetailsApp" ng-controller="divItemDetailsController">
+    @*<alert type="danger" close="closeAlert()" ng-if="show" data-dismiss="alert"
+               dismiss-on-timeout="2000">
+            <div class="alert alert-success" role="alert">
+                <button type="button" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong class="d-block d-sm-inline-block-force">Well done!</strong> You successfully read this important alert message.
+            </div>
+        </alert>*@
+
+
+    <form name="ItemDetailsForm" required>
+        <div id="modalItemDetails" class="modal fade">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content bd-0 tx-14">
+                    <div class="modal-header pd-y-20 pd-x-25">
+                        <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Item Details</h6>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="form-layout form-layout-5">
+                        <div class="row">
+                            <input type="hidden" name="ItemDetailsId" ng-model="ItemDetailsId" />
+                            <label class="col-sm-3 form-control-label"><span class="tx-danger">*</span> Item Name:</label>
+                            <div class="col-sm-9 mg-t-10 mg-sm-t-0">
+                                <select class="form-control" placeholder="Select ItemName" name="ItemId" ng-model="ItemId" ng-options="option.ItemId as option.ItemName for option in dataItemMasters" required>
+                                    <option value="">--Select Item--</option>
+                                </select>
+                                <span style="color:red" ng-if="!ItemDetailsForm.ItemId.$valid">
+                                    Please Select Your Item Name
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row mg-t-20">
+                            <label class="col-sm-3 form-control-label"><span class="tx-danger">*</span> Width:</label>
+                            <div class="col-sm-9 mg-t-10 mg-sm-t-0">
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" placeholder="Enter Width" name="Width" ng-model="Width" valid-number required />
+                                        <span style="color:red" ng-if="!ItemDetailsForm.Width.$valid">
+                                            Please Provide Your Item Width
+                                        </span>
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <select class="form-control" ng-model="WidthType" name="WidthType" required>
+                                            <option value="">--Select Width Type--</option>
+                                            <option value="Inch">Inch</option>
+                                            <option value="CM">CentiMeter</option>
+                                            <option value="M">Meter</option>
+                                            <option value="F">Feet</option>
+                                        </select>
+                                        <span style="color:red" ng-if="!ItemDetailsForm.WidthType.$valid">
+                                            Please Provide Your Item Width Type
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mg-t-20">
+                            <label class="col-sm-3 form-control-label"><span class="tx-danger">*</span> Height:</label>
+                            <div class="col-sm-9 mg-t-10 mg-sm-t-0">
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" placeholder="Enter Height" name="Height" ng-model="Height" valid-number required />
+                                        <span style="color:red" ng-if="!ItemDetailsForm.Height.$valid">
+                                            Please Provide Your Item Height
+                                        </span>
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <select class="form-control" ng-model="HeightType" name="HeightType" required>
+                                            <option value="">--Select Height Type--</option>
+                                            <option value="Inch">Inch</option>
+                                            <option value="CM">CentiMeter</option>
+                                            <option value="M">Meter</option>
+                                            <option value="F">Feet</option>
+                                        </select>
+                                        <span style="color:red" ng-if="!ItemDetailsForm.HeightType.$valid">
+                                            Please Provide Your Item Height Type
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mg-t-20">
+                            <label class="col-sm-3 form-control-label"> Mrp:</label>
+                            <div class="col-sm-9 mg-t-10 mg-sm-t-0">
+                                <input type="text" class="form-control" placeholder="Enter Mrp" name="Mrp" ng-model="Mrp" valid-number required />
+                                <span style="color:red" ng-if="!ItemDetailsForm.Mrp.$valid">
+                                    Please Provide Your Mrp
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row mg-t-20">
+                            <label class="col-sm-3 form-control-label"> Discount:</label>
+                            <div class="col-sm-9 mg-t-10 mg-sm-t-0">
+                                <input type="text" class="form-control" placeholder="Enter Discount" name="Discount" ng-model="Discount" valid-number required />
+                                <span style="color:red" ng-if="!ItemDetailsForm.Discount.$valid">
+                                    Please Provide Your Discount
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row mg-t-20">
+                            <label class="col-sm-3 form-control-label"> Price:</label>
+                            <div class="col-sm-9 mg-t-10 mg-sm-t-0">
+                                <input type="text" class="form-control" placeholder="Enter Price" name="Price" ng-model="Price" valid-number required />
+                                <span style="color:red" ng-if="!ItemDetailsForm.Price.$valid">
+                                    Please Provide Your Price
+                                </span>
+                            </div>
+                        </div>
+                        <!-- row -->
+                        <div class="row mg-t-30">
+                            <div class="col-sm-8 mg-l-auto">
+                                <div class="form-layout-footer">
+                                    <button class="btn btn-info" type="button" id="btnSaveItemDetails" data-loading-text="Loading..." ng-disabled="ItemDetailsForm.$invalid" ng-click="SaveItemDetails()">Save</button>
+                                    <button class="btn btn-secondary" data-dismiss="modal" ng-click="resetAll();">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="br-pagetitle">
+        <div>
+            <h4>ITEM DETAILS DATATABLE </h4>
+            <p class="mg-b-0">Searching, Ordering and Paging goodness will be immediately added to the table.</p>
+        </div>
+        <div class="selected">
+            <button class="btn btn-info modal-effect" data-effect="effect-newspaper" ng-click="resetAll();">Add Item Details</button>
+        </div>
+    </div>
+
+    <div class="br-pagebody">
+        <input type="text" ng-model="search" class="textBoxForSearch textBoxForSearchs form-control" placeholder="Click Here For Search....">
+        <div class="table-responsive">
+            <table class="table table-bordered table-colored table-dark">
+                <thead>
+                    <tr>
+                        <th class="wd-15p">Item Name</th>
+                        <th class="wd-10p">Width</th>
+                        <th class="wd-10p">Height</th>
+                        <th class="wd-15p">Size</th>
+                        <th class="wd-10p">Mrp</th>
+                        <th class="wd-10p">Discount</th>
+                        <th class="wd-15p">Price</th>
+                        <th class="wd-20p">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr dir-paginate="dataItemDetail in dataItemDetails |orderBy:sortKey:reverse|filter:search|itemsPerPage:5">
+                        <td>{{dataItemDetail.ItemName}}</td>
+                        <td>{{dataItemDetail.Width}}</td>
+                        <td>{{dataItemDetail.Height}}</td>
+                        <td>{{dataItemDetail.Width}} {{dataItemDetail.WidthType}}*{{dataItemDetail.Height}} {{dataItemDetail.HeightType}}</td>
+                        <td>{{dataItemDetail.Mrp}}</td>
+                        <td>{{dataItemDetail.Discount}}</td>
+                        <td>{{dataItemDetail.Price}}</td>
+                        <td>
+                            <button class="btn btn-info btn-circle" ng-click="EditItemDetails(dataItemDetail)"><i class="fa fa-pencil-alt"></i></button>
+                            <button class="btn btn-danger btn-circle" ng-click="DeleteItemDetails(dataItemDetail.ItemDetailsId)"><i class="fa fa-trash-alt"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+
+            <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
+            </dir-pagination-controls>
+
+
+
+        </div>
+
+    </div>
+</div>

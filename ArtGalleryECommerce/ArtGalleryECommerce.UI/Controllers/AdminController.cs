@@ -10,8 +10,11 @@ using ArtGalleryECommerce.Model.AdminDTO;
 using ArtGalleryECommerce.Dal.Repository;
 using ArtGalleryECommerce.Dal.Admin;
 using ArtGalleryECommerce.UI.Models;
+using ArtGalleryECommerce.UI.CustomFilter;
 using System.Web.Security;
 using System.IO;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 
 namespace ArtGalleryECommerce.UI.Controllers
@@ -52,6 +55,7 @@ namespace ArtGalleryECommerce.UI.Controllers
             }
         }
         [Authorize(Roles = "Admin")]
+        [UserAuthenticationFilter]
         public ActionResult DashBoard()
         {
             ViewBag.AdminDetails = TempData["AdminDetails"];
@@ -64,6 +68,7 @@ namespace ArtGalleryECommerce.UI.Controllers
             return RedirectToAction("Index", "Admin");
         }
         [Authorize(Roles = "Admin")]
+        [UserAuthenticationFilter]
         public ActionResult ItemGroup()
         {
             ViewBag.AdminDetails = TempData["AdminDetails"];
@@ -132,6 +137,7 @@ namespace ArtGalleryECommerce.UI.Controllers
             return Json(i, JsonRequestBehavior.AllowGet);
         }
         [Authorize(Roles = "Admin")]
+        [UserAuthenticationFilter]
         public ActionResult ItemCategory()
         {
             ViewBag.AdminDetails = TempData["AdminDetails"];
@@ -186,7 +192,7 @@ namespace ArtGalleryECommerce.UI.Controllers
                         itemCategoryDto.CategoryImage = fileName;
                     }
                 }
-                itemCategoryDto.GroupId =Convert.ToInt32(System.Web.HttpContext.Current.Request["GroupId"]);
+                itemCategoryDto.GroupId = Convert.ToInt32(System.Web.HttpContext.Current.Request["GroupId"]);
                 itemCategoryDto.CategoryName = System.Web.HttpContext.Current.Request["CategoryName"];
                 itemCategoryDto.CategoryDesc = System.Web.HttpContext.Current.Request["CategoryDesc"];
                 itemCategoryDto.CreatedBy = Convert.ToInt32(Session["AdminId"]);
@@ -209,6 +215,7 @@ namespace ArtGalleryECommerce.UI.Controllers
             return Json(i, JsonRequestBehavior.AllowGet);
         }
         [Authorize(Roles = "Admin")]
+        [UserAuthenticationFilter]
         public ActionResult ItemMaster()
         {
             ViewBag.AdminDetails = TempData["AdminDetails"];
@@ -221,6 +228,42 @@ namespace ArtGalleryECommerce.UI.Controllers
             ItemMasterDal itemMasterDal = new ItemMasterDal();
             List<ItemMasterDto> lstItemMasterDto = itemMasterDal.GetAndEditItemMaster(0, 1);
             return Json(lstItemMasterDto, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult SaveItemMaster2()
+        {
+            string Message, fileName, actualFileName;
+            Message = fileName = actualFileName = string.Empty;
+            if (Request.Files.Count > 0)
+            {
+                var fileContent = Request.Files[0];
+                if (fileContent != null && fileContent.ContentLength > 0)
+                {
+                    actualFileName = fileContent.FileName;
+                    fileName = Guid.NewGuid() + Path.GetExtension(fileContent.FileName);
+                    using (Bitmap bmp = new Bitmap(fileContent.InputStream, false))
+                    {
+                        using (Graphics grp = Graphics.FromImage(bmp))
+                        {
+                            string filePath = Server.MapPath(Url.Content("~/fonts/watermark.png"));
+                            Image logoImage = Image.FromFile(filePath);
+                            Image TargetImg = Image.FromStream(fileContent.InputStream);
+                            RectangleF rectf = grp.VisibleClipBounds;
+                            var destX = (TargetImg.Width - logoImage.Width) - 30;
+                            var destY = (TargetImg.Height - logoImage.Height) - 30;
+                            float cxImage = grp.DpiX * logoImage.Width /
+                                            logoImage.HorizontalResolution;
+                            float cyImage = grp.DpiY * logoImage.Height /
+                                                               logoImage.VerticalResolution;
+                            grp.DrawImage(logoImage, (rectf.Width - cxImage) / 2,
+                                (rectf.Height - cyImage) / 2);
+                            // grp.DrawImage(logoImage, new Point(TargetImg.Width - logoImage.Width - 10, 10));
+                            bmp.Save(Path.Combine(Server.MapPath("~/UploadImages/"), fileName));
+                        }
+                    }
+                }
+            }
+            return Json("", JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
         public ActionResult SaveItemMaster()
@@ -239,9 +282,29 @@ namespace ArtGalleryECommerce.UI.Controllers
                     {
                         actualFileName = fileContent.FileName;
                         fileName = Guid.NewGuid() + Path.GetExtension(fileContent.FileName);
+                        using (Bitmap bmp = new Bitmap(fileContent.InputStream, false))
+                        {
+                            using (Graphics grp = Graphics.FromImage(bmp))
+                            {
+                                string filePath = Server.MapPath(Url.Content("~/fonts/watermark.png"));
+                                Image logoImage = Image.FromFile(filePath);
+                                Image TargetImg = Image.FromStream(fileContent.InputStream);
+                                RectangleF rectf = grp.VisibleClipBounds;
+                                var destX = (TargetImg.Width - logoImage.Width) - 30;
+                                var destY = (TargetImg.Height - logoImage.Height) - 30;
+                                float cxImage = grp.DpiX * logoImage.Width /
+                                                logoImage.HorizontalResolution;
+                                float cyImage = grp.DpiY * logoImage.Height /
+                                                                   logoImage.VerticalResolution;
+                                grp.DrawImage(logoImage, (rectf.Width - cxImage) / 2,
+                                    (rectf.Height - cyImage) / 2);
+                                // grp.DrawImage(logoImage, new Point(TargetImg.Width - logoImage.Width - 10, 10));
+                                bmp.Save(Path.Combine(Server.MapPath("~/UploadImages/"), fileName));
+                            }
+                        }
                         itemMasterDto.ItemImage = fileName;
                     }
-                    fileContent.SaveAs(Path.Combine(Server.MapPath("~/UploadImages/"), fileName));
+                    //fileContent.SaveAs(Path.Combine(Server.MapPath("~/UploadImages/"), fileName));
                 }
                 else
                 {
@@ -278,6 +341,84 @@ namespace ArtGalleryECommerce.UI.Controllers
         {
             ItemMasterDal itemMasterDal = new ItemMasterDal();
             int i = itemMasterDal.DeleteItemMaster(ItemId);
+            return Json(i, JsonRequestBehavior.AllowGet);
+        }
+        [Authorize(Roles = "Admin")]
+        [UserAuthenticationFilter]
+        public ActionResult ItemDetails()
+        {
+            ViewBag.AdminDetails = TempData["AdminDetails"];
+            TempData.Keep();
+            return View();
+        }
+        [HttpPost]
+        public ActionResult SaveItemDetails(ItemDetailsDto itemDetailsDto)
+        {
+            try
+            {
+                ItemDetailsDal itemDetailsDal = new ItemDetailsDal();
+                itemDetailsDto.CreatedBy = Convert.ToInt32(Session["AdminId"]);
+                itemDetailsDto.ModifiedBy = Convert.ToInt32(Session["AdminId"]);
+                itemDetailsDto.IsActive = 1;
+                int i = itemDetailsDal.SaveItemDetails(itemDetailsDto);
+                return Json(i, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        [HttpPost]
+        public ActionResult GetAllItemDetails()
+        {
+            ItemDetailsDal itemDetailsDal = new ItemDetailsDal();
+            List<ItemDetailsDto> lstItemDetailsDto = itemDetailsDal.GetAndEditItemDetails(0, 1);
+            return Json(lstItemDetailsDto, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult DeleteItemDetails(int ItemDetailsId)
+        {
+            ItemDetailsDal itemDetailsDal = new ItemDetailsDal();
+            int i = itemDetailsDal.DeleteItemDetails(ItemDetailsId);
+            return Json(i, JsonRequestBehavior.AllowGet);
+        }
+        [Authorize(Roles = "Admin")]
+        [UserAuthenticationFilter]
+        public ActionResult StockMaster()
+        {
+            ViewBag.AdminDetails = TempData["AdminDetails"];
+            TempData.Keep();
+            return View();
+        }
+        [HttpPost]
+        public ActionResult GetItemByCategoryId(int CategoryId)
+        {
+            ItemMasterDal itemMasterDal = new ItemMasterDal();
+            List<ItemMasterDto> lstItemMasterDto = itemMasterDal.GetItemByCategoryId(CategoryId);
+            return Json(lstItemMasterDto, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult SaveStockMaster(StockMasterDto stockMasterDto)
+        {
+            StockMasterDal stockMasterDal = new StockMasterDal();
+            stockMasterDto.CreatedBy = Convert.ToInt32(Session["AdminId"]);
+            stockMasterDto.ModifiedBy = Convert.ToInt32(Session["AdminId"]);
+            stockMasterDto.IsActive = 1;
+            int i = stockMasterDal.SaveStockMaster(stockMasterDto);
+            return Json(i, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult GetAllStockMaster()
+        {
+            StockMasterDal stockMasterDal = new StockMasterDal();
+            List<StockMasterDto> lstStockMasterDto = stockMasterDal.GetAndEditStockMaster(0, 1);
+            return Json(lstStockMasterDto, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult DeleteStockMaster(int StockId)
+        {
+            StockMasterDal stockMasterDal = new StockMasterDal();
+            int i = stockMasterDal.DeleteStockMaster(StockId);
             return Json(i, JsonRequestBehavior.AllowGet);
         }
     }

@@ -43,9 +43,12 @@
   <ItemGroup>
     <Compile Include="AdminDTO\AdminLoginDto.cs" />
     <Compile Include="AdminDTO\ItemCategoryDto.cs" />
+    <Compile Include="AdminDTO\ItemDetailsDto.cs" />
     <Compile Include="AdminDTO\ItemGroupDto.cs" />
     <Compile Include="AdminDTO\ItemMasterDto.cs" />
+    <Compile Include="AdminDTO\StockMasterDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserDTO\ProductListDto.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

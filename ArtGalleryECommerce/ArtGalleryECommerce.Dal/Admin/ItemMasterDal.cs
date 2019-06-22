@@ -90,5 +90,32 @@ namespace ArtGalleryECommerce.Dal.Admin
             }
 
         }
+        public List<ItemMasterDto> GetItemByCategoryId(int CategoryId)
+        {
+            List<ItemMasterDto> lstItemMasterDto = new List<ItemMasterDto>();
+            SqlCommand cmd = new SqlCommand("GetItemByCategoryId", connectionRepository.con);
+            cmd.Parameters.AddWithValue("@CategoryId", CategoryId);
+            cmd.CommandType = CommandType.StoredProcedure;
+            connectionRepository.con.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                ItemMasterDto itemMasterDto = new ItemMasterDto();
+                itemMasterDto.ItemId = Convert.ToInt32(dr["ItemId"]);
+                itemMasterDto.GroupId = Convert.ToInt32(dr["GroupId"]);
+                itemMasterDto.CategoryId = Convert.ToInt32(dr["CategoryId"]);
+                itemMasterDto.ItemName = Convert.ToString(dr["ItemName"]);
+                itemMasterDto.ItemDesc = Convert.ToString(dr["ItemDesc"]);
+                itemMasterDto.ItemImage = Convert.ToString(dr["ItemImage"]);
+                itemMasterDto.CreatedBy = Convert.ToInt32(dr["CreatedBy"]);
+                itemMasterDto.CreatedDate = Convert.ToString(dr["CreatedDate"]);
+                itemMasterDto.ModifiedBy = Convert.ToInt32(dr["ModifiedBy"] != DBNull.Value ? dr["ModifiedBy"] : 0);
+                itemMasterDto.ModifiedDate = Convert.ToString(dr["ModifiedDate"] != DBNull.Value ? dr["ModifiedDate"] : "");
+                itemMasterDto.IsActive = Convert.ToInt32(dr["IsActive"]);
+                lstItemMasterDto.Add(itemMasterDto);
+            }
+            connectionRepository.con.Close();
+            return lstItemMasterDto;
+        }
     }
 }

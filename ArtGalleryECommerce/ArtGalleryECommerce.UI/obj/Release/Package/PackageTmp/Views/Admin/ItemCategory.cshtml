@@ -1,0 +1,175 @@
+﻿
+@{
+    ViewBag.Title = "ItemCategory";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<link href="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/highlightjs/styles/github.css" rel="stylesheet">
+<link href="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-dt/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-responsive-dt/css/responsive.dataTables.min.css" rel="stylesheet">
+@*<link href="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/select2/css/select2.min.css" rel="stylesheet">*@
+
+<link href="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/css/bracket.css" rel="stylesheet" />
+<link href="~/Content/roundButton.css" rel="stylesheet" />
+<script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-dt/js/dataTables.dataTables.min.js"></script>
+<script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-responsive-dt/js/responsive.dataTables.min.js"></script>
+<script src="~/Scripts/angular.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<link src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.css" rel="stylesheet" />
+<script src="~/Scripts/dirPagination.js"></script>
+<script src="~/CustomScripts/ItemCategory.js"></script>
+<style>
+
+    form.submitted .ng-invalid {
+        border: 1px solid #f00;
+    }
+</style>
+<style>
+    .textBoxForSearch {
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid #000000;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    .textBoxForSearchs {
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+</style>
+
+
+
+<div class="br-mainpanel" ng-app="divItemCategoryApp" ng-controller="divItemCategoryController">
+    @*<alert type="danger" close="closeAlert()" ng-if="show" data-dismiss="alert"
+               dismiss-on-timeout="2000">
+            <div class="alert alert-success" role="alert">
+                <button type="button" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong class="d-block d-sm-inline-block-force">Well done!</strong> You successfully read this important alert message.
+            </div>
+        </alert>*@
+
+
+    <form name="ItemCategoryForm" required>
+        <div id="modalItemCategory" class="modal fade">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content bd-0 tx-14">
+                    <div class="modal-header pd-y-20 pd-x-25">
+                        <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Item Category</h6>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="form-layout form-layout-5">
+                        <div class="row">
+                            <input type="hidden" name="GroupId" ng-model="CategoryId" />
+                            <label class="col-sm-3 form-control-label"><span class="tx-danger">*</span> Group Name:</label>
+                            <div class="col-sm-9 mg-t-10 mg-sm-t-0">
+                                @*<input type="text" class="form-control" placeholder="Enter GroupName" name="GroupName" ng-model="GroupName" required />*@
+                                <select class="form-control" placeholder="Select GroupName" name="GroupId" ng-model="GroupId" ng-options="option.GroupId as option.GroupName for option in dataItemGroups" required>
+                                    <option value="">--Select Item Group--</option>
+                                    @*<option ng-repeat="dataItemGroup in dataItemGroups" value="{{dataItemGroup.GroupId}}">{{dataItemGroup.GroupName}}</option>*@
+                                </select>
+                                @*<span style="color:red" ng-if="dataItemGroups.indexOf(GroupId)== '--Select Item Group--'">
+                                        Please Select Your Group Name
+                                    </span>*@
+                            <span style="color:red" ng-if="!ItemCategoryForm.GroupId.$valid">
+                                Please Select Your Group Name
+                            </span>
+                                @*<span class="error" ng-show="dataItemGroups.indexOf(GroupName)== 0">Please select a valid entry from the list</span>*@
+                            </div>
+                        </div>
+                        <div class="row mg-t-20">
+                            <label class="col-sm-3 form-control-label"><span class="tx-danger">*</span> Category Name:</label>
+                            <div class="col-sm-9 mg-t-10 mg-sm-t-0">
+                                <input type="text" class="form-control" placeholder="Enter Category Name" name="CategoryName" ng-model="CategoryName" required />
+                                <span style="color:red" ng-if="!ItemCategoryForm.CategoryName.$valid">
+                                    Please Provide Your Category Name
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row mg-t-20">
+                            <label class="col-sm-3 form-control-label"><span class="tx-danger">*</span> Category Desc:</label>
+                            <div class="col-sm-9 mg-t-10 mg-sm-t-0">
+                                <input type="text" class="form-control" placeholder="Enter CategoryDesc" name="CategoryDesc" ng-model="CategoryDesc" rows="2" required />
+                                <span style="color:red" ng-if="!ItemCategoryForm.CategoryDesc.$valid">
+                                    Please Provide Your Category Desc
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row mg-t-20">
+                            <label class="col-sm-3 form-control-label"> Category Image:</label>
+                            <div class="col-sm-9 mg-t-10 mg-sm-t-0">
+                                <input type="file" id="flCategoryImage" class="form-control" name="CategoryImage" file-model="CategoryImage" />
+                            </div>
+                        </div>
+                        <!-- row -->
+                        <div class="row mg-t-30">
+                            <div class="col-sm-8 mg-l-auto">
+                                <div class="form-layout-footer">
+                                    <button class="btn btn-info" type="button" id="btnSaveItemCategory" data-loading-text="Loading..." ng-disabled="ItemCategoryForm.$invalid" ng-click="SaveItemCategory()">Save</button>
+                                    <button class="btn btn-secondary" data-dismiss="modal" ng-click="resetAll();">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="br-pagetitle">
+        <div>
+            <h4>ITEM CATEGORY DATATABLE </h4>
+            <p class="mg-b-0">Searching, Ordering and Paging goodness will be immediately added to the table.</p>
+        </div>
+        <div class="selected">
+            <button class="btn btn-info modal-effect" data-effect="effect-newspaper" ng-click="resetAll();">Add Item Category</button>
+        </div>
+    </div>
+
+    <div class="br-pagebody">
+        <input type="text" ng-model="search" class="textBoxForSearch textBoxForSearchs form-control" placeholder="Click Here For Search....">
+        <div class="table-responsive">
+            <table class="table table-bordered table-colored table-dark">
+                <thead>
+                    <tr>
+                        <th class="wd-15p">Group Name</th>
+                        <th class="wd-15p">Category Name</th>
+                        <th class="wd-20p">Description</th>
+                        <th class="wd-15p">Category Image</th>
+                        <th class="wd-10p">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr dir-paginate="dataItemCategory in dataItemCategories |orderBy:sortKey:reverse|filter:search|itemsPerPage:5">
+                        <td>{{dataItemCategory.GroupName}}</td>
+                        <td>{{dataItemCategory.CategoryName}}</td>
+                        <td>{{dataItemCategory.CategoryDesc}}</td>
+                        <td><img src="~/UploadImages/{{dataItemCategory.CategoryImage}}" height="50" width="50" /></td>
+                        <td>
+                            <button class="btn btn-info btn-circle" ng-click="EditItemCategory(dataItemCategory)"><i class="fa fa-pencil-alt"></i></button>
+                            <button class="btn btn-danger btn-circle" ng-click="DeleteItemCategory(dataItemCategory.CategoryId)"><i class="fa fa-trash-alt"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+
+            <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
+            </dir-pagination-controls>
+
+
+
+        </div>
+
+    </div>
+</div>
