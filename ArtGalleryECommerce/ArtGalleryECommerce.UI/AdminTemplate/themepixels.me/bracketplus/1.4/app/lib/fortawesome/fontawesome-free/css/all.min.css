@@ -5267,7 +5267,7 @@
     font-style: normal;
     font-weight: 400;
     src: url(http://themepixels.me/bracketplus/1.4/app/lib/@fortawesome/fontawesome-free/webfonts/fa-regular-400.eot);
-    src: url(http://themepixels.me/bracketplus/1.4/app/lib/@fortawesome/fontawesome-free/webfonts/fa-regular-400.eot?#iefix) format("embedded-opentype"),url(http://themepixels.me/bracketplus/1.4/app/lib/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff2) format("woff2"),url(http://themepixels.me/bracketplus/1.4/app/lib/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff) format("woff"),url(http://themepixels.me/bracketplus/1.4/app/lib/@fortawesome/fontawesome-free/webfonts/fa-regular-400.ttf) format("truetype"),url(http://themepixels.me/bracketplus/1.4/app/lib/@fortawesome/fontawesome-free/webfonts/fa-regular-400.svg#fontawesome) format("svg")
+    src: url(http://themepixels.me/bracketplus/1.4/app/lib/@fortawesome/fontawesome-free/webfonts/fa-regular-400.eot?#iefix) format("embedded-opentype"),url(../webfonts/fa-regular-400.woff2) format("woff2"),url(../webfonts/fa-brands-400.woff) format("woff"),url(../webfonts/fa-regular-400.ttf) format("truetype"),url(http://themepixels.me/bracketplus/1.4/app/lib/@fortawesome/fontawesome-free/webfonts/fa-regular-400.svg#fontawesome) format("svg")
 }
 
 .far {
