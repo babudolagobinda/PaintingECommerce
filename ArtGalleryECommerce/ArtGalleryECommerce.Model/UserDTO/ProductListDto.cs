@@ -8,6 +8,10 @@ namespace ArtGalleryECommerce.Model.UserDTO
 {
     public class ProductListDto
     {
+        public int GroupId { get; set; }
+        public string GroupName { get; set; }
+        public int CategoryId { get; set; }
+        public string CategoryName { get; set; }
         public int ItemId { get; set; }
         public string ItemName { get; set; }
         public string ItemDesc { get; set; }

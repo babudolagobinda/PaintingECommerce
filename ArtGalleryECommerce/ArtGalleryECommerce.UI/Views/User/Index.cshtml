@@ -18,38 +18,39 @@
                     </ol>
 
                     <div class="carousel-inner">
-                        <div class="item">
-                            <div class="col-sm-6">
-                                <h1><span>Painting</span></h1>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                                <button type="button" class="btn btn-default get">Get it now</button>
-                            </div>
-                            <div class="col-sm-5 banner-img">
-                                <img src="~/UserTemplate/img/banner01.jpg" class="img-responsive" alt="">
-                            </div>
-                        </div>
-                        <div class="item active">
-                            <div class="col-sm-6">
-                                <h1><span>Painting</span></h1>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                                <button type="button" class="btn btn-default get">Get it now</button>
-                            </div>
-                            <div class="col-sm-5 banner-img">
-                                <img src="~/UserTemplate/img/banner02.jpg" class="img-responsive" alt="">
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <div class="col-sm-6">
-                                <h1><span>Painting</span></h1>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                                <button type="button" class="btn btn-default get">Get it now</button>
-                            </div>
-                            <div class="col-sm-5 banner-img">
-                                <img src="~/UserTemplate/img/banner03.jpg" class="img-responsive" alt="">
-                            </div>
-                        </div>
-
+                        @{
+                            var counter = 0;
+                            foreach (var item in ViewBag.MainBanners)
+                            {
+                                if (counter == 0)
+                                {
+                                    counter++;
+                                    <div class="item active">
+                                        <div class="col-sm-6">
+                                            <h1><span>@item.BannerName</span></h1>
+                                            <p>@item.BannerDesc. </p>
+                                            <button type="button" class="btn btn-default get">Get it now</button>
+                                        </div>
+                                        <div class="col-sm-5 banner-img">
+                                            <img src="~/UploadImages/@item.BannerImage" class="img-responsive" alt="">
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="item">
+                                        <div class="col-sm-6">
+                                            <h1><span>@item.BannerName</span></h1>
+                                            <p>@item.BannerDesc. </p>
+                                            <button type="button" class="btn btn-default get">Get it now</button>
+                                        </div>
+                                        <div class="col-sm-5 banner-img">
+                                            <img src="~/UploadImages/@item.BannerImage" class="img-responsive" alt="">
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
                     </div>
 
                     <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
@@ -59,7 +60,6 @@
                         <i class="fa fa-angle-right"></i>
                     </a>
                 </div>
-
             </div>
         </div>
     </div>
@@ -92,21 +92,21 @@
             <!-- Product Single -->
             @foreach (var item in ViewBag.LatestProduct)
             {
-                <div class="col-md-3 col-sm-6 col-xs-6">
+                <div class="col-md-3 col-sm-6 col-xs-6 items">
 
                     <div class="product product-single">
                         <div class="product-thumb">
                             <div class="product-label"> <span>New</span> <span class="sale">-20%</span> </div>
-                            <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
+                            <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> <a href="@Url.Action("ProductDetails","User")?itemId=@item.ItemId"> Quick view</a></button>
                             <img src="~/UploadImages/@item.ItemImage" alt="">
                         </div>
                         <div class="product-body">
-                            <h3 class="product-price">Rs.@item.Price</h3>
+                            <h3 class="product-price">Rs. @item.Price</h3>
                             <div class="product-rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o empty"></i> </div>
                             <h2 class="product-name"><a href="#">@item.ItemName</a></h2>
                             <div class="product-btns">
                                 <button class="main-btn icon-btn"><i class="fa fa-heart"></i> </button>
-                                <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+                                <button class="primary-btn add-to-cart" data-pid="@item.ItemId"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
                             </div>
                         </div>
                     </div>
@@ -209,3 +209,83 @@
     <!-- /container -->
 </div>
 <!-- /section -->
+
+<script>
+    $(document).ready(function () {
+        $('.add-to-cart').on('click', function () {
+            debugger;
+            var par = $(this).data('pid');
+            if (AddToCart(par)) {
+                var cart = $('.shopping-cart');
+                var imgtodrag = $(this).closest('.items').find("img").eq(0);
+                if (imgtodrag) {
+                    var imgclone = imgtodrag.clone()
+                        .offset({
+                            top: imgtodrag.offset().top,
+                            left: imgtodrag.offset().left
+                        })
+                        .css({
+                            'opacity': '0.5',
+                            'position': 'absolute',
+                            'height': '150px',
+                            'width': '150px',
+                            'z-index': '100'
+                        })
+                        .appendTo($('body'))
+                        .animate({
+                            'top': cart.offset().top + 10,
+                            'left': cart.offset().left + 10,
+                            'width': 75,
+                            'height': 75
+                        }, 1000, 'easeInOutExpo');
+
+                    setTimeout(function () {
+                        cart.effect("shake", {
+                            times: 2
+                        }, 200);
+                    }, 1500);
+
+                    imgclone.animate({
+                        'width': 0,
+                        'height': 0
+                    }, function () {
+                        $(this).detach()
+                    });
+                }
+            }
+
+        });
+    })
+</script>
+<script>
+    function AddToCart(par) {
+        debugger;
+
+        if (!localStorage.getItem("itemsArray")) {
+            localStorage.setItem("itemsArray", "[]");
+        }
+        //var oldItems = JSON.parse(localStorage.getItem("itemsArray"));
+        var oldItems = JSON.parse(localStorage.getItem('itemsArray')) || [];
+
+        //var newItem = {
+        //    'ItemId': par,
+        //};
+        var exist = false;
+        for (var i = 0; i < oldItems.length; i++)
+            if (oldItems[i] == par) {
+                exist = true;
+                break;
+            }
+        if (!exist) {
+            oldItems.push(par);
+            exist = true;
+        }
+        else {
+            alert("Only You Can Add One Painting per Piece");
+            exist = false;
+        }
+        localStorage.setItem("itemsArray", JSON.stringify(oldItems));
+        $("#spnQuantity").text(oldItems.length);
+        return exist;
+    }
+</script>

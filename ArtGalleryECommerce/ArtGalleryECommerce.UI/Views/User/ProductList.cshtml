@@ -1,9 +1,8 @@
-﻿
+﻿@model IEnumerable<ArtGalleryECommerce.Model.UserDTO.ProductListDto>
 @{
     ViewBag.Title = "ProductList";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
-
 
 <!-- BREADCRUMB -->
 <div id="breadcrumb">
@@ -21,42 +20,46 @@
     <div class="container">
         <!-- row -->
         <div class="row">
+
             <!-- ASIDE -->
             <div id="aside" class="col-md-3">
 
                 <!-- aside widget -->
-                <div class="aside">
+                <div class="aside" id="divItemGroupFilter">
                     <h3 class="aside-title">Type of Paintings</h3>
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" value="">
-                            Oil Painting
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" value="">
-                            Sketch Painting
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" value="">
-                            Art Painting
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" value="">
-                            Illustration Painting
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" value="">
-                            Character Painting
-                        </label>
-                    </div>
+                    @foreach (var item in ViewBag.ItemGroups)
+                    {
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" value="@item.GroupId" name="@item.GroupId">
+                                @item.GroupName
+                            </label>
+                        </div>
+                    }
+                    @*<div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" value="">
+                                Sketch Painting
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" value="">
+                                Art Painting
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" value="">
+                                Illustration Painting
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input" value="">
+                                Character Painting
+                            </label>
+                        </div>*@
                 </div>
                 <!-- aside widget -->
                 <!-- aside widget -->
@@ -207,147 +210,165 @@
                     </div>
                 </div>
                 <!-- /store top filter -->
-                <!-- STORE -->
-                <div id="store">
-                    <!-- row -->
-                    <div class="row">
-                        <!-- Product Single -->
-                        <div class="col-md-4 col-sm-6 col-xs-6">
-                            <div class="product product-single">
-                                <div class="product-thumb">
-                                    <div class="product-label"> <span>New</span> <span class="sale">-20%</span> </div>
-                                    <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-                                    <img src="~/UserTemplate/img/product01.jpg" alt="">
-                                </div>
-                                <div class="product-body">
-                                    <h3 class="product-price">Rs. 3222.50 <del class="product-old-price">Rs. 4445.00</del></h3>
-                                    <div class="product-rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o empty"></i> </div>
-                                    <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                    <div class="product-btns">
-                                        <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-                                        <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /Product Single -->
-                        <!-- Product Single -->
-                        <div class="col-md-4 col-sm-6 col-xs-6">
-                            <div class="product product-single">
-                                <div class="product-thumb">
-                                    <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-                                    <img src="~/UserTemplate/img/product02.jpg" alt="">
-                                </div>
-                                <div class="product-body">
-                                    <h3 class="product-price">Rs. 3222.50</h3>
-                                    <div class="product-rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o empty"></i> </div>
-                                    <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                    <div class="product-btns">
-                                        <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-                                        <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /Product Single -->
-
-                        <div class="clearfix visible-sm visible-xs"></div>
-
-                        <!-- Product Single -->
-                        <div class="col-md-4 col-sm-6 col-xs-6">
-                            <div class="product product-single">
-                                <div class="product-thumb">
-                                    <div class="product-label"> <span>New</span> <span class="sale">-20%</span> </div>
-                                    <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-                                    <img src="~/UserTemplate/img/product03.jpg" alt="">
-                                </div>
-                                <div class="product-body">
-                                    <h3 class="product-price">Rs. 3222.50 <del class="product-old-price">Rs. 4445.00</del></h3>
-                                    <div class="product-rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o empty"></i> </div>
-                                    <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                    <div class="product-btns">
-                                        <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-                                        <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /Product Single -->
-
-                        <div class="clearfix visible-md visible-lg"></div>
-
-                        <!-- Product Single -->
-                        <div class="col-md-4 col-sm-6 col-xs-6">
-                            <div class="product product-single">
-                                <div class="product-thumb">
-                                    <div class="product-label"> <span>New</span> </div>
-                                    <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-                                    <img src="~/UserTemplate/img/product04.jpg" alt="">
-                                </div>
-                                <div class="product-body">
-                                    <h3 class="product-price">Rs. 4445.00</h3>
-                                    <div class="product-rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o empty"></i> </div>
-                                    <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                    <div class="product-btns">
-                                        <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-                                        <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /Product Single -->
-
-                        <div class="clearfix visible-sm visible-xs"></div>
-
-                        <!-- Product Single -->
-                        <div class="col-md-4 col-sm-6 col-xs-6">
-                            <div class="product product-single">
-                                <div class="product-thumb">
-                                    <div class="product-label"> <span>New</span> </div>
-                                    <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-                                    <img src="~/UserTemplate/img/product02.jpg" alt="">
-                                </div>
-                                <div class="product-body">
-                                    <h3 class="product-price">Rs. 4445.00</h3>
-                                    <div class="product-rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o empty"></i> </div>
-                                    <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                    <div class="product-btns">
-                                        <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-                                        <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /Product Single -->
-                        <!-- Product Single -->
-                        <div class="col-md-4 col-sm-6 col-xs-6">
-                            <div class="product product-single">
-                                <div class="product-thumb">
-                                    <div class="product-label"> <span>New</span> <span class="sale">-20%</span> </div>
-                                    <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-                                    <img src="~/UserTemplate/img/product01.jpg" alt="">
-                                </div>
-                                <div class="product-body">
-                                    <h3 class="product-price">Rs. 3222.50 <del class="product-old-price">Rs. 4445.00</del></h3>
-                                    <div class="product-rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o empty"></i> </div>
-                                    <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                    <div class="product-btns">
-                                        <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-                                        <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /Product Single -->
-                    </div>
-                    <!-- /row -->
+                <div id="divProductListItem">
+                    @Html.Partial("_PartialProductList")
                 </div>
-                <!-- /STORE -->
+
+
             </div>
             <!-- /MAIN -->
+
         </div>
         <!-- /row -->
     </div>
     <!-- /container -->
 </div>
 <!-- /section -->
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.add-to-cart2').on('click', function () {
+            debugger;
+            //Scroll to top if cart icon is hidden on top
+            $('html, body').animate({
+                'scrollTop': $(".shopping-cart").position().top
+            });
+            //Select item image and pass to the function
+            //var itemImg = $(this).parent().find('img').eq(0);
+            var itemImg = $(this).closest('.items').find('img').eq(0);
+            flyToElement($(itemImg), $('.shopping-cart'));
+        });
+    });
+    function flyToElement(flyer, flyingTo) {
+        var $func = $(this);
+        var divider = 3;
+        var flyerClone = $(flyer).clone();
+        $(flyerClone).css({ position: 'absolute', top: $(flyer).offset().top + "px", left: $(flyer).offset().left + "px", opacity: 1, 'z-index': 1000 });
+        $('body').append($(flyerClone));
+        var gotoX = $(flyingTo).offset().left + ($(flyingTo).width() / 2) - ($(flyer).width() / divider) / 2;
+        var gotoY = $(flyingTo).offset().top + ($(flyingTo).height() / 2) - ($(flyer).height() / divider) / 2;
+
+        $(flyerClone).animate({
+            opacity: 0.4,
+            left: gotoX,
+            top: gotoY,
+            width: $(flyer).width() / divider,
+            height: $(flyer).height() / divider
+        }, 700,
+            function () {
+                $(flyingTo).fadeOut('fast', function () {
+                    $(flyingTo).fadeIn('fast', function () {
+                        $(flyerClone).fadeOut('fast', function () {
+                            $(flyerClone).remove();
+                        });
+                    });
+                });
+            });
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        $('.add-to-cart').on('click', function () {
+            debugger;
+            var par = $(this).data('pid');
+            if (AddToCart(par)) {
+                var cart = $('.shopping-cart');
+                var imgtodrag = $(this).closest('.items').find("img").eq(0);
+                if (imgtodrag) {
+                    var imgclone = imgtodrag.clone()
+                        .offset({
+                            top: imgtodrag.offset().top,
+                            left: imgtodrag.offset().left
+                        })
+                        .css({
+                            'opacity': '0.5',
+                            'position': 'absolute',
+                            'height': '150px',
+                            'width': '150px',
+                            'z-index': '100'
+                        })
+                        .appendTo($('body'))
+                        .animate({
+                            'top': cart.offset().top + 10,
+                            'left': cart.offset().left + 10,
+                            'width': 75,
+                            'height': 75
+                        }, 1000, 'easeInOutExpo');
+
+                    setTimeout(function () {
+                        cart.effect("shake", {
+                            times: 2
+                        }, 200);
+                    }, 1500);
+
+                    imgclone.animate({
+                        'width': 0,
+                        'height': 0
+                    }, function () {
+                        $(this).detach()
+                    });
+                }
+            }
+
+        });
+    })
+</script>
+<script>
+    function AddToCart(par) {
+        debugger;
+
+        if (!localStorage.getItem("itemsArray")) {
+            localStorage.setItem("itemsArray", "[]");
+        }
+        //var oldItems = JSON.parse(localStorage.getItem("itemsArray"));
+        var oldItems = JSON.parse(localStorage.getItem('itemsArray')) || [];
+
+        //var newItem = {
+        //    'ItemId': par,
+        //};
+        var exist = false;
+        for (var i = 0; i < oldItems.length; i++)
+            if (oldItems[i] == par) {
+                exist = true;
+                break;
+            }
+        if (!exist) {
+            oldItems.push(par);
+            exist = true;
+        }
+        else {
+            alert("Only You Can Add One Painting per Piece");
+            exist = false;
+        }
+        localStorage.setItem("itemsArray", JSON.stringify(oldItems));
+        $("#spnQuantity").text(oldItems.length);
+        return exist;
+    }
+</script>
+<script type="text/javascript">
+    function updateTextArea() {
+        debugger;
+        var allVals = [];
+        $('#divItemGroupFilter :checked').each(function () {
+            allVals.push(parseInt($(this).val()));
+        });
+        if (allVals.length > 0) {
+            $.ajax({
+                url: '/User/ProductList',
+                type: 'POST',
+                cache: false,
+                data: { lstFilter: allVals },
+            }).done(function (result) {
+                $('#divProductListItem').html(result);
+            });
+        }
+        else {
+
+        }
+    }
+    $(function () {
+        $('#divItemGroupFilter input').click(updateTextArea);
+        updateTextArea();
+    });
+
+</script>

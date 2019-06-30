@@ -1,0 +1,62 @@
+﻿@model IEnumerable<ArtGalleryECommerce.Model.UserDTO.ProductListDto>
+@{
+    ViewBag.Title = "MyCart";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+<div id="divMyCart">
+    @Html.Partial("_PartialMyCart")
+</div>
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        debugger;
+        var oldItems = JSON.parse(localStorage.getItem('itemsArray')) || [];
+        if (oldItems.length > 0) {
+            $.ajax({
+                url: '/User/MyCart',
+                type: 'POST',
+                cache: false,
+                data: { cartItems: oldItems },
+            }).done(function (result) {
+                debugger;
+                $('#divMyCart').html(result);
+            });
+        }
+    });
+</script>
+<script>
+    function RemoveItem(par) {
+        debugger;
+        const oldItems = JSON.parse(localStorage.getItem('itemsArray')) || [];
+        const valuesToRemove = [par]
+        const removedItems = oldItems.filter(item => !valuesToRemove.includes(item));
+        if (removedItems.length <= 0) {
+            $.ajax({
+                url: '/User/MyCart',
+                type: 'POST',
+                cache: false,
+                data: { cartItems: 0 },
+            }).done(function (result) {
+                $('#divMyCart').html(result);
+            });
+        }
+        else {
+            $.ajax({
+                url: '/User/MyCart',
+                type: 'POST',
+                cache: false,
+                data: { cartItems: removedItems },
+            }).done(function (result) {
+                $('#divMyCart').html(result);
+            });
+        }
+        localStorage.setItem("itemsArray", JSON.stringify(removedItems));
+        $("#spnQuantity").text(removedItems.length);
+
+    }
+</script>

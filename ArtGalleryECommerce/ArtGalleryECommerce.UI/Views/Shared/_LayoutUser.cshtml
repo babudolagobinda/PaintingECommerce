@@ -16,6 +16,9 @@
     <link type="text/css" rel="stylesheet" href="~/UserTemplate/css/nouislider.min.css" />
     <link rel="stylesheet" href="~/UserTemplate/css/font-awesome.min.css">
     <link type="text/css" rel="stylesheet" href="~/UserTemplate/css/style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script>
+
 </head>
 <body>
     <!-- HEADER -->
@@ -25,7 +28,7 @@
             <div class="container">
                 <div class="pull-left">
                     <!-- Logo -->
-                    <div class="header-logo"> <a class="logo" href="#"> COMPANY LOGO </a> </div>
+                    <div class="header-logo"> <a class="logo" href="#"> <img src="../fonts/logo.jpg" /> </a> </div>
                     <!-- /Logo -->
                     <!-- Search -->
                     <div class="header-search"> </div>
@@ -49,37 +52,12 @@
                         <!-- /Account -->
                         <!-- Cart -->
                         <li class="header-cart dropdown default-dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                <div class="header-btns-icon"> <i class="fa fa-shopping-cart"></i> <span class="qty">3</span> </div>
-                                <strong class="text-uppercase">My Cart:</strong> <br>
-                                <span>35.20$</span>
+                            <a class="dropdown-toggle" aria-expanded="true" href="@Url.Action("MyCart","User")">
+                                <div class="header-btns-icon"> <i class="fa fa-shopping-cart shopping-cart"></i> <span class="qty" id="spnQuantity">0</span> </div>
+                                <strong class="text-uppercase">My Bag</strong> <br>
+                                
                             </a>
-                            <div class="custom-menu">
-                                <div id="shopping-cart">
-                                    <div class="shopping-cart-list">
-                                        <div class="product product-widget">
-                                            <div class="product-thumb"> <img src="img/thumb-product01.jpg" alt=""> </div>
-                                            <div class="product-body">
-                                                <h3 class="product-price">$32.50 <span class="qty">x3</span></h3>
-                                                <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                            </div>
-                                            <button class="cancel-btn"><i class="fa fa-trash"></i></button>
-                                        </div>
-                                        <div class="product product-widget">
-                                            <div class="product-thumb"> <img src="img/thumb-product01.jpg" alt=""> </div>
-                                            <div class="product-body">
-                                                <h3 class="product-price">$32.50 <span class="qty">x3</span></h3>
-                                                <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                                            </div>
-                                            <button class="cancel-btn"><i class="fa fa-trash"></i></button>
-                                        </div>
-                                    </div>
-                                    <div class="shopping-cart-btns">
-                                        <button class="main-btn">View Cart</button>
-                                        <button class="primary-btn">Checkout <i class="fa fa-arrow-circle-right"></i></button>
-                                    </div>
-                                </div>
-                            </div>
+                            
                         </li>
                         <!-- /Cart -->
                         <!-- Mobile nav toggle-->
@@ -127,7 +105,7 @@
 
                                                 <ul class="list-links">
                                                     <li>
-                                                        <a href="@Url.Action("ProductList","User")?groupId=@item.GroupId"><h3 class="list-links-title">@item.GroupName</h3></a>
+                                                        <a href="@Url.Action("ProductList","User")?groupId=@item.GroupId&&categoryId=0"><h3 class="list-links-title">@item.GroupName</h3></a>
                                                     </li>
                                                     @{
                                                         List<ItemCategoryDto> lstItemCategoryDto = new List<ItemCategoryDto>();
@@ -150,7 +128,7 @@
                                                     }
                                                     @foreach (var itemCategory in ViewBag.ItemCategories)
                                                     {
-                                                        <li><a href="#">@itemCategory.CategoryName</a></li>
+                                                        <li><a href="@Url.Action("ProductList","User")?groupId=@item.GroupId&&categoryId=@itemCategory.CategoryId">@itemCategory.CategoryName</a></li>
                                                     }
                                                     @*<li><a href="#">Painting01</a></li>
                                                         <li><a href="#">Painting02</a></li>
@@ -290,11 +268,19 @@
     </footer>
     <!-- /FOOTER -->
 
-    <script src="~/UserTemplate/js/jquery.min.js"></script>
+    @*<script src="~/UserTemplate/js/jquery.min.js"></script>*@
     <script src="~/UserTemplate/js/bootstrap.min.js"></script>
     <script src="~/UserTemplate/js/slick.min.js"></script>
     <script src="~/UserTemplate/js/nouislider.min.js"></script>
     <script src="~/UserTemplate/js/jquery.zoom.min.js"></script>
     <script src="~/UserTemplate/js/main.js"></script>
-</body>
+    <script>
+        $(document).ready(function () {
+            debugger;
+            //localStorage.removeItem('itemsArray');
+            var oldItems = JSON.parse(localStorage.getItem('itemsArray')) || [];
+            $("#spnQuantity").text(oldItems.length);
+        })
+    </script>
+    </body>
 </html>

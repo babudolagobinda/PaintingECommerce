@@ -46,6 +46,7 @@
     <Compile Include="AdminDTO\ItemDetailsDto.cs" />
     <Compile Include="AdminDTO\ItemGroupDto.cs" />
     <Compile Include="AdminDTO\ItemMasterDto.cs" />
+    <Compile Include="AdminDTO\MainBannerDto.cs" />
     <Compile Include="AdminDTO\StockMasterDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserDTO\ProductListDto.cs" />

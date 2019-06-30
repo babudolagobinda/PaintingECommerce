@@ -421,5 +421,95 @@ namespace ArtGalleryECommerce.UI.Controllers
             int i = stockMasterDal.DeleteStockMaster(StockId);
             return Json(i, JsonRequestBehavior.AllowGet);
         }
+        [Authorize(Roles = "Admin")]
+        [UserAuthenticationFilter]
+        public ActionResult MainBanner()
+        {
+            ViewBag.AdminDetails = TempData["AdminDetails"];
+            TempData.Keep();
+            return View();
+        }
+        [HttpPost]
+        public ActionResult SaveMainBanner()
+        {
+            try
+            {
+                MainBannerDal mainBannerDal = new MainBannerDal();
+                MainBannerDto mainBannerDto = new MainBannerDto();
+                mainBannerDto.BannerId = Convert.ToInt32(System.Web.HttpContext.Current.Request["BannerId"] == "" ? "0" : System.Web.HttpContext.Current.Request["BannerId"]);
+                string Message, fileName, actualFileName;
+                Message = fileName = actualFileName = string.Empty;
+                if (Request.Files.Count > 0)
+                {
+                    var fileContent = Request.Files[0];
+                    if (fileContent != null && fileContent.ContentLength > 0)
+                    {
+                        actualFileName = fileContent.FileName;
+                        fileName = Guid.NewGuid() + Path.GetExtension(fileContent.FileName);
+                        using (Bitmap bmp = new Bitmap(fileContent.InputStream, false))
+                        {
+                            using (Graphics grp = Graphics.FromImage(bmp))
+                            {
+                                string filePath = Server.MapPath(Url.Content("~/fonts/watermark.png"));
+                                Image logoImage = Image.FromFile(filePath);
+                                Image TargetImg = Image.FromStream(fileContent.InputStream);
+                                RectangleF rectf = grp.VisibleClipBounds;
+                                var destX = (TargetImg.Width - logoImage.Width) - 30;
+                                var destY = (TargetImg.Height - logoImage.Height) - 30;
+                                float cxImage = grp.DpiX * logoImage.Width /
+                                                logoImage.HorizontalResolution;
+                                float cyImage = grp.DpiY * logoImage.Height /
+                                                                   logoImage.VerticalResolution;
+                                grp.DrawImage(logoImage, (rectf.Width - cxImage) / 2,
+                                    (rectf.Height - cyImage) / 2);
+                                // grp.DrawImage(logoImage, new Point(TargetImg.Width - logoImage.Width - 10, 10));
+                                bmp.Save(Path.Combine(Server.MapPath("~/UploadImages/"), fileName));
+                            }
+                        }
+                        mainBannerDto.BannerImage = fileName;
+                    }
+                }
+                else
+                {
+                    fileName = "";
+                    if (mainBannerDto.BannerId > 0)
+                    {
+                        dynamic imgFile = mainBannerDal.GetAllMainBanner(mainBannerDto.BannerId, 1);
+                        mainBannerDto.BannerImage = Convert.ToString(imgFile[0].BannerImage);
+                    }
+                    else
+                    {
+                        mainBannerDto.BannerImage = fileName;
+                    }
+                }
+                mainBannerDto.ItemId = Convert.ToInt32(System.Web.HttpContext.Current.Request["ItemId"]);
+                mainBannerDto.BannerName = System.Web.HttpContext.Current.Request["BannerName"];
+                mainBannerDto.BannerDesc = System.Web.HttpContext.Current.Request["BannerDesc"];
+                mainBannerDto.CreatedBy = Convert.ToInt32(Session["AdminId"]);
+                mainBannerDto.ModifiedBy = Convert.ToInt32(Session["AdminId"]);
+                mainBannerDto.IsActive = 1;
+
+                int i = mainBannerDal.SaveAndUpdateMainBanner(mainBannerDto);
+                return Json(i, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        [HttpPost]
+        public ActionResult GetAllMainBanner()
+        {
+            MainBannerDal mainBannerDal = new MainBannerDal();
+            List<MainBannerDto> lstMainBannerDto = mainBannerDal.GetAllMainBanner(0, 1);
+            return Json(lstMainBannerDto, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult DeleteMainBanner(int BannerId)
+        {
+            MainBannerDal mainBannerDal = new MainBannerDal();
+            int i = mainBannerDal.DeleteMainBanner(BannerId);
+            return Json(i, JsonRequestBehavior.AllowGet);
+        }
     }
 }

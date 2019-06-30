@@ -1827,6 +1827,70 @@ textarea.input {
 .right {
     right: 0;
 }
+h2.title {
+    color: #FE980F;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 15px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.contact-info p {
+    margin-bottom: 0;
+    color: #696763;
+    font-size: 16px;
+    line-height: 25px;
+}
+
+.box.box-primary {
+    border-top-color: #3c8dbc;
+}
+
+.profile-user-img {
+    margin: 0 auto;
+    width: 160px;
+    padding: 3px;
+    border: 3px solid #d2d6de;
+}
+
+.profile-username {
+    font-size: 21px;
+    margin-top: 5px;
+}
+
+/* login */
+
+.login-page, .register-page {
+    background: #d2d6de;
+}
+
+.login-box, .register-box {
+    width: 360px;
+    margin: 7% auto;
+}
+
+.login-logo, .register-logo {
+    font-size: 35px;
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 300;
+}
+
+.login-box-body, .register-box-body {
+    background: #fff;
+    padding: 20px;
+    border-top: 0;
+    color: #666;
+}
+
+.login-box-msg, .register-box-msg {
+    margin: 0;
+    text-align: center;
+    padding: 0 20px 20px 20px;
+}
 /*
 .category-products {
   border: 1px solid #F7F7F0;

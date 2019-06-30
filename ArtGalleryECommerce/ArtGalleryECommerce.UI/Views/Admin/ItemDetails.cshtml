@@ -134,7 +134,7 @@
                         <div class="row mg-t-20">
                             <label class="col-sm-3 form-control-label"> Mrp:</label>
                             <div class="col-sm-9 mg-t-10 mg-sm-t-0">
-                                <input type="text" class="form-control" placeholder="Enter Mrp" name="Mrp" ng-model="Mrp" valid-number required />
+                                <input type="text" class="form-control" placeholder="Enter Mrp" name="Mrp" ng-model="Mrp" valid-number required ng-change="CalculatePrice();" />
                                 <span style="color:red" ng-if="!ItemDetailsForm.Mrp.$valid">
                                     Please Provide Your Mrp
                                 </span>
@@ -143,7 +143,7 @@
                         <div class="row mg-t-20">
                             <label class="col-sm-3 form-control-label"> Discount:</label>
                             <div class="col-sm-9 mg-t-10 mg-sm-t-0">
-                                <input type="text" class="form-control" placeholder="Enter Discount" name="Discount" ng-model="Discount" valid-number required />
+                                <input type="text" class="form-control" placeholder="Enter Discount" name="Discount" ng-model="Discount" valid-number required ng-change="CalculatePrice();" />
                                 <span style="color:red" ng-if="!ItemDetailsForm.Discount.$valid">
                                     Please Provide Your Discount
                                 </span>
