@@ -56,8 +56,10 @@
                 <div class="col-md-6">
                     <div class="product-body">
                         <div class="product-label">
-                            <span>New</span>
-                            <span class="sale">@ViewBag.ItemDetails.Discount %</span>
+                            @if (@ViewBag.ItemDetails.Discount != 0)
+                            {<span class="sale">@ViewBag.ItemDetails.Discount %</span>}
+                        @*<span>New</span>
+    <span class="sale">@ViewBag.ItemDetails.Discount %</span>*@
                         </div>
                         <h2 class="product-name">@ViewBag.ItemDetails.ItemName</h2>
                         <h3 class="product-price">Rs. @ViewBag.ItemDetails.Price <del class="product-old-price">Rs. @ViewBag.ItemDetails.Mrp</del></h3>
@@ -86,7 +88,7 @@
                         <div class="product-btns">
                             <div class="qty-input">
                                 <span class="text-uppercase">QTY: </span>
-                                <input class="input" type="text" value="1">
+                                <input class="input" type="text" value="1" readonly>
                             </div>
                             <button class="primary-btn add-to-cart"  data-pid="@ViewBag.ItemDetails.ItemId"><i class="fa fa-shopping-cart add-to-cart"></i> Add to Cart</button>
                             <div class="pull-right">

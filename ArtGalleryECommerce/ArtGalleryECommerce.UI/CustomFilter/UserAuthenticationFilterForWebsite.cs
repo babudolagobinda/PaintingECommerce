@@ -26,11 +26,18 @@ namespace ArtGalleryECommerce.UI.CustomFilter
         {
             if (filterContext.Result == null || filterContext.Result is HttpUnauthorizedResult)
             {
+                if(HttpContext.Current.Request.UrlReferrer!=null)
+                {
+                    string returnUrl = HttpContext.Current.Request.UrlReferrer.ToString();
+                    filterContext.HttpContext.Session["returnUrl"] = returnUrl;
+                }
+                
                 filterContext.Result = new ViewResult
                 {
                     ViewName = "UserLogin"
                 };
             }
+           
         }
     }
 }

@@ -50,6 +50,8 @@
     <Compile Include="AdminDTO\StockMasterDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserDTO\ProductListDto.cs" />
+    <Compile Include="UserDTO\UserAddressDto.cs" />
+    <Compile Include="UserDTO\UserSignUpDto.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

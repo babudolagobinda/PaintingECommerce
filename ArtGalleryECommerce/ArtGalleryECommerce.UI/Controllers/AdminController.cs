@@ -7,8 +7,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using ArtGalleryECommerce.Model.AdminDTO;
+using ArtGalleryECommerce.Model.UserDTO;
 using ArtGalleryECommerce.Dal.Repository;
 using ArtGalleryECommerce.Dal.Admin;
+using ArtGalleryECommerce.Dal.User;
 using ArtGalleryECommerce.UI.Models;
 using ArtGalleryECommerce.UI.CustomFilter;
 using System.Web.Security;
@@ -509,6 +511,28 @@ namespace ArtGalleryECommerce.UI.Controllers
         {
             MainBannerDal mainBannerDal = new MainBannerDal();
             int i = mainBannerDal.DeleteMainBanner(BannerId);
+            return Json(i, JsonRequestBehavior.AllowGet);
+        }
+        [Authorize(Roles = "Admin")]
+        [UserAuthenticationFilter]
+        public ActionResult ManageUser()
+        {
+            ViewBag.AdminDetails = TempData["AdminDetails"];
+            TempData.Keep();
+            return View();
+        }
+        [HttpPost]
+        public ActionResult GetAllUserList()
+        {
+            UserSignUpDal userSignUpDal = new UserSignUpDal();
+            List<UserSignUpDto> lstUserSignUpDto = userSignUpDal.GetAllUserList();
+            return Json(lstUserSignUpDto, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult UpdateIsActiveUser(int UserId,int IsActive)
+        {
+            UserSignUpDal userSignUpDal = new UserSignUpDal();
+            int i = userSignUpDal.UpdateIsActiveUser(UserId, IsActive);
             return Json(i, JsonRequestBehavior.AllowGet);
         }
     }

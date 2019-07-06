@@ -46,6 +46,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -152,6 +155,9 @@
     </Compile>
     <Compile Include="Models\AdminLoginModel.cs" />
     <Compile Include="Models\ItemGroupModel.cs" />
+    <Compile Include="Models\UserAddressModel.cs" />
+    <Compile Include="Models\UserLoginModel.cs" />
+    <Compile Include="Models\UserSignUpModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -348,14 +354,22 @@
     <Content Include="CustomScripts\ItemGroup.js" />
     <Content Include="CustomScripts\ItemMaster.js" />
     <Content Include="CustomScripts\MainBanner.js" />
+    <Content Include="CustomScripts\ManageUser.js" />
     <Content Include="CustomScripts\StockMaster.js" />
+    <Content Include="CustomScripts\UserSignUp.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\emptyBag.gif" />
     <Content Include="fonts\emptybag2.gif" />
     <Content Include="fonts\giphy.gif" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\logo-web %281%29.gif" />
+    <Content Include="fonts\logo-web %282%29.gif" />
+    <Content Include="fonts\logo-web.png" />
     <Content Include="fonts\logo.jpg" />
+    <Content Include="fonts\logo.png" />
     <Content Include="fonts\logo2.png" />
+    <Content Include="fonts\Preloader_8.gif" />
+    <Content Include="fonts\Ripple-1s-200px.gif" />
     <Content Include="fonts\watermark1.png" />
     <Content Include="fonts\watermark.png" />
     <Content Include="fonts\watermark_logo.png" />
@@ -534,6 +548,9 @@
     <Content Include="Views\Shared\_PartialProductList.cshtml" />
     <Content Include="Views\User\UserCheckOut.cshtml" />
     <Content Include="Views\User\UserLogin.cshtml" />
+    <Content Include="Views\User\UserRegister.cshtml" />
+    <Content Include="Views\User\MyProfile.cshtml" />
+    <Content Include="Views\Admin\ManageUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -14,4 +14,3 @@ C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommer
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Model\obj\Debug\ArtGalleryECommerce.Model.csproj.CoreCompileInputs.cache
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Model\obj\Debug\ArtGalleryECommerce.Model.dll
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Model\obj\Debug\ArtGalleryECommerce.Model.pdb
-C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Model\obj\Debug\ArtGalleryECommerce.Model.csprojAssemblyReference.cache

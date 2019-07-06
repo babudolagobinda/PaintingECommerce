@@ -37,10 +37,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @{decimal total = 0;}
+                                    @{decimal total = 0;
+                                        var currencySymbol = "";}
                                     @if (Model != null)
                                     {
-
                                         foreach (var item in Model)
                                         {
                                             if (item.ItemId > 0)
@@ -56,8 +56,34 @@
                                                         </ul>
                                                     </td>
                                                     <td class="price text-center">
-                                                        <strong>Rs. @item.Price</strong><br>
-                                                        <del class="font-weak"><small>Rs. @item.Mrp</small></del>
+                                                        <strong>
+                                                            @*Rs. @item.Price*@
+                                                            @{
+
+                                                                if (Session["currency"] != null)
+                                                                {
+                                                                    if (Session["currency"].ToString() == "INR")
+                                                                    {
+                                                                        currencySymbol = "Rs.";
+                                                                    }
+                                                                    else if (Session["currency"].ToString() == "USD")
+                                                                    {
+                                                                        currencySymbol = "$";
+                                                                    }
+                                                                    else if (Session["currency"].ToString() == "EUR")
+                                                                    {
+                                                                        currencySymbol = "€";
+                                                                    }
+
+                                                                }
+                                                                else
+                                                                {
+                                                                    currencySymbol = "Rs.";
+                                                                }
+                                                                @currencySymbol @item.Price
+                                                            }
+                                                        </strong><br>
+                                                        @*<del class="font-weak"><small>Rs. @item.Mrp</small></del>*@
                                                     </td>
                                                     <td class="qty text-center"><input class="input" type="text" readonly value="1"></td>
                                                     <td class="total text-center"><strong class="primary-color">  @item.Price</strong></td>
@@ -69,25 +95,52 @@
                                     }
                                 </tbody>
                                 <tfoot>
-                                    <tr>
-                                        <th class="empty" colspan="3"></th>
-                                        <th>SUBTOTAL</th>
-                                        <th colspan="2" class="sub-total">Rs. @total</th>
-                                    </tr>
-                                    <tr>
-                                        <th class="empty" colspan="3"></th>
-                                        <th>SHIPING</th>
-                                        <td colspan="2">Free Shipping</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="empty" colspan="3"></th>
-                                        <th>TOTAL</th>
-                                        <th colspan="2" class="total">Rs. @total</th>
-                                    </tr>
+                                    @{
+
+                                        if (Session["currency"] != null)
+                                        {
+                                            if (Session["currency"].ToString() == "INR")
+                                            {
+                                                currencySymbol = "₹";
+                                            }
+                                            else if (Session["currency"].ToString() == "USD")
+                                            {
+                                                currencySymbol = "$";
+                                            }
+                                            else if (Session["currency"].ToString() == "EUR")
+                                            {
+                                                currencySymbol = "€";
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            currencySymbol = "₹";
+                                        }
+
+                                        <tr>
+                                            <th class="empty" colspan="3"></th>
+                                            <th>SUBTOTAL</th>
+                                            <th colspan="2" class="sub-total">
+                                                @currencySymbol @total
+
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th class="empty" colspan="3"></th>
+                                            <th>SHIPING</th>
+                                            <td colspan="2">Free Shipping</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="empty" colspan="3"></th>
+                                            <th>TOTAL</th>
+                                            <th colspan="2" class="total"> @currencySymbol @total</th>
+                                        </tr>Session["TotalPrice"]= total;
+                                    }
                                 </tfoot>
                             </table>
                             <div class="pull-right">
-                                <button class="primary-btn"><a href="@Url.Action("UserCheckOut","User")">Checkout</a></button>
+                                <a class="primary-btn" href="@Url.Action("UserCheckOut","User")">Checkout</a>
                             </div>
                         </div>
                     </div>
@@ -107,34 +160,14 @@
                         <div class="col-sm-12 offset-sm-1 text-center">
                             <img src="~/fonts/emptyBag2.gif" height="300" width="300" />
                             <h3>Hey, it feels so light!</h3>
-                            <h5>There is nothing in your bag. Let's add some items. <a href="#nav-main" class="btn btn-secondary-outline btn-sm" role="button">↓</a></h5>
-                            @*<div class="info-form">
-                                    <form action="" class="form-inline justify-content-center">
-                                        <div class="form-group">
-                                            <label class="sr-only">Name</label>
-                                            <input type="text" class="form-control" placeholder="Jane Doe">
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="sr-only">Email</label>
-                                            <input type="text" class="form-control" placeholder="jane.doe@example.com">
-                                        </div>
-                                        <button type="submit" class="btn btn-success ">okay, go!</button>
-                                    </form>
-                                </div>*@
-                            @*<div class="info-form">
-                                <h3>Hey, it feels so light!</h3>
-                                <h5>There is nothing in your bag. Let's add some items.</h5>
-                            </div>*@
+                            <h5>There is nothing in your bag. Let's add some items. <a href="@Url.Action("Index","User")" class="btn btn-secondary-outline btn-sm" role="button">↓</a></h5>
                             <br>
-
-                           
                         </div>
                     </div>
                 </div>
             </div>
         </section>
     }
-
 }
 
 

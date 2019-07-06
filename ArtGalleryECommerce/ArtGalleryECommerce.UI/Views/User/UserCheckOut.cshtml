@@ -1,8 +1,243 @@
-﻿
+﻿@model ArtGalleryECommerce.UI.Models.UserAddressModel
 @{
     ViewBag.Title = "UserCheckOut";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
+<script>
+    function EditUserAdress(par) {
+        $.ajax({
+            type: 'POST',
+            dataType: 'JSON',
+            url: '/User/EditUserAddress',
+            data: { AddressId: par },
+            success: function (res) {
+                $("#AddressId").val(res.AddressId);
+                $("#UserId").val(res.UserId);
+                $("#Name").val(res.Name);
+                $("#MobileNo").val(res.MobileNo);
+                $("#Pincode").val(res.Pincode);
+                $("#Address").val(res.Address);
+                $("#Locality").val(res.Locality);
+                $("#City").val(res.City);
+                $("#State").val(res.State);
+                $("#Country").val(res.Country);
+            }
+        })
+    }
+    function resetUserAddress() {
+        debugger;
+        $("#AddressId").val('');
+        $("#UserId").val('');
+        $("#Name").val('');
+        $("#MobileNo").val('');
+        $("#Pincode").val('');
+        $("#Address").val('');
+        $("#Locality").val('');
+        $("#City").val('');
+        $("#State").val('');
+        $("#Country").val('');
+        $("#msgName").text('');
+        $("#msgMobileNo").text('');
+        $("#msgPincode").text('');
+        $("#msgAddress").text('');
+        $("#msgLocality").text('');
+        $("#msgCity").text('');
+        $("#msgState").text('');
+        $("#msgCountry").text('');
+    }
+</script>
+<!-- BREADCRUMB -->
+<div id="breadcrumb">
+    <div class="container">
+        <ul class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li class="active">Checkout</li>
+        </ul>
+    </div>
+</div>
+<!-- /BREADCRUMB -->
+<!-- section -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <form id="checkout-form" class="clearfix" action="UserCheckOut" method="post">
+                <div class="col-md-6">
+                    <div class="billing-details">
+                        @*<p>Already a customer ? <a href="#">Login</a></p>*@
+                        <div class="section-title">
+                            <h3 class="title">Billing Details</h3>
+                        </div>
+                        <div class="form-group">
+                            @*<input class="input" type="text" name="Name" placeholder="Name">*@
+                            @Html.HiddenFor(u => u.AddressId, new { @id = "AddressId" })
+                            @Html.HiddenFor(u => u.UserId, new { @id = "UserId" })
+                            @Html.TextBoxFor(u => u.Name, new { id = "Name", @class = "input", @placeholder = "Name" })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { id = "msgName", @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @*<input class="input" type="text" name="MobileNo" placeholder="Mobile No">*@
+                            @Html.TextBoxFor(u => u.MobileNo, new { id = "MobileNo", @class = "input", @placeholder = "Mobile No" })
+                            @Html.ValidationMessageFor(model => model.MobileNo, "", new { id = "msgMobileNo", @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @*<input class="input" type="text" name="Pincode" placeholder="Pin Code">*@
+                            @Html.TextBoxFor(u => u.Pincode, new { id = "Pincode", @class = "input", @placeholder = "Pincode" })
+                            @Html.ValidationMessageFor(model => model.Pincode, "", new { id = "msgPincode", @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @*<input class="input" type="email" name="Address" placeholder="Address(House No,Building,Street,Area)">*@
+                            @Html.TextBoxFor(u => u.Address, new { id = "Address", @class = "input", @placeholder = "Address(House No,Building,Street,Area)" })
+                            @Html.ValidationMessageFor(model => model.Address, "", new { id = "msgAddress", @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @*<input class="input" type="text" name="Locality" placeholder="Locality/Town">*@
+                            @Html.TextBoxFor(u => u.Locality, new { id = "Locality", @class = "input", @placeholder = "Locality/Town" })
+                            @Html.ValidationMessageFor(model => model.Locality, "", new { id = "msgLocality", @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @*<input class="input" type="text" name="City" placeholder="City/District">*@
+                            @Html.TextBoxFor(u => u.City, new { id = "City", @class = "input", @placeholder = "City/District" })
+                            @Html.ValidationMessageFor(model => model.City, "", new { id = "msgCity", @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @*<input class="input" type="text" name="State" placeholder="State">*@
+                            @Html.TextBoxFor(u => u.State, new { id = "State", @class = "input", @placeholder = "State" })
+                            @Html.ValidationMessageFor(model => model.State, "", new { id = "msgState", @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @*<input class="input" type="text" name="Country" placeholder="Country">*@
+                            @Html.TextBoxFor(u => u.Country, new { id = "Country", @class = "input", @placeholder = "Country" })
+                            @Html.ValidationMessageFor(model => model.Country, "", new { id = "msgCountry", @class = "text-danger" })
+                        </div>
+                        @*<div class="form-group">
+                                <div class="input-checkbox">
+                                    <button type="submit" class="main-btn pull-right">CANCEL</button>
+                                    <button type="submit" class="primary-btn pull-right">SAVE</button>
+                                </div>
+                            </div>*@
 
-<h2>UserCheckOut</h2>
+                        <div class="col-md-12">
+                            <div class="order-summary clearfix">
+                                <div class="pull-right">
+                                    <button type="button" onclick="resetUserAddress();" class="main-btn">CANCEL</button>
+                                    <button type="submit" class="primary-btn">SAVE</button>
+                                </div>
+                                @if (ViewBag.successText != null || ViewBag.successText != "")
+                                {
+                                    <div class="tx-info tx-12 d-block mg-t-10 text-success">@ViewBag.successText</div>
+                                }
+                                @if (ViewBag.failureText != null || ViewBag.failureText != "")
+                                {
+                                    <div class="tx-info tx-12 d-block mg-t-10 text-danger">@ViewBag.failureText</div>
+                                }
+                            </div>
+                        </div>
 
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="shiping-methods">
+                        <div class="section-title">
+                            <h4 class="title">Select Delivery Address</h4>
+                        </div>
+                        @if (ViewBag.UserAddress != null)
+                        {
+
+                            foreach (var item in ViewBag.UserAddress)
+                            {
+
+                                <div class="input-checkbox">
+                                    <input type="radio" name="shipping" id="rbShipping">
+                                    <label for="shipping-1"><h4>@item.Name</h4></label>
+                                    <div class="caption">
+                                        <p>
+                                            @item.Address,<br />
+                                            @item.Locality,<br />
+                                            @item.City - @item.Pincode,<br />
+                                            @item.State,@item.Country<br />
+                                            Mobile No- @item.MobileNo<br />
+                                            @*Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.*@
+                                            <button type="button" class="main-btn pull-right" onclick="DeleteUserAdress(@item.AddressId);">Remove</button>&nbsp;
+                                            <button type="button" class="main-btn pull-right" onclick="EditUserAdress(@item.AddressId);">Edit</button>
+                                        </p>
+
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <div class="shiping-methods">
+                        <div class="section-title">
+                            <h4 class="title">Shiping Methods</h4>
+                        </div>
+                        <div class="input-checkbox">
+                            @*<input type="radio" name="shipping" id="shipping-1" checked>*@
+                            <label for="shipping-1">Free Shiping -  ₹ 0.00</label>
+                        </div>
+                        @*<div class="input-checkbox">
+                                <input type="radio" name="shipping" id="shipping-2">
+                                <label for="shipping-2">Standard - Rs.40.00</label>
+                            </div>*@
+                    </div>
+                    <div class="shiping-methods">
+                        <div class="section-title">
+                            <h4 class="title">Price Details</h4>
+                        </div>
+                        <div class="input-checkbox">
+                            @*<input type="radio" name="shipping" id="shipping-1" checked>*@
+                            <div class="section-title">
+                                <h5 class="title">Total</h5> -
+                                <span>
+                                    @{
+                                        var currencySymbol = "";
+                                        if (Session["currency"] != null)
+                                        {
+                                            if (Session["currency"].ToString() == "INR")
+                                            {
+                                                currencySymbol = "₹";
+                                            }
+                                            else if (Session["currency"].ToString() == "USD")
+                                            {
+                                                currencySymbol = "$";
+                                            }
+                                            else if (Session["currency"].ToString() == "EUR")
+                                            {
+                                                currencySymbol = "€";
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            currencySymbol = "₹";
+                                        }
+                                        @currencySymbol @Session["TotalPrice"]
+                                    }
+
+                                </span>
+                            </div>
+                        </div>
+
+                        @*<div class="input-checkbox">
+                                <input type="radio" name="shipping" id="shipping-2">
+                                <label for="shipping-2">Standard - Rs.40.00</label>
+                            </div>*@
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="order-summary clearfix">
+                        <div class="pull-right">
+                            <button class="main-btn">Go To Shopping</button>
+                            <button class="primary-btn">Payment</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /section -->

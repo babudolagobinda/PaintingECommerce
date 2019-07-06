@@ -21,7 +21,32 @@
                                 @{
                                     var price = item.Price;
                                 }
-                                <h3 class="product-price">Rs. @item.Price</h3>
+                                <h3 class="product-price">
+                                    @{
+                                        var currencySymbol = "";
+                                        if (Session["currency"] != null)
+                                        {
+                                            if (Session["currency"].ToString() == "INR")
+                                            {
+                                                currencySymbol = "₹";
+                                            }
+                                            else if (Session["currency"].ToString() == "USD")
+                                            {
+                                                currencySymbol = "$";
+                                            }
+                                            else if (Session["currency"].ToString() == "EUR")
+                                            {
+                                                currencySymbol = "€";
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            currencySymbol = "₹";
+                                        }
+                                        @currencySymbol @item.Price
+                                    }
+                                </h3>
                                 <div class="product-rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o empty"></i> </div>
                                 <h2 class="product-name"><a href="#">@item.ItemName</a></h2>
                                 <div class="product-btns">
