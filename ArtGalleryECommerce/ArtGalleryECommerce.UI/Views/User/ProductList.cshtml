@@ -371,4 +371,43 @@
         updateTextArea();
     });
 
+
+    function AddToWishList(par) {
+        $.ajax({
+            type: 'POST',
+            dataType: 'JSON',
+            url: '/User/AddToWishList',
+            data: { ItemId: par },
+            success: function (res) {
+                debugger;
+                if (res == null || res == "") {
+                    alert('You can add to wishlist after Login');
+                    window.location.href = '/User/UserLogin';
+                }
+                else {
+                    if (!localStorage.getItem("wishListArray")) {
+                        localStorage.setItem("wishListArray", "[]");
+                    }
+                    var oldItems = JSON.parse(localStorage.getItem('wishListArray')) || [];
+                    var exist = false;
+                    for (var i = 0; i < oldItems.length; i++)
+                        if (oldItems[i] == par) {
+                            exist = true;
+                            break;
+                        }
+                    if (!exist) {
+                        oldItems.push(par);
+                        exist = true;
+                        alert('You added to WishList');
+                    }
+                    else {
+                        alert("Only You Can Add One Painting per Piece in WishList");
+                        exist = false;
+                    }
+                    localStorage.setItem("wishListArray", JSON.stringify(oldItems));
+                    return exist;
+                }
+            }
+        })
+    }
 </script>

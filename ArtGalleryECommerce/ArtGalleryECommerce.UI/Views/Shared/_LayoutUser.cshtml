@@ -8,7 +8,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Paintings</title>
+    <title>Chandni Creative Art</title>
+    <link rel="icon" href="~/fonts/logo-web.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
     <link href="~/UserTemplate/css/bootstrap.min.css" rel="stylesheet" />
     <link type="text/css" rel="stylesheet" href="~/UserTemplate/css/slick.css" />
@@ -19,9 +20,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script>
     <script type="text/javascript">
+        var prevCurrencyValue = "";
         $(document).ready(function () {
             debugger;
+
+            prevCurrencyValue = $("#ddlCurrency").val();
             var curr = $("#hdnCurrency").val();
+            var prevCurr = $("#hdnPrevCurrency").val();
             if (curr != "") {
                 $("select#ddlCurrency option").filter(function () {
                     return $(this).val() == curr;
@@ -29,15 +34,18 @@
             }
         })
         function CurrencyConverter(selectedValue) {
+            debugger;
+            var previousCurrency = prevCurrencyValue;
             if (selectedValue != null) {
                 $.ajax({
                     type: 'POST',
                     dataType: 'JSON',
-                    data: { currency: selectedValue },
+                    data: { currency: selectedValue, prevCurrency: previousCurrency },
                     url: '/User/CurrencyPriceConverter',
                     success: function (res) {
                         debugger;
-                        $("#hdnCurrency").val(res);
+                        $("#hdnCurrency").val(res[0]);
+                        $("#hdnPrevCurrency").val(res[1]);
                         window.location.reload();
                     }
                 })
@@ -48,7 +56,7 @@
         $(window).load(function () {
             $('.loader').fadeOut();
         });
-       
+
     </script>
 </head>
 <body>
@@ -64,13 +72,6 @@
         <div id="header">
             <div class="container-fluid">
                 <div class="pull-left">
-                    <ul class="pull-left">
-                        <!-- Mobile nav toggle-->
-                        <li class="nav-toggle">
-                            <button class="nav-toggle-btn main-btn icon-btn"><i class="fa fa-bars"></i></button>
-                        </li>
-                        <!-- / Mobile nav toggle -->
-                    </ul>
                     <!-- Logo -->
                     <div class="header-logo">
                         <a class="logo" href="@Url.Action("Index", "User")">
@@ -86,31 +87,27 @@
                                 <ul class="menu-list">
                                     <li><a class="active" href="@Url.Action("Index", "User")">Home</a></li>
                                     @*<li class="dropdown default-dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Paintings <i class="fa fa-caret-down"></i></a>
-                                            <ul class="custom-menu">
-                                                <li><a href="#">Painting01</a></li>
-                                                <li><a href="#">Painting02</a></li>
-                                                <li><a href="#">Painting03</a></li>
-                                                <li><a href="#">Painting04</a></li>
-                                            </ul>
+                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Paintings <i class="fa fa-caret-down"></i></a>
+                                             <ul class="custom-menu">
+                                                 <li><a href="#">Painting01</a></li>
+                                                 <li><a href="#">Painting02</a></li>
+                                                 <li><a href="#">Painting03</a></li>
+                                                 <li><a href="#">Painting04</a></li>
+                                             </ul>
                                         </li>*@
-                                    <li class="dropdown mega-dropdown full-width">
+                                    <li class="dropdown mega-dropdown">
                                         @*<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Category <i class="fa fa-caret-down"></i></a>*@
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" aria-expanded="true">Shop By Category <i class="fa fa-caret-down"></i></a>
                                         <div class="custom-menu">
                                             <div class="row">
-
                                                 @{
                                                     if (ViewBag.ItemGroups != null)
                                                     {
                                                         foreach (var item in ViewBag.ItemGroups)
                                                         {
-                                                            <div class="col-md-2">
-
+                                                            <div class="col-md-4">
+                                                                <a href="@Url.Action("ProductList","User")?groupId=@item.GroupId&&categoryId=0"><h3 class="list-links-title">@item.GroupName</h3></a>
                                                                 <ul class="list-links">
-                                                                    <li>
-                                                                        <a href="@Url.Action("ProductList","User")?groupId=@item.GroupId&&categoryId=0"><h3 class="list-links-title">@item.GroupName</h3></a>
-                                                                    </li>
                                                                     @{
                                                                         List<ItemCategoryDto> lstItemCategoryDto = new List<ItemCategoryDto>();
                                                                         SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["conn"].ConnectionString);
@@ -139,8 +136,6 @@
                                                         }
                                                     }
                                                 }
-
-
                                             </div>
                                         </div>
                                     </li>
@@ -163,6 +158,7 @@
                                 </select>*@
                             @*@Html.Hidden("hdnCurrency", new { @value = Session["currency"] })*@
                             <input type="hidden" value="@Session["currency"]" id="hdnCurrency" />
+                            <input type="hidden" value="@Session["PrevCurrency"]" id="hdnPrevCurrency" />
                             @Html.DropDownList("Currency",
                            new List<SelectListItem> { new SelectListItem { Text="INR",Value="INR"},
                                                       new SelectListItem { Text="USD",Value="USD"},
@@ -180,7 +176,7 @@
                                 @if (Session["UserId"] == null)
                                 {
                                     <li>
-                                        <a class="btn btn-warning" href="@Url.Action("UserLogin","User")">SignIn <i class="fa fa-sign-in"></i></a>
+                                        <a class="btn btn-warning" href="@Url.Action("UserLogin","User")"><i class="fa fa-sign-in"></i> SignIn </a>
                                         <a class="btn btn-link" href="@Url.Action("UserRegister","User")">SignUp</a>
                                     </li>
                                 }
@@ -190,11 +186,11 @@
                                 }
 
                                 <li><a href="@Url.Action("MyProfile","User")"><i class="fa fa-user-o"></i> My Profile</a></li>
-                                <li><a href="#"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
-                                <li><a href="@Url.Action("MyCart","User")"><i class="fa fa-file-text-o"></i>My Orders</a></li>
+                                <li><a href="@Url.Action("WishList","User")"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
+                                <li><a href="@Url.Action("MyOrders","User")"><i class="fa fa-file-text-o"></i>My Orders</a></li>
                                 @if (Session["UserId"] != null)
                                 {
-                                    <li><a href="@Url.Action("SignOut", "User")"><i class="fa fa-sign-out"></i>Sign Out</a></li>
+                                    <li><a href="@Url.Action("SignOut", "User")"><i class="fa fa-sign-out"></i> Sign Out</a></li>
                                 }
                             </ul>
                         </li>
@@ -204,9 +200,7 @@
                             <a class="dropdown-toggle" aria-expanded="true" href="@Url.Action("MyCart","User")">
                                 <div class="header-btns-icon"> <i class="fa fa-shopping-cart shopping-cart"></i> <span class="qty" id="spnQuantity">0</span> </div>
                                 <strong class="text-uppercase">My Bag</strong> <br>
-
                             </a>
-
                         </li>
                         <li class="nav-toggle">
                             <button class="nav-toggle-btn main-btn icon-btn"><i class="fa fa-bars"></i></button>
@@ -337,14 +331,12 @@
             <!-- /container -->
         </div>*@
     <!-- /NAVIGATION -->
-    <div>
-        @RenderBody()
-    </div>
+    @RenderBody()
 
     <!-- FOOTER -->
     <footer id="footer" class="section section-grey">
         <!-- container -->
-        <div class="container-fluid">
+        <div class="container">
             <!-- row -->
             <div class="row">
                 <!-- footer widget -->
@@ -398,7 +390,7 @@
             <!-- row -->
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 text-center">
-                    <div class="footer"> Copyright &copy; 2019 All rights reserved </div>
+                    <div class="footer"> Copyright © 2019 All rights reserved </div>
                 </div>
             </div>
             <!-- /row -->

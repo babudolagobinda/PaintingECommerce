@@ -23,57 +23,95 @@
         <div class="row">
             <!--  Product Details -->
             <div class="product product-details clearfix items">
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div id="product-main-view">
                         <div class="product-view">
-                            <img src="~/UploadImages/@ViewBag.ItemDetails.ItemImage" alt="">
-                        </div>
-                        <div class="product-view">
-                            <img src="~/UploadImages/@ViewBag.ItemDetails.ItemImage" alt="">
-                        </div>
-                        <div class="product-view">
-                            <img src="~/UploadImages/@ViewBag.ItemDetails.ItemImage" alt="">
-                        </div>
-                        <div class="product-view">
-                            <img src="~/UploadImages/@ViewBag.ItemDetails.ItemImage" alt="">
+                            <img id="myImg" src="~/UploadImages/@ViewBag.ItemDetails.ItemImage" alt="">
                         </div>
                     </div>
-                    <div id="product-view">
-                        <div class="product-view">
-                            <img src="~/UploadImages/@ViewBag.ItemDetails.ItemImage" alt="">
-                        </div>
-                        <div class="product-view">
-                            <img src="~/UploadImages/@ViewBag.ItemDetails.ItemImage" alt="">
-                        </div>
-                        <div class="product-view">
-                            <img src="~/UploadImages/@ViewBag.ItemDetails.ItemImage" alt="">
-                        </div>
-                        <div class="product-view">
-                            <img src="~/UploadImages/@ViewBag.ItemDetails.ItemImage" alt="">
-                        </div>
-                    </div>
+
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-7">
                     <div class="product-body">
                         <div class="product-label">
                             @if (@ViewBag.ItemDetails.Discount != 0)
                             {<span class="sale">@ViewBag.ItemDetails.Discount %</span>}
                         @*<span>New</span>
-    <span class="sale">@ViewBag.ItemDetails.Discount %</span>*@
-                        </div>
+                            <span class="sale">@ViewBag.ItemDetails.Discount %</span>*@
+                        </div><input type="hidden" value="@Session["UserId"]" id="hdnUserId" /><input type="hidden" value="@ViewBag.ItemDetails.ItemId" id="hdnItemId" />
                         <h2 class="product-name">@ViewBag.ItemDetails.ItemName</h2>
-                        <h3 class="product-price">Rs. @ViewBag.ItemDetails.Price <del class="product-old-price">Rs. @ViewBag.ItemDetails.Mrp</del></h3>
+                        @{
+                            var currencySymbol = "";
+                            if (Session["currency"] != null)
+                            {
+                                if (Session["currency"].ToString() == "INR")
+                                {
+                                    currencySymbol = "₹";
+                                }
+                                else if (Session["currency"].ToString() == "USD")
+                                {
+                                    currencySymbol = "$";
+                                }
+                                else if (Session["currency"].ToString() == "EUR")
+                                {
+                                    currencySymbol = "€";
+                                }
+
+                            }
+                            else
+                            {
+                                currencySymbol = "₹";
+                            }
+                            <h3 class="product-price">@currencySymbol @ViewBag.ItemDetails.Price </h3>
+                        }
                         <div>
+
                             <div class="product-rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star-o empty"></i>
+                                @if (ViewBag.AverageRatingPerItem == 0)
+                                {
+                                    <i class="fa fa-star-o empty"></i><i class="fa fa-star-o empty"></i><i class="fa fa-star-o empty"></i><i class="fa fa-star-o empty"></i><i class="fa fa-star-o empty"></i>
+                                }
+                                else if (ViewBag.AverageRatingPerItem == 1)
+                                {
+                                    <i class="fa fa-star"></i><i class="fa fa-star-o empty"></i><i class="fa fa-star-o empty"></i><i class="fa fa-star-o empty"></i><i class="fa fa-star-o empty"></i>
+                                }
+                                else if (ViewBag.AverageRatingPerItem == 2)
+                                {
+                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o empty"></i><i class="fa fa-star-o empty"></i><i class="fa fa-star-o empty"></i>
+                                }
+                                else if (ViewBag.AverageRatingPerItem == 3)
+                                {
+                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o empty"></i><i class="fa fa-star-o empty"></i>
+                                }
+                                else if (ViewBag.AverageRatingPerItem == 4)
+                                {
+                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o empty"></i>
+                                }
+                                else
+                                {
+                                    <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                }
                             </div>
-                            <a href="#">3 Review(s) / Add Review</a>
+
+                            @*<a href="#">3 Review(s) / Add Review</a>*@
+                            <a data-toggle="tab" href="#tab2">@ViewBag.TotalCountRatingPerItem Review(s) / Add Review</a>
                         </div>
-                        <p><strong>Availability:</strong> In Stock</p>
+                        @{
+                            var availability = "";
+                            <p>
+                                <strong>Availability:</strong>
+                                @if (ViewBag.ItemDetails.Quantity > 0)
+                                {
+                                    availability = "In Stock";
+                                }
+                                else
+                                {
+                                    availability = "Out Of Stock";
+                                }
+                                @availability
+
+                            </p>
+                        }
                         <p><strong>Brand:</strong> Painting</p>
                         <p>
                             @ViewBag.ItemDetails.ItemDesc
@@ -86,13 +124,21 @@
                         </div>
 
                         <div class="product-btns">
-                            <div class="qty-input">
-                                <span class="text-uppercase">QTY: </span>
-                                <input class="input" type="text" value="1" readonly>
-                            </div>
-                            <button class="primary-btn add-to-cart"  data-pid="@ViewBag.ItemDetails.ItemId"><i class="fa fa-shopping-cart add-to-cart"></i> Add to Cart</button>
+                            @if (ViewBag.ItemDetails.Quantity > 0)
+                            {
+                                <div class="qty-input">
+                                    <span class="text-uppercase">QTY: </span>
+                                    <input class="input" type="text" value="1" readonly>
+                                </div>
+
+                                <button class="primary-btn add-to-cart" data-pid="@ViewBag.ItemDetails.ItemId"><i class="fa fa-shopping-cart add-to-cart"></i> Add to Cart</button>
+                            }
+                            else
+                            {
+                                <button class="main-btn" disabled data-pid="@ViewBag.ItemDetails.ItemId"><i class="fa fa-truck add-to-cart"></i> Out Of Stock</button>
+                            }
                             <div class="pull-right">
-                                <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button><button class="main-btn icon-btn"><i class="fa fa-share-alt"></i></button>
+                                <button class="main-btn icon-btn" onclick="AddToWishList(@ViewBag.ItemDetails.ItemId);"><i class="fa fa-heart"></i></button><button class="main-btn icon-btn"><i class="fa fa-share-alt"></i></button>
                             </div>
                         </div>
                     </div>
@@ -102,7 +148,7 @@
                         <ul class="tab-nav">
                             <li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
                             <li><a data-toggle="tab" href="#tab1">Details</a></li>
-                            <li><a data-toggle="tab" href="#tab2">Reviews (3)</a></li>
+                            <li><a data-toggle="tab" href="#tab2">Reviews (@ViewBag.TotalCountRatingPerItem)</a></li>
                         </ul>
                         <div class="tab-content">
                             <div id="tab1" class="tab-pane fade in active">
@@ -116,66 +162,47 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="product-reviews">
-                                            <div class="single-review">
-                                                <div class="review-heading">
-                                                    <div><a href="#"><i class="fa fa-user-o"></i> John</a></div>
-                                                    <div><a href="#"><i class="fa fa-clock-o"></i> 27 DEC 2017 / 8:0 PM</a></div>
-                                                    <div class="review-rating pull-right">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star-o empty"></i>
+                                            @foreach (var item in ViewBag.ReviewList)
+                                            {
+                                                <div class="single-review">
+                                                    <div class="review-heading">
+                                                        <div><a href="#"><i class="fa fa-user-o"></i> @item.Name</a></div>
+                                                        <div><a href="#"><i class="fa fa-clock-o"></i> @item.CreatedDate</a></div>
+                                                        <div class="review-rating pull-right">
+                                                            @if (item.Rating == "0")
+                                                            {
+                                                                <i class="fa fa-star-o empty"></i><i class="fa fa-star-o empty"></i><i class="fa fa-star-o empty"></i><i class="fa fa-star-o empty"></i><i class="fa fa-star-o empty"></i>
+                                                            }
+                                                            else if (item.Rating == "1")
+                                                            {
+                                                                <i class="fa fa-star"></i><i class="fa fa-star-o empty"></i><i class="fa fa-star-o empty"></i><i class="fa fa-star-o empty"></i><i class="fa fa-star-o empty"></i>
+                                                            }
+                                                            else if (item.Rating == "2")
+                                                            {
+                                                                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o empty"></i><i class="fa fa-star-o empty"></i><i class="fa fa-star-o empty"></i>
+                                                            }
+                                                            else if (item.Rating == "3")
+                                                            {
+                                                                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o empty"></i><i class="fa fa-star-o empty"></i>
+                                                            }
+                                                            else if (item.Rating == "4")
+                                                            {
+                                                                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o empty"></i>
+                                                            }
+                                                            else
+                                                            {
+                                                                <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                                            }
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="review-body">
+                                                        <p>
+                                                            @item.Review
+                                                        </p>
                                                     </div>
                                                 </div>
-                                                <div class="review-body">
-                                                    <p>
-                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute
-                                                        irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                                    </p>
-                                                </div>
-                                            </div>
-
-                                            <div class="single-review">
-                                                <div class="review-heading">
-                                                    <div><a href="#"><i class="fa fa-user-o"></i> John</a></div>
-                                                    <div><a href="#"><i class="fa fa-clock-o"></i> 27 DEC 2017 / 8:0 PM</a></div>
-                                                    <div class="review-rating pull-right">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star-o empty"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="review-body">
-                                                    <p>
-                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute
-                                                        irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                                    </p>
-                                                </div>
-                                            </div>
-
-                                            <div class="single-review">
-                                                <div class="review-heading">
-                                                    <div><a href="#"><i class="fa fa-user-o"></i> John</a></div>
-                                                    <div><a href="#"><i class="fa fa-clock-o"></i> 27 DEC 2017 / 8:0 PM</a></div>
-                                                    <div class="review-rating pull-right">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star-o empty"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="review-body">
-                                                    <p>
-                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute
-                                                        irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                                                    </p>
-                                                </div>
-                                            </div>
-
+                                            }
                                             <ul class="reviews-pages">
                                                 <li class="active">1</li>
                                                 <li><a href="#">2</a></li>
@@ -186,16 +213,16 @@
                                     </div>
                                     <div class="col-md-6">
                                         <h4 class="text-uppercase">Write Your Review</h4>
-                                        <p>Your email address will not be published.</p>
+                                        @*<p>Your email address will not be published.</p>*@
                                         <form class="review-form">
+                                            @*<div class="form-group">
+                                                    <input class="input" type="text" placeholder="Your Name" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <input class="input" type="email" placeholder="Email Address" />
+                                                </div>*@
                                             <div class="form-group">
-                                                <input class="input" type="text" placeholder="Your Name" />
-                                            </div>
-                                            <div class="form-group">
-                                                <input class="input" type="email" placeholder="Email Address" />
-                                            </div>
-                                            <div class="form-group">
-                                                <textarea class="input" placeholder="Your review"></textarea>
+                                                <textarea class="input" id="txtReview" placeholder="Your Review"></textarea>
                                             </div>
                                             <div class="form-group">
                                                 <div class="input-rating">
@@ -209,7 +236,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <button class="primary-btn">Submit</button>
+                                            <button class="primary-btn" type="button" onclick="SaveUserReview();">Submit</button>
                                         </form>
                                     </div>
                                 </div>
@@ -239,117 +266,63 @@
             </div>
             <!-- section title -->
             <!-- Product Single -->
-            <div class="col-md-3 col-sm-6 col-xs-6">
-                <div class="product product-single">
-                    <div class="product-thumb">
-                        <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-                        <img src="./img/product04.jpg" alt="">
-                    </div>
-                    <div class="product-body">
-                        <h3 class="product-price">Rs. 32.50</h3>
-                        <div class="product-rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o empty"></i>
+            @foreach (var item in ViewBag.OldestProduct)
+            {
+                <div class="col-md-3 col-sm-6 col-xs-6 items">
+
+                    <div class="product product-single">
+                        <div class="product-thumb">
+                            <div class="product-label">
+                                @if (item.Discount != 0)
+                                {<span class="sale">@item.Discount</span>}
+                            </div>
+                            <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> <a href="@Url.Action("ProductDetails", "User")?itemId=@item.ItemId"> Quick view</a></button>
+                            <img src="~/UploadImages/@item.ItemImage" alt="">
                         </div>
-                        <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                        <div class="product-btns">
-                            <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button><button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+                        <div class="product-body">
+                            <h3 class="product-price">
+                                @currencySymbol @item.Price
+                            </h3>
+                            <div class="product-rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o empty"></i> </div>
+                            <h2 class="product-name"><a href="#">@item.ItemName</a></h2>
+                            <div class="product-btns">
+                                <button class="main-btn icon-btn" type="button" onclick="AddToWishList(@item.ItemId);"><i class="fa fa-heart"></i> </button>
+                                @if (item.Quantity > 0)
+                                {
+                                    <button class="primary-btn add-to-cart" data-pid="@item.ItemId"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+                                }
+                                else
+                                {
+                                    <button class="main-btn" disabled data-pid="@item.ItemId"><i class="fa fa-truck add-to-cart"></i> Out Of Stock</button>
+                                }
+                            </div>
+
                         </div>
                     </div>
+
                 </div>
-            </div>
+            }
             <!-- /Product Single -->
-            <!-- Product Single -->
-            <div class="col-md-3 col-sm-6 col-xs-6">
-                <div class="product product-single">
-                    <div class="product-thumb">
-                        <div class="product-label">
-                            <span>New</span>
-                        </div>
-                        <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-                        <img src="./img/product03.jpg" alt="">
-                    </div>
-                    <div class="product-body">
-                        <h3 class="product-price">Rs. 32.50</h3>
-                        <div class="product-rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o empty"></i>
-                        </div>
-                        <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                        <div class="product-btns">
-                            <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button><button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /Product Single -->
-            <!-- Product Single -->
-            <div class="col-md-3 col-sm-6 col-xs-6">
-                <div class="product product-single">
-                    <div class="product-thumb">
-                        <div class="product-label">
-                            <span class="sale">-20%</span>
-                        </div>
-                        <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-                        <img src="./img/product02.jpg" alt="">
-                    </div>
-                    <div class="product-body">
-                        <h3 class="product-price">Rs. 32.50 <del class="product-old-price">Rs. 45.00</del></h3>
-                        <div class="product-rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o empty"></i>
-                        </div>
-                        <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                        <div class="product-btns">
-                            <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button><button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /Product Single -->
-            <!-- Product Single -->
-            <div class="col-md-3 col-sm-6 col-xs-6">
-                <div class="product product-single">
-                    <div class="product-thumb">
-                        <div class="product-label">
-                            <span>New</span>
-                            <span class="sale">-20%</span>
-                        </div>
-                        <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-                        <img src="./img/product01.jpg" alt="">
-                    </div>
-                    <div class="product-body">
-                        <h3 class="product-price">Rs. 32.50 <del class="product-old-price">Rs. 45.00</del></h3>
-                        <div class="product-rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o empty"></i>
-                        </div>
-                        <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                        <div class="product-btns">
-                            <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button><button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /Product Single -->
+
         </div>
         <!-- /row -->
     </div>
     <!-- /container -->
 </div>
 <!-- /section -->
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+    <!-- The Close Button -->
+    <span class="close">&times;</span>
+
+    <!-- Modal Content (The Image) -->
+    <img class="modal-content" id="img01">
+
+    <!-- Modal Caption (Image Text) -->
+    <div id="caption"></div>
+</div>
+
 
 <script>
     $(document).ready(function () {
@@ -430,3 +403,105 @@
         return exist;
     }
 </script>
+
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    var img = document.getElementById("myImg");
+    var modalImg = document.getElementById("img01");
+    var captionText = document.getElementById("caption");
+    img.onclick = function () {
+        modal.style.display = "block";
+        modalImg.src = this.src;
+        captionText.innerHTML = this.alt;
+    }
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+</script>
+<script>
+    function AddToWishList(par) {
+        $.ajax({
+            type: 'POST',
+            dataType: 'JSON',
+            url: '/User/AddToWishList',
+            data: { ItemId: par },
+            success: function (res) {
+                debugger;
+                if (res == null || res == "") {
+                    alert('You can add to wishlist after Login');
+                    window.location.href = '/User/UserLogin';
+                }
+                else {
+                    if (!localStorage.getItem("wishListArray")) {
+                        localStorage.setItem("wishListArray", "[]");
+                    }
+                    var oldItems = JSON.parse(localStorage.getItem('wishListArray')) || [];
+                    var exist = false;
+                    for (var i = 0; i < oldItems.length; i++)
+                        if (oldItems[i] == par) {
+                            exist = true;
+                            break;
+                        }
+                    if (!exist) {
+                        oldItems.push(par);
+                        exist = true;
+                        alert('You added to WishList');
+                    }
+                    else {
+                        alert("Only You Can Add One Painting per Piece in WishList");
+                        exist = false;
+                    }
+                    localStorage.setItem("wishListArray", JSON.stringify(oldItems));
+                    return exist;
+                }
+            }
+        })
+    }
+</script>
+<script>
+    function SaveUserReview() {
+        debugger;
+        var userid = $("#hdnUserId").val();
+        if (userid == "") {
+            alert('Before attempt to give rating,please SignIn..')
+        }
+        else {
+            if ($("#txtReview").val() == "") {
+                alert('Please Write Review.');
+                return false;
+            }
+            else if ($('input[name="rating"]:checked').length == 0) {
+                alert('Please Add Star to give the rating.');
+                return false;
+            }
+            else {
+                var rating = $('input[name="rating"]:checked').val();
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'JSON',
+                    url: '/User/SaveUserReview',
+                    data: { review: $("#txtReview").val(), rating: rating, itemId: parseInt($("#hdnItemId").val()) },
+                    success: function (res) {
+                        if (res > 0) {
+                            alert('You have added Rating Successfully');
+                            window.location.reload();
+                        }
+                        else {
+                            alert('Your Rating has not been Submited.Please try after sometime');
+                        }
+
+                    }
+                })
+            }
+        }
+    }
+</script>
+

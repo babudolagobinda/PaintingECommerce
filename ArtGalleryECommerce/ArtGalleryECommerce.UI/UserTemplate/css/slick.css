@@ -11,23 +11,19 @@
         -ms-user-select: none;
             user-select: none;
 
-    -webkit-touch-callout: none;
-    -khtml-user-select: none;
+    -webkit-touch-callout: none; 
     -ms-touch-action: pan-y;
         touch-action: pan-y;
     -webkit-tap-highlight-color: transparent;
 }
 
-.slick-list
-{
+.slick-list {
     position: relative;
-
     display: block;
     overflow: hidden;
-
     margin: 0;
     padding: 0;
-	height: 250px;
+    height: 410px;
 }
 .slick-list:focus
 {
@@ -35,8 +31,7 @@
 }
 .slick-list.dragging
 {
-    cursor: pointer;
-    cursor: hand;
+    cursor: pointer; 
 }
 
 .slick-slider .slick-track,

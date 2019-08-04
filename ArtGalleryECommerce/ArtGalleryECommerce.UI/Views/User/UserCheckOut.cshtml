@@ -3,7 +3,14 @@
     ViewBag.Title = "UserCheckOut";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 <script>
+    $(document).ready(function () {
+        //$("#ddlCurrency").prop("disabled", true);
+        $("#ddlCurrency").hide();
+    })
+
     function EditUserAdress(par) {
         $.ajax({
             type: 'POST',
@@ -24,8 +31,47 @@
             }
         })
     }
+    function DeleteUserAdress(par) {
+        swal({
+            title: "Are You Sure ?",
+            text: "You Will Not Be Able To Recover This Imaginary File !",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, Delete It !",
+            cancelButtonText: "No, Cancel Plz !",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+            function (isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        type: 'POST',
+                        dataType: 'JSON',
+                        url: '/User/DeleteUserAddress',
+                        data: { addressId: par },
+                        success: function (res) {
+                            if (res > 0) {
+                                swal(
+                                    'Deleted!',
+                                    'Your file has been deleted.',
+                                    'success'
+                                );
+                                window.location.reload();
+                            }
+                            else {
+                                swal("Not Deleted!", "Some Error Has been Occoured.", "error");
+                            }
+                        }
+                    })
+                }
+                else {
+                    swal("Cancelled", "Your imaginary file is safe :)", "error");
+                }
+            });
+    };
+
     function resetUserAddress() {
-        debugger;
         $("#AddressId").val('');
         $("#UserId").val('');
         $("#Name").val('');
@@ -44,6 +90,48 @@
         $("#msgCity").text('');
         $("#msgState").text('');
         $("#msgCountry").text('');
+    }
+    function GotoPaymentMethod() {
+        if ($('input[name="rbShipping"]:checked').length == 0) {
+            alert('Please Add Address.');
+            return false;
+        }
+        else {
+            debugger;
+            var itemId = JSON.parse(localStorage.getItem('itemsArray')) || [];
+            var addressId = $('input[name="rbShipping"]:checked').val();
+            const splitTotalPaidPrice = $("#totalPaidPrice").text().split(" ");
+            var currencySymbol = splitTotalPaidPrice[0];
+            var currencyType = "";
+            if (currencySymbol == "₹") {
+                currencyType = "INR";
+            }
+            else if (currencySymbol == "$") {
+                currencyType = "USD";
+            }
+            else if (currencySymbol == "€") {
+                currencyType = "EUR";
+            }
+
+            var paidPrice = splitTotalPaidPrice[1];
+            var paymentType = "Cash On Delivery";
+            $.ajax({
+                type: 'POST',
+                dataType: 'JSON',
+                url: '/User/SaveUserOrderDetails',
+                data: { ItemId: itemId, AddressId: addressId, CurrencyType: currencyType, PaidPrice: paidPrice, PaymentType: paymentType },
+                success: function (res) {
+                    debugger;
+                    if (res > 0) {
+                        localStorage.removeItem('itemsArray');
+                        window.location.href = '/User/ThankYou';
+                    }
+                    else {
+                        alert('Out Of Stock.Sorry...')
+                    }
+                }
+            })
+        };
     }
 </script>
 <!-- BREADCRUMB -->
@@ -65,59 +153,43 @@
             <form id="checkout-form" class="clearfix" action="UserCheckOut" method="post">
                 <div class="col-md-6">
                     <div class="billing-details">
-                        @*<p>Already a customer ? <a href="#">Login</a></p>*@
                         <div class="section-title">
                             <h3 class="title">Billing Details</h3>
                         </div>
                         <div class="form-group">
-                            @*<input class="input" type="text" name="Name" placeholder="Name">*@
                             @Html.HiddenFor(u => u.AddressId, new { @id = "AddressId" })
                             @Html.HiddenFor(u => u.UserId, new { @id = "UserId" })
                             @Html.TextBoxFor(u => u.Name, new { id = "Name", @class = "input", @placeholder = "Name" })
                             @Html.ValidationMessageFor(model => model.Name, "", new { id = "msgName", @class = "text-danger" })
                         </div>
                         <div class="form-group">
-                            @*<input class="input" type="text" name="MobileNo" placeholder="Mobile No">*@
                             @Html.TextBoxFor(u => u.MobileNo, new { id = "MobileNo", @class = "input", @placeholder = "Mobile No" })
                             @Html.ValidationMessageFor(model => model.MobileNo, "", new { id = "msgMobileNo", @class = "text-danger" })
                         </div>
                         <div class="form-group">
-                            @*<input class="input" type="text" name="Pincode" placeholder="Pin Code">*@
                             @Html.TextBoxFor(u => u.Pincode, new { id = "Pincode", @class = "input", @placeholder = "Pincode" })
                             @Html.ValidationMessageFor(model => model.Pincode, "", new { id = "msgPincode", @class = "text-danger" })
                         </div>
                         <div class="form-group">
-                            @*<input class="input" type="email" name="Address" placeholder="Address(House No,Building,Street,Area)">*@
                             @Html.TextBoxFor(u => u.Address, new { id = "Address", @class = "input", @placeholder = "Address(House No,Building,Street,Area)" })
                             @Html.ValidationMessageFor(model => model.Address, "", new { id = "msgAddress", @class = "text-danger" })
                         </div>
                         <div class="form-group">
-                            @*<input class="input" type="text" name="Locality" placeholder="Locality/Town">*@
                             @Html.TextBoxFor(u => u.Locality, new { id = "Locality", @class = "input", @placeholder = "Locality/Town" })
                             @Html.ValidationMessageFor(model => model.Locality, "", new { id = "msgLocality", @class = "text-danger" })
                         </div>
                         <div class="form-group">
-                            @*<input class="input" type="text" name="City" placeholder="City/District">*@
                             @Html.TextBoxFor(u => u.City, new { id = "City", @class = "input", @placeholder = "City/District" })
                             @Html.ValidationMessageFor(model => model.City, "", new { id = "msgCity", @class = "text-danger" })
                         </div>
                         <div class="form-group">
-                            @*<input class="input" type="text" name="State" placeholder="State">*@
                             @Html.TextBoxFor(u => u.State, new { id = "State", @class = "input", @placeholder = "State" })
                             @Html.ValidationMessageFor(model => model.State, "", new { id = "msgState", @class = "text-danger" })
                         </div>
                         <div class="form-group">
-                            @*<input class="input" type="text" name="Country" placeholder="Country">*@
                             @Html.TextBoxFor(u => u.Country, new { id = "Country", @class = "input", @placeholder = "Country" })
                             @Html.ValidationMessageFor(model => model.Country, "", new { id = "msgCountry", @class = "text-danger" })
                         </div>
-                        @*<div class="form-group">
-                                <div class="input-checkbox">
-                                    <button type="submit" class="main-btn pull-right">CANCEL</button>
-                                    <button type="submit" class="primary-btn pull-right">SAVE</button>
-                                </div>
-                            </div>*@
-
                         <div class="col-md-12">
                             <div class="order-summary clearfix">
                                 <div class="pull-right">
@@ -134,8 +206,6 @@
                                 }
                             </div>
                         </div>
-
-
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -145,12 +215,10 @@
                         </div>
                         @if (ViewBag.UserAddress != null)
                         {
-
                             foreach (var item in ViewBag.UserAddress)
                             {
-
                                 <div class="input-checkbox">
-                                    <input type="radio" name="shipping" id="rbShipping">
+                                    <input type="radio" name="rbShipping" id="rbShipping" value="@item.AddressId">
                                     <label for="shipping-1"><h4>@item.Name</h4></label>
                                     <div class="caption">
                                         <p>
@@ -163,7 +231,6 @@
                                             <button type="button" class="main-btn pull-right" onclick="DeleteUserAdress(@item.AddressId);">Remove</button>&nbsp;
                                             <button type="button" class="main-btn pull-right" onclick="EditUserAdress(@item.AddressId);">Edit</button>
                                         </p>
-
                                     </div>
                                 </div>
                             }
@@ -177,10 +244,6 @@
                             @*<input type="radio" name="shipping" id="shipping-1" checked>*@
                             <label for="shipping-1">Free Shiping -  ₹ 0.00</label>
                         </div>
-                        @*<div class="input-checkbox">
-                                <input type="radio" name="shipping" id="shipping-2">
-                                <label for="shipping-2">Standard - Rs.40.00</label>
-                            </div>*@
                     </div>
                     <div class="shiping-methods">
                         <div class="section-title">
@@ -213,24 +276,19 @@
                                         {
                                             currencySymbol = "₹";
                                         }
-                                        @currencySymbol @Session["TotalPrice"]
+                                        <h5 class="title" id="totalPaidPrice">@currencySymbol @TempData["TotalPrice"]</h5>
                                     }
 
                                 </span>
                             </div>
                         </div>
-
-                        @*<div class="input-checkbox">
-                                <input type="radio" name="shipping" id="shipping-2">
-                                <label for="shipping-2">Standard - Rs.40.00</label>
-                            </div>*@
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="order-summary clearfix">
                         <div class="pull-right">
                             <button class="main-btn">Go To Shopping</button>
-                            <button class="primary-btn">Payment</button>
+                            <button class="primary-btn" type="button" onclick="GotoPaymentMethod();">Payment</button>
                         </div>
                     </div>
                 </div>

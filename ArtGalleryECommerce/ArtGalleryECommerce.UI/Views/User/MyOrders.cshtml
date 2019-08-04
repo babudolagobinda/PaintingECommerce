@@ -1,0 +1,181 @@
+﻿@using System.Data;
+@using System.Data.SqlClient;
+@using ArtGalleryECommerce.Model.UserDTO;
+@{
+    ViewBag.Title = "MyOrders";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<style>
+    .outer {
+        padding: 2em 1em;
+        box-shadow: 5px 5px 5px #d9d9d9;
+    }
+
+    .headerbar {
+        background: #f5f5f5 !important;
+        color: #ffffff !important;
+        position: relative;
+        margin-bottom: 1.5em;
+        margin-right: -2.5em;
+        margin-left: -2.5em;
+        box-shadow: 5px 5px 5px #d9d9d9;
+    }
+
+        .headerbar:before {
+            content: "";
+            position: absolute;
+            border-bottom: 1.5em solid #333;
+            border-left: 1.5em solid transparent;
+            left: 0;
+            top: -1.5em;
+        }
+
+        .headerbar:after {
+            content: "";
+            position: absolute;
+            border-top: 1.5em solid #333;
+            border-right: 1.5em solid transparent;
+            right: 0;
+            bottom: -1.5em;
+        }
+
+        .headerbar:hover {
+            transform: scale(1,1.1);
+        }
+</style>
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+
+<div id="header">
+    <h4 class="text-center" style="padding: 10px 0px; color: #FE980F; "><u>Order History</u></h4>
+</div>
+<div class="container">
+   
+    <div class="row">
+        <div class="panel-body">
+            <h4><b>Account :</b></h4>  @Session["Email"].ToString()
+        </div>
+        <hr />
+    </div>
+    <div class="row">
+        @foreach (var item in ViewBag.ListOfOrderNo)
+        {
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h5><strong>ORDER NUMBER:</strong>@item.OrderNumber</h5>
+                    </div>
+                    <div class="panel-body text-justify">
+                        @{
+                            int UserId = Convert.ToInt32(Session["UserId"].ToString());
+                            SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["conn"].ConnectionString);
+                            List<MyOrdersDetailsResponseDto> lstMyOrdersDetailsResponseDto = new List<MyOrdersDetailsResponseDto>();
+                            SqlCommand cmd = new SqlCommand("GetAllOrderDetailsByOrderNo", con);
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.AddWithValue("@UserId", UserId);
+                            cmd.Parameters.AddWithValue("@OrderNo", @item.OrderNumber);
+                            con.Open();
+                            SqlDataReader dr = cmd.ExecuteReader();
+                            while (dr.Read())
+                            {
+                                MyOrdersDetailsResponseDto myOrdersDetailsResponseDto = new MyOrdersDetailsResponseDto();
+                                myOrdersDetailsResponseDto.GroupId = Convert.ToInt32(dr["GroupId"]);
+                                myOrdersDetailsResponseDto.GroupName = Convert.ToString(dr["GroupName"]);
+                                myOrdersDetailsResponseDto.CategoryId = Convert.ToInt32(dr["CategoryId"]);
+                                myOrdersDetailsResponseDto.CategoryName = Convert.ToString(dr["CategoryName"]);
+                                myOrdersDetailsResponseDto.ItemId = Convert.ToInt32(dr["ItemId"]);
+                                myOrdersDetailsResponseDto.ItemName = Convert.ToString(dr["ItemName"]);
+                                myOrdersDetailsResponseDto.ItemImage = Convert.ToString(dr["ItemImage"]);
+                                myOrdersDetailsResponseDto.Mrp = Convert.ToDecimal(dr["Mrp"]);
+                                myOrdersDetailsResponseDto.Discount = Convert.ToDecimal(dr["Discount"]);
+                                myOrdersDetailsResponseDto.Price = Convert.ToDecimal(dr["Price"]);
+                                myOrdersDetailsResponseDto.Width = Convert.ToInt32(dr["Width"]);
+                                myOrdersDetailsResponseDto.WidthType = Convert.ToString(dr["WidthType"]);
+                                myOrdersDetailsResponseDto.Height = Convert.ToInt32(dr["Height"]);
+                                myOrdersDetailsResponseDto.HeightType = Convert.ToString(dr["HeightType"]);
+                                myOrdersDetailsResponseDto.CurrencyType = Convert.ToString(dr["CurrencyType"]);
+                                myOrdersDetailsResponseDto.Quantity = Convert.ToInt32(dr["Quantity"]);
+                                myOrdersDetailsResponseDto.Status = Convert.ToInt32(dr["Status"]);
+                                myOrdersDetailsResponseDto.OrderId = Convert.ToInt32(dr["OrderId"]);
+                                myOrdersDetailsResponseDto.OrderNumber = Convert.ToString(dr["OrderNumber"]);
+                                myOrdersDetailsResponseDto.OrderDate = Convert.ToString(dr["OrderDate"]);
+                                myOrdersDetailsResponseDto.PaymentDate = Convert.ToString(dr["PaymentDate"]);
+                                myOrdersDetailsResponseDto.PaymentType = Convert.ToString(dr["PaymentType"]);
+                                myOrdersDetailsResponseDto.UserId = Convert.ToInt32(dr["UserId"]);
+                                myOrdersDetailsResponseDto.Name = Convert.ToString(dr["Name"]);
+                                myOrdersDetailsResponseDto.EmailId = Convert.ToString(dr["EmailId"]);
+                                myOrdersDetailsResponseDto.MobileNo = Convert.ToString(dr["MobileNo"]);
+                                lstMyOrdersDetailsResponseDto.Add(myOrdersDetailsResponseDto);
+                            }
+                            con.Close();
+                            //return lstMyOrdersDetailsResponseDto;
+                            ViewBag.ListOfOrderDetailsByOrderNo = lstMyOrdersDetailsResponseDto;
+                        }
+                        @foreach (var orderDetails in ViewBag.ListOfOrderDetailsByOrderNo)
+                        {
+                            var currencySymbol = "";
+                            <div class="panel panel-default outer">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <img src="~/UploadImages/@orderDetails.ItemImage" class="media-object img-thumbnail" height="100" width="100" />
+                                        @*<img src="https://bootdey.com/img/Content/user_2.jpg" class="media-object img-thumbnail">*@
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <span><strong>@orderDetails.ItemName</strong></span><br />
+                                                <span>@orderDetails.GroupName</span>,<span>@orderDetails.CategoryName</span><br />
+                                                Size : @orderDetails.Width @orderDetails.WidthType * @orderDetails.Height @orderDetails.HeightType  | Quantity : @orderDetails.Quantity |
+                                                @if (orderDetails.CurrencyType == "INR")
+                                                {
+                                                    currencySymbol = "₹";
+                                                }
+                                                else if (orderDetails.CurrencyType == "USD")
+                                                {
+                                                    currencySymbol = "$";
+                                                }
+                                                else if (orderDetails.CurrencyType == "EUR")
+                                                {
+                                                    currencySymbol = "€";
+                                                }
+                                                Cost:<b>
+                                                    @currencySymbol
+                                                    @orderDetails.Price
+                                                </b> <br>
+                                            </div>
+                                            <div class="col-md-12">
+                                                Order Made On: @orderDetails.OrderDate by <a href="#">@orderDetails.Name </a>
+                                            </div>
+                                            @if (@orderDetails.Status == 0)
+                                            {
+                                                <div class="col-md-12"><label class="label label-primary">Pending</label> </div>
+                                            }
+                                            else if (@orderDetails.Status == 1)
+                                            {
+                                                <div class="col-md-12"><label class="label label-success">Approve</label> </div>
+                                            }
+                                            else if (@orderDetails.Status == 2)
+                                            {
+                                                <div class="col-md-12"><label class="label label-danger">Rejected</label> </div>
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+<script>
+     $(document).ready(function () {
+        $("#ddlCurrency").hide();
+    })
+</script>
+
+
+

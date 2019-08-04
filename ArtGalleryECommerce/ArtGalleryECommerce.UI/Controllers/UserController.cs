@@ -25,20 +25,13 @@ namespace ArtGalleryECommerce.UI.Controllers
         MainBannerDal mainBannerDal = new MainBannerDal();
         UserHomeDal userHomeDal = new UserHomeDal();
         UserSignUpDal userSignUpDal = new UserSignUpDal();
+        UserReviewDal userReviewDal = new UserReviewDal();
+        UserOrderDetailsDal userOrderDetailsDal = new UserOrderDetailsDal();
         // GET: User
         public ActionResult Index()
         {
-            var currencyValue = Session["currency"];
             List<ProductListDto> lstProductListDto = new List<ProductListDto>();
             List<ProductListDto> lstBottomProductListDto = new List<ProductListDto>();
-            //if (currencyValue != null)
-            //{
-            //    lstProductListDto = userHomeDal.GetTopProductList(currencyValue.ToString());
-            //}
-            //else
-            //{
-            //    lstProductListDto = userHomeDal.GetTopProductList();
-            //}
             lstProductListDto = userHomeDal.GetTopProductList();
             lstBottomProductListDto = userHomeDal.GetBottomProductList();
             List<ItemGroupDto> lstItemGroupDto = itemGroupDal.GetAndEditItemGroup(0, 1);
@@ -84,8 +77,15 @@ namespace ArtGalleryECommerce.UI.Controllers
         {
             ProductListDto lstProductListDto = userHomeDal.GetProductListByItemId(itemId);
             List<ItemGroupDto> lstItemGroupDto = itemGroupDal.GetAndEditItemGroup(0, 1);
+            List<ProductListDto> lstBottomProductListDto = new List<ProductListDto>();
+            lstBottomProductListDto = userHomeDal.GetBottomProductList();
+            List<UserReviewDto> lstUserReviewDto = userReviewDal.GetAllReviewList(itemId);
+            ViewBag.OldestProduct = lstBottomProductListDto;
             ViewBag.ItemGroups = lstItemGroupDto;
             ViewBag.ItemDetails = lstProductListDto;
+            ViewBag.ReviewList = lstUserReviewDto;
+            ViewBag.AverageRatingPerItem = userReviewDal.GetAverageRatingPerItem(itemId);
+            ViewBag.TotalCountRatingPerItem = userReviewDal.GetTotalCountRatingPerItem(itemId);
             return View();
         }
         public ActionResult MyCart()
@@ -134,12 +134,18 @@ namespace ArtGalleryECommerce.UI.Controllers
         [UserAuthenticationFilterForWebsite]
         public ActionResult UserCheckOut()
         {
+            UserHomeDal userHomeDal = new UserHomeDal();
+            dynamic totalValue = TempData["TotalPricetemp"];
+            //dynamic totalValue = Session["TotalPrice"];
+            //dynamic currencySymbol = Session["currency"].ToString();
+            decimal totalPriceValue = userHomeDal.CurrencyConverter(totalValue);
             UserAddressDal userAddressDal = new UserAddressDal();
             List<ItemGroupDto> lstItemGroupDto = itemGroupDal.GetAndEditItemGroup(0, 1);
             ViewBag.ItemGroups = lstItemGroupDto;
             dynamic userId = Session["UserId"];
             List<UserAddressModel> userAddressModel = GetAllUserAddress(userId);
             TempData["UserAddress"] = userAddressModel;
+            TempData["TotalPrice"] = totalValue;
             TempData.Keep();
             ViewBag.UserAddress = userAddressModel;
             return View();
@@ -194,6 +200,14 @@ namespace ArtGalleryECommerce.UI.Controllers
             UserAddressDto userAddressDto = userAddressDal.GetUserAddressByAddressId(addressId, userId, 1);
             return Json(userAddressDto, JsonRequestBehavior.AllowGet);
         }
+        [HttpPost]
+        public ActionResult DeleteUserAddress(int addressId)
+        {
+            dynamic userId = Session["UserId"];
+            UserAddressDal userAddressDal = new UserAddressDal();
+            int i = userAddressDal.DeleteUserddressByUserId(userId, addressId);
+            return Json(i, JsonRequestBehavior.AllowGet);
+        }
         public ActionResult UserLogin()
         {
 
@@ -214,6 +228,7 @@ namespace ArtGalleryECommerce.UI.Controllers
                 {
                     Session["UserId"] = userSignUpDto.UserId;
                     Session["UserName"] = userSignUpDto.Name;
+                    Session["Email"] = userSignUpDto.EmailId;
                     dynamic returnUrl = Session["returnUrl"];
                     if (!String.IsNullOrEmpty(returnUrl))
                         return Redirect(returnUrl);
@@ -283,6 +298,23 @@ namespace ArtGalleryECommerce.UI.Controllers
             // UserSignUpModel userSignUpModel = userSignUpDto.userSignUpDto;
             return View(userSignUpModel);
         }
+        [UserAuthenticationFilterForWebsite]
+        public ActionResult MyOrders()
+        {
+            int userId = Convert.ToInt32(Session["UserId"].ToString());
+            List<MyOrdersDetailsResponseDto> lstOrderNoByUserId = userOrderDetailsDal.GetOrderHistoryByUserId(userId);
+            //List<MyOrdersDetailsResponseDto> lstOfOrderDetailsByOrderNo = new List<MyOrdersDetailsResponseDto>();
+            //List<List<MyOrdersDetailsResponseDto>> lstOfLstOfOrderDetailsByOrderNo = new List<List<MyOrdersDetailsResponseDto>>();
+            //for (int i = 0; i < lstOrderNoByUserId.Count; i++)
+            //{
+            //    lstOfOrderDetailsByOrderNo = userOrderDetailsDal.GetAllOrderDetailsByOrderNo(userId, lstOrderNoByUserId[i].OrderNumber);
+            //    lstOfLstOfOrderDetailsByOrderNo.Add(lstOfOrderDetailsByOrderNo);
+            //}
+            ViewBag.ListOfOrderNo = lstOrderNoByUserId;
+            //ViewBag.ListOfOrderDetailsByOrderNo = lstOfLstOfOrderDetailsByOrderNo;
+            return View();
+        }
+
         [HttpPost]
         public ActionResult MyProfile(UserSignUpModel userSignUpModel)
         {
@@ -320,13 +352,112 @@ namespace ArtGalleryECommerce.UI.Controllers
             Session.Abandon();
             return RedirectToAction("Index", "User");
         }
-        public ActionResult CurrencyPriceConverter(string currency)
+        public ActionResult CurrencyPriceConverter(string currency, string prevCurrency)
         {
             Session["currency"] = currency;
-            var curr = Session["currency"];
-            return Json(curr, JsonRequestBehavior.AllowGet);
-        }
+            Session["PrevCurrency"] = prevCurrency;
+            var curr = Session["currency"].ToString();
+            var prevCurr = Session["PrevCurrency"].ToString();
+            List<string> currencyList = new List<string>();
+            currencyList.Add(curr);
+            currencyList.Add(prevCurr);
 
+            //TempData["currency"] = currency;
+            //TempData.Keep();
+            //var curr = TempData["currency"];
+            return Json(currencyList, JsonRequestBehavior.AllowGet);
+        }
+        [UserAuthenticationFilterForWebsite]
+        public ActionResult WishList()
+        {
+            List<ItemGroupDto> lstItemGroupDto = itemGroupDal.GetAndEditItemGroup(0, 1);
+            ViewBag.ItemGroups = lstItemGroupDto;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult WishList(dynamic ItemId)
+        {
+            List<ItemGroupDto> lstItemGroupDto = itemGroupDal.GetAndEditItemGroup(0, 1);
+            List<ProductListDto> lstProductListDto = new List<ProductListDto>();
+            foreach (var item in ItemId)
+            {
+                if (item != "0")
+                {
+                    ProductListDto ProductListDto = userHomeDal.GetProductListByItemId(int.Parse(item));
+                    lstProductListDto.Add(ProductListDto);
+                }
+            }
+            ViewBag.ItemGroups = lstItemGroupDto;
+            return PartialView("_PartialMyWishList", lstProductListDto);
+        }
+        [HttpPost]
+        public ActionResult AddToWishList(int ItemId)
+        {
+            if (Session["UserId"] == null)
+            {
+                return Json("", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(ItemId, JsonRequestBehavior.AllowGet);
+            }
+
+        }
+        [HttpPost]
+        [UserAuthenticationFilterForWebsite]
+        public ActionResult SaveUserReview(string review, string rating, int itemId)
+        {
+            UserReviewDal userReviewDal = new UserReviewDal();
+            UserReviewDto userReviewDto = new UserReviewDto();
+            userReviewDto.UserId = Convert.ToInt32(Session["UserId"]);
+            userReviewDto.ItemId = itemId;
+            userReviewDto.Review = review;
+            userReviewDto.Rating = rating;
+            userReviewDto.IsActive = 1;
+            int i = userReviewDal.SaveUsersReview(userReviewDto);
+            return Json(i, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult SaveUserOrderDetails(dynamic ItemId, int AddressId, string CurrencyType, decimal PaidPrice, string PaymentType)
+        {
+            UserOrderDetailsDto userOrderDetailsDto = new UserOrderDetailsDto();
+            userOrderDetailsDto.OrderNumber = GenerateOrderNumber();
+            int i = 0;
+            foreach (var item in ItemId)
+            {
+
+                userOrderDetailsDto.UserId = Convert.ToInt32(Session["UserId"]);
+                userOrderDetailsDto.ItemId = Convert.ToInt32(item);
+                userOrderDetailsDto.AddressId = AddressId;
+                ProductListDto productListDto = userHomeDal.GetProductListByItemId(Convert.ToInt32(item));
+                userOrderDetailsDto.Mrp = productListDto.Mrp;
+                userOrderDetailsDto.Discount = productListDto.Discount;
+                userOrderDetailsDto.Price = productListDto.Price;
+                userOrderDetailsDto.CurrencyType = CurrencyType;
+                userOrderDetailsDto.Quantity = 1;
+                userOrderDetailsDto.TotalAmount = PaidPrice;
+                userOrderDetailsDto.PaymentType = PaymentType;
+                userOrderDetailsDto.Status = 0;
+                i = userOrderDetailsDal.SaveOrderDetails(userOrderDetailsDto);
+            }
+
+            return Json(i, JsonRequestBehavior.AllowGet);
+        }
+        private string GenerateOrderNumber()
+        {
+            string OrderNumber;
+            //JI-XXXXXXXXX-XXXX
+            Random rnd = new Random();
+            long orderPart1 = rnd.Next(100000, 9999999);
+            int orderPart2 = rnd.Next(1000, 9999);
+            OrderNumber = "OD" + orderPart1 + orderPart2 + DateTime.Now.Day + DateTime.Now.Month + DateTime.Now.Year;
+            return OrderNumber;
+        }
+        //[UserAuthenticationFilterForWebsite]
+        public ActionResult ThankYou()
+        {
+            return View();
+        }
 
     }
 }

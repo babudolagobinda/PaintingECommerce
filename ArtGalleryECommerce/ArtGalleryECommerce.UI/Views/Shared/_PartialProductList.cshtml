@@ -38,7 +38,6 @@
                                             {
                                                 currencySymbol = "€";
                                             }
-
                                         }
                                         else
                                         {
@@ -50,8 +49,16 @@
                                 <div class="product-rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o empty"></i> </div>
                                 <h2 class="product-name"><a href="#">@item.ItemName</a></h2>
                                 <div class="product-btns">
-                                    <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
-                                    <button class="primary-btn add-to-cart" data-pid="@item.ItemId"><i class="fa fa-shopping-cart add-to-cart"></i> Add to Cart</button>
+                                    <button class="main-btn icon-btn" onclick="AddToWishList(@item.ItemId);"><i class="fa fa-heart"></i></button>
+                                    @if (item.Quantity > 0)
+                                    {
+                                        <button class="primary-btn add-to-cart" data-pid="@item.ItemId"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+                                    }
+                                    else
+                                    {
+                                        <button class="main-btn" disabled data-pid="@item.ItemId"><i class="fa fa-truck add-to-cart"></i> Out Of Stock</button>
+                                    }
+                                    @*<button class="primary-btn add-to-cart" data-pid="@item.ItemId"><i class="fa fa-shopping-cart add-to-cart"></i> Add to Cart</button>*@
 
                                 </div>
                             </div>

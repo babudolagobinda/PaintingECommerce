@@ -17,7 +17,9 @@ using System.Web.Security;
 using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
-
+using PagedList;
+using System.Net.Mail;
+using System.Net;
 
 namespace ArtGalleryECommerce.UI.Controllers
 {
@@ -58,11 +60,26 @@ namespace ArtGalleryECommerce.UI.Controllers
         }
         [Authorize(Roles = "Admin")]
         [UserAuthenticationFilter]
-        public ActionResult DashBoard()
+        public ActionResult DashBoard(int? page)
         {
+            int pageSize = 5;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<UserOrderDetailsDto> UserOrderDetailsDto = null;
             ViewBag.AdminDetails = TempData["AdminDetails"];
             TempData.Keep();
-            return View();
+            UserSignUpDal userSignUpDal = new UserSignUpDal();
+            StockMasterDal stockMasterDal = new StockMasterDal();
+            UserOrderDetailsDal userOrderDetailsDal = new UserOrderDetailsDal();
+            List<UserSignUpDto> lstUserSignUpDto = userSignUpDal.GetAllUserList();
+            List<StockMasterDto> lstStockMasterDto = stockMasterDal.GetAndEditStockMaster(0, 1);
+            List<UserOrderDetailsDto> lstUserOrderDetailsDtos = userOrderDetailsDal.GetAllOrderTable();
+            ViewBag.UserCount = lstUserSignUpDto.Count();
+            ViewBag.StockCount = lstStockMasterDto.Count;
+            ViewBag.AllOrders = lstUserOrderDetailsDtos;
+            ViewBag.AllOrdersCount = lstUserOrderDetailsDtos.Count();
+            UserOrderDetailsDto = lstUserOrderDetailsDtos.ToPagedList(pageIndex, pageSize);
+            return View(UserOrderDetailsDto);
         }
         public ActionResult LogOut()
         {
@@ -529,11 +546,78 @@ namespace ArtGalleryECommerce.UI.Controllers
             return Json(lstUserSignUpDto, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public ActionResult UpdateIsActiveUser(int UserId,int IsActive)
+        public ActionResult UpdateIsActiveUser(int UserId, int IsActive)
         {
             UserSignUpDal userSignUpDal = new UserSignUpDal();
             int i = userSignUpDal.UpdateIsActiveUser(UserId, IsActive);
             return Json(i, JsonRequestBehavior.AllowGet);
+        }
+        [Authorize(Roles = "Admin")]
+        [UserAuthenticationFilter]
+        public ActionResult UserOrders(int? page)
+        {
+            int pageSize = 5;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            IPagedList<UserOrderDetailsDto> UserOrderDetailsDto = null;
+            ViewBag.AdminDetails = TempData["AdminDetails"];
+            TempData.Keep();
+            UserSignUpDal userSignUpDal = new UserSignUpDal();
+            StockMasterDal stockMasterDal = new StockMasterDal();
+            UserOrderDetailsDal userOrderDetailsDal = new UserOrderDetailsDal();
+            List<UserOrderDetailsDto> userOrderDetailsDtos = userOrderDetailsDal.GetAllOrderTable();
+            ViewBag.AllOrders = userOrderDetailsDtos;
+            UserOrderDetailsDto = userOrderDetailsDtos.ToPagedList(pageIndex, pageSize);
+            return View(UserOrderDetailsDto);
+        }
+        [HttpPost]
+        public ActionResult OrderApprove(string OrderNo)
+        {
+            UserOrderDetailsDal userOrderDetailsDal = new UserOrderDetailsDal();
+            int i = userOrderDetailsDal.ApproveAndDeclineOrderDetails(OrderNo, 1);
+            SendMail(OrderNo);
+            return Json(i, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult OrderDecline(string OrderNo)
+        {
+            UserOrderDetailsDal userOrderDetailsDal = new UserOrderDetailsDal();
+            int i = userOrderDetailsDal.ApproveAndDeclineOrderDetails(OrderNo, 2);
+            return Json(i, JsonRequestBehavior.AllowGet);
+        }
+        public void SendMail(string OrderNo)
+        {
+            UserOrderDetailsDal userOrderDetailsDal = new UserOrderDetailsDal();
+            List<UserOrderDetailsDto> userOrderDetailsDto = userOrderDetailsDal.GetAllOrderDetails(OrderNo);
+            using (MailMessage mm = new MailMessage("babudolagobinda@gmail.com", "babudolagobinda@gmail.com"))
+            {
+                mm.Subject = "Prodcuct Confirmation";
+                string body = System.IO.File.ReadAllText(HttpContext.Server.MapPath("../EmailTemplate/demoEmailTemplate.html"));
+                body = body.Replace("#OrderNumber", OrderNo);
+                var itemListBody = string.Empty;
+                foreach (var item in userOrderDetailsDto)
+                {
+                    itemListBody += "<tr class='tr'><td class='td'><img src = '#ItemImage' height='80' width='80' /></td><td class='td'>";
+                    itemListBody += "<table class='table' style='font-family:'Open Sans', Arial, sans-serif; font-size:14px; line-height:17px; color:black;' valign='top'>";
+                    itemListBody += "<tr><td><b>#ItemName</b></td></tr><tr><td>Size</td><td>#Size </td></tr><tr><td>Quantity</td><td>#Quantity</td></tr><tr><td>Price</td>";
+                    itemListBody += "<td><b>" + item.Price + "</b></td></tr></table></td></tr>";
+                    // body = itemListBody.Replace("#Price", item.Price.ToString());
+                }
+                body = body.Replace("#itemList", itemListBody);
+                //body += "<br /><br />Please click the following link to activate your account";
+                //body += "<br /><a href = '" + string.Format("{0}://{1}/Home/Activation/{2}", Request.Url.Scheme, Request.Url.Authority, activationCode) + "'>Click here to activate your account.</a>";
+                //body += "<br /><br />Thanks";
+                mm.Body = body;
+                mm.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.EnableSsl = true;
+                NetworkCredential NetworkCred = new NetworkCredential("babudolagobinda@gmail.com", "Cybria@0909");
+                smtp.UseDefaultCredentials = true;
+                smtp.Credentials = NetworkCred;
+                smtp.Port = 587;
+                smtp.Send(mm);
+            }
         }
     }
 }

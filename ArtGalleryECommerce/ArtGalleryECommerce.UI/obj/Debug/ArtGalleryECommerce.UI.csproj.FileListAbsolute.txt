@@ -284,3 +284,7 @@ C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommer
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\obj\Debug\ArtGalleryECommerce.UI.pdb
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\bin\AutoMapper.dll
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\bin\AutoMapper.xml
+C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\bin\PagedList.dll
+C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\bin\PagedList.Mvc.dll
+C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\bin\PagedList.xml
+C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\bin\PagedList.Mvc.xml

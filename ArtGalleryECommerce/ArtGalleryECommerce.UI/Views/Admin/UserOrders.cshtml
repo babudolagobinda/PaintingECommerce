@@ -1,0 +1,353 @@
+﻿@using PagedList.Mvc
+@model  PagedList.IPagedList<ArtGalleryECommerce.Model.UserDTO.UserOrderDetailsDto>
+@using System.Data;
+@using System.Data.SqlClient;
+@using ArtGalleryECommerce.Model.UserDTO;
+@{
+    ViewBag.Title = "UserOrders";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<link href="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/highlightjs/styles/github.css" rel="stylesheet">
+<link href="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-dt/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-responsive-dt/css/responsive.dataTables.min.css" rel="stylesheet">
+<link href="~/Content/roundButton.css" rel="stylesheet" />
+<script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-dt/js/dataTables.dataTables.min.js"></script>
+<script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-responsive-dt/js/responsive.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<style>
+
+    form.submitted .ng-invalid {
+        border: 1px solid #f00;
+    }
+</style>
+<style>
+    .textBoxForSearch {
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid #000000;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    .textBoxForSearchs {
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+
+    .loader {
+        left: 50%;
+        margin-left: -4em;
+    }
+</style>
+
+<div id="modalStatus" class="modal fade">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content bd-0 tx-14">
+            <div class="modal-header pd-x-20">
+                <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Notice</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pd-20">
+                <select class="form-control select2" data-placeholder="Choose one">
+                    <option label="Choose one"></option>
+                    <option value="Firefox">Confirm</option>
+                    <option value="Chrome">Decline</option>
+                </select>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-primary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium">Save changes</button>
+                <button type="button" class="btn btn-secondary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div><!-- modal-dialog -->
+</div>
+
+<div class="br-mainpanel">
+    <div class="br-pagetitle">
+        <div>
+            <h4>USER ORDERS DATATABLE </h4>
+            <p class="mg-b-0">Searching, Ordering and Paging goodness will be immediately added to the table.</p>
+        </div>
+    </div>
+    <div class="br-pagebody">
+        <div class="table-responsive">
+            <div class="row row-sm mg-t-20">
+                <div class="col-lg-12">
+                    <div class="card bd-0 shadow-base">
+                        <div class="br-section-wrapper">
+                            @foreach (var item in Model)
+                            {
+
+                                <div id="accordion" class="accordion" role="tablist" aria-multiselectable="true">
+                                    <div class="card">
+                                        <div class="br-pagetitle pull-right">
+                                            <div class="selected pull-right">
+                                                @if (@item.Status == 0)
+                                                {
+                                                    <button type="button" id="btnApprove" class="btn btn-link" value="@item.OrderNumber" onclick="OrderApprove(this.value);">Approve</button>
+                                                    <button type="button" id="btnDecline" class="btn btn-link" value="@item.OrderNumber" onclick="OrderDecline(this.value);">Decline</button>
+                                                }
+                                                else if (@item.Status == 1)
+                                                {
+                                                    <button type="button" id="btnDecline" class="btn btn-link" value="@item.OrderNumber" onclick="OrderDecline(this.value);">Decline</button>
+                                                }
+                                                else
+                                                {
+                                                    <button type="button" id="btnApprove" class="btn btn-link" value="@item.OrderNumber" onclick="OrderApprove(this.value);">Approve</button>
+                                                }
+
+                                            </div>
+                                        </div>
+                                        <div class="card-header" role="tab" id="headingOne">
+                                            @*<button type="button" id="btnApprove" class="btn btn-success disabled">Approve</button>&nbsp;
+                                                <button type="button" id="btnDecline" class="btn btn-danger disabled">Decline</button>*@
+
+                                            <h6 class="mg-b-0">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#@item.OrderNumber" aria-expanded="false" aria-controls="collapseOne" class="tx-gray-800 transition">
+                                                    <div class="table-wrapper">
+                                                        <table id="datatable1" class="table table-bordered table-colored table-dark">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="wd-10p">Sl. No.</th>
+                                                                    <th class="wd-25p">Order Number</th>
+                                                                    <th class="wd-25p">TotalAmount</th>
+                                                                    <th class="wd-15p">Status</th>
+
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>@item.Id</td>
+                                                                    <td>@item.OrderNumber</td>
+                                                                    <td>@item.TotalAmount</td>
+                                                                    @if (@item.Status == 0)
+                                                                    {
+                                                                        <td>Pending</td>
+                                                                    }
+                                                                    else if (@item.Status == 1)
+                                                                    {
+                                                                        <td>Approved</td>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td>Declined</td>
+                                                                    }
+
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </a>
+                                            </h6>
+                                        </div>
+
+                                        <div id="@item.OrderNumber" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+                                            <div class="card-block pd-20">
+                                                @{
+                                                    SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["conn"].ConnectionString);
+                                                    List<MyOrdersDetailsResponseDto> lstMyOrdersDetailsResponseDto = new List<MyOrdersDetailsResponseDto>();
+                                                    SqlCommand cmd = new SqlCommand("GetAllUserOrderDetails", con);
+                                                    cmd.CommandType = CommandType.StoredProcedure;
+                                                    cmd.Parameters.AddWithValue("@OrderNo", @item.OrderNumber);
+                                                    con.Open();
+                                                    SqlDataReader dr = cmd.ExecuteReader();
+                                                    while (dr.Read())
+                                                    {
+                                                        MyOrdersDetailsResponseDto myOrdersDetailsResponseDto = new MyOrdersDetailsResponseDto();
+                                                        myOrdersDetailsResponseDto.GroupId = Convert.ToInt32(dr["GroupId"]);
+                                                        myOrdersDetailsResponseDto.GroupName = Convert.ToString(dr["GroupName"]);
+                                                        myOrdersDetailsResponseDto.CategoryId = Convert.ToInt32(dr["CategoryId"]);
+                                                        myOrdersDetailsResponseDto.CategoryName = Convert.ToString(dr["CategoryName"]);
+                                                        myOrdersDetailsResponseDto.ItemId = Convert.ToInt32(dr["ItemId"]);
+                                                        myOrdersDetailsResponseDto.ItemName = Convert.ToString(dr["ItemName"]);
+                                                        myOrdersDetailsResponseDto.ItemImage = Convert.ToString(dr["ItemImage"]);
+                                                        myOrdersDetailsResponseDto.Mrp = Convert.ToDecimal(dr["Mrp"]);
+                                                        myOrdersDetailsResponseDto.Discount = Convert.ToDecimal(dr["Discount"]);
+                                                        myOrdersDetailsResponseDto.Price = Convert.ToDecimal(dr["Price"]);
+                                                        myOrdersDetailsResponseDto.Width = Convert.ToInt32(dr["Width"]);
+                                                        myOrdersDetailsResponseDto.WidthType = Convert.ToString(dr["WidthType"]);
+                                                        myOrdersDetailsResponseDto.Height = Convert.ToInt32(dr["Height"]);
+                                                        myOrdersDetailsResponseDto.HeightType = Convert.ToString(dr["HeightType"]);
+                                                        myOrdersDetailsResponseDto.CurrencyType = Convert.ToString(dr["CurrencyType"]);
+                                                        myOrdersDetailsResponseDto.Quantity = Convert.ToInt32(dr["Quantity"]);
+                                                        myOrdersDetailsResponseDto.Status = Convert.ToInt32(dr["Status"]);
+                                                        myOrdersDetailsResponseDto.OrderId = Convert.ToInt32(dr["OrderId"]);
+                                                        myOrdersDetailsResponseDto.OrderNumber = Convert.ToString(dr["OrderNumber"]);
+                                                        myOrdersDetailsResponseDto.OrderDate = Convert.ToString(dr["OrderDate"]);
+                                                        myOrdersDetailsResponseDto.PaymentDate = Convert.ToString(dr["PaymentDate"]);
+                                                        myOrdersDetailsResponseDto.PaymentType = Convert.ToString(dr["PaymentType"]);
+                                                        myOrdersDetailsResponseDto.UserId = Convert.ToInt32(dr["UserId"]);
+                                                        myOrdersDetailsResponseDto.Name = Convert.ToString(dr["Name"]);
+                                                        myOrdersDetailsResponseDto.EmailId = Convert.ToString(dr["EmailId"]);
+                                                        myOrdersDetailsResponseDto.MobileNo = Convert.ToString(dr["MobileNo"]);
+                                                        myOrdersDetailsResponseDto.AddressId = Convert.ToInt32(dr["AddressId"]);
+                                                        lstMyOrdersDetailsResponseDto.Add(myOrdersDetailsResponseDto);
+                                                    }
+                                                    con.Close();
+                                                    ViewBag.AllUserOrderDetails = lstMyOrdersDetailsResponseDto;
+                                                }
+                                                @foreach (var userOrders in ViewBag.AllUserOrderDetails)
+                                                {
+                                                    <table id="datatable1" class="table table-responsive table-bordered table-colored table-info">
+                                                        <thead class="thead-colored thead-light">
+                                                            <tr>
+                                                                <th class="wd-15p"><b>GroupName</b></th>
+                                                                <th class="wd-15p">CategoryName</th>
+                                                                <th class="wd-25p">ItemName</th>
+                                                                <th class="wd-15p">Price</th>
+                                                                <th class="wd-10p">Size</th>
+                                                                <th class="wd-5p">Quantity</th>
+                                                                <th class="wd-15p">Status</th>
+                                                                @*<th class="wd-10p">Action</th>*@
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>@userOrders.GroupName</td>
+                                                                <td>@userOrders.CategoryName</td>
+                                                                <td>@userOrders.ItemName</td>
+                                                                <td>@userOrders.Price</td>
+                                                                <td>@userOrders.Width * @userOrders.Height</td>
+                                                                <td>@userOrders.Quantity</td>
+                                                                @if (@userOrders.Status == 0)
+                                                                {
+                                                                    <td>Pending</td>
+                                                                }
+                                                                else if (@userOrders.Status == 1)
+                                                                {
+                                                                    <td>Approved</td>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <td>Declined</td>
+                                                                }
+
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                            <div class="ht-80 bd d-flex align-items-center justify-content-center mg-t-20">
+                                <ul class="pagination pagination-circle mg-b-0">
+                                    <li>
+                                        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+                                        of @Model.PageCount
+                                        @Html.PagedListPager(Model, page => Url.Action("DashBoard", new { page = page }),
+                                                new PagedListRenderOptions
+                                                {
+                                                  LiElementClasses = new string[] { "page-item" },
+
+                                                  //PageClasses = new string[] { "page-link" }
+                                                })
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        @*<div class="pd-l-25 pd-r-15 pd-b-25">
+                                <div id="ch5" class="ht-250 ht-sm-300"></div>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.modal-effect').on('click', function (e) {
+            e.preventDefault();
+            var effect = $(this).attr('data-effect');
+            $('#modalStatus').addClass(effect);
+            $('#modalStatus').modal('show');
+        });
+        $('#modalStatus').on('hidden.bs.modal', function (e) {
+            $(this).removeClass(function (index, className) {
+                return (className.match(/(^|\s)effect-\S+/g) || []).join(' ');
+            });
+        });
+    });
+</script>
+<script>
+    function OrderApprove(par) {
+        swal({
+            title: "Are You Sure ?",
+            text: "You are going to approve this Order No !",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, Plz !",
+            cancelButtonText: "No, Cancel Plz !",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+            function (isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        type: 'POST',
+                        dataType: 'JSON',
+                        url: '/Admin/OrderApprove',
+                        data: { OrderNo: par },
+                        success: function (res) {
+                            if (res > 0) {
+                                swal("Success!", "You Approve the Order.", "success");
+                                window.location.reload();
+                            }
+                            else {
+                                swal("Not Deleted!", "Some Error Has been Occoured.", "error");
+                            }
+                        }
+                    })
+                } else {
+                    swal("Cancelled", "Your imaginary file is safe :)", "error");
+                }
+            })
+    }
+
+    function OrderDecline(par) {
+        swal({
+            title: "Are You Sure ?",
+            text: "You are going to Decline this Order No !",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, Plz !",
+            cancelButtonText: "No, Cancel Plz !",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+            function (isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        type: 'POST',
+                        dataType: 'JSON',
+                        url: '/Admin/OrderDecline',
+                        data: { OrderNo: par },
+                        success: function (res) {
+                            if (res > 0) {
+                                swal("Success!", "You Decline the Order.", "success");
+                                 window.location.reload();
+                            }
+                            else {
+                                swal("Not Deleted!", "Some Error Has been Occoured.", "error");
+                            }
+                        }
+                    })
+                } else {
+                    swal("Cancelled", "Your imaginary file is safe :)", "error");
+                }
+            })
+    }
+
+</script>

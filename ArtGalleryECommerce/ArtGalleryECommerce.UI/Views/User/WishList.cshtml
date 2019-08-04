@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "WishList";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<div id="divMyWishList">
+    @Html.Partial("_PartialMyWishList")
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        debugger;
+        var oldItems = JSON.parse(localStorage.getItem('wishListArray')) || [];
+        if (oldItems.length > 0) {
+            $.ajax({
+                url: '/User/WishList',
+                type: 'POST',
+                cache: false,
+                data: { ItemId: oldItems },
+            }).done(function (result) {
+                debugger;
+                $('#divMyWishList').html(result);
+            });
+        }
+    });
+</script>
+<script>
+    function RemoveItem(par) {
+        debugger;
+        const oldItems = JSON.parse(localStorage.getItem('wishListArray')) || [];
+        const valuesToRemove = [par]
+        const removedItems = oldItems.filter(item => !valuesToRemove.includes(item));
+        if (removedItems.length <= 0) {
+            $.ajax({
+                url: '/User/WishList',
+                type: 'POST',
+                cache: false,
+                data: { ItemId: 0 },
+            }).done(function (result) {
+                $('#divMyWishList').html(result);
+            });
+        }
+        else {
+            $.ajax({
+                url: '/User/WishList',
+                type: 'POST',
+                cache: false,
+                data: { ItemId: removedItems },
+            }).done(function (result) {
+                $('#divMyWishList').html(result);
+            });
+        }
+        localStorage.setItem("wishListArray", JSON.stringify(removedItems));
+
+    }
+</script>

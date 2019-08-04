@@ -99,5 +99,23 @@ namespace ArtGalleryECommerce.Dal.User
             connectionRepository.con.Close();
             return userAddressDto;
         }
+        public int DeleteUserddressByUserId(int UserId,int AddressId)
+        {
+            try
+            {
+                SqlCommand cmd = new SqlCommand("DeleteUserddressByUserId", connectionRepository.con);
+                cmd.Parameters.AddWithValue("@UserId", UserId);
+                cmd.Parameters.AddWithValue("@AddressId", AddressId);
+                cmd.CommandType = CommandType.StoredProcedure;
+                connectionRepository.con.Open();
+                int i = cmd.ExecuteNonQuery();
+                connectionRepository.con.Close();
+                return i;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

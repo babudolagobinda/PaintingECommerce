@@ -55,6 +55,8 @@
     <Compile Include="Repository\ConnectionRepository.cs" />
     <Compile Include="User\UserAddressDal.cs" />
     <Compile Include="User\UserHomeDal.cs" />
+    <Compile Include="User\UserOrderDetailsDal.cs" />
+    <Compile Include="User\UserReviewDal.cs" />
     <Compile Include="User\UserSignUpDal.cs" />
   </ItemGroup>
   <ItemGroup>

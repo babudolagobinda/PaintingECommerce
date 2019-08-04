@@ -38,6 +38,15 @@ namespace ArtGalleryECommerce.Dal.User
                 productListDto.HeightType = Convert.ToString(dr["HeightType"]);
                 productListDto.Width = Convert.ToDecimal(dr["Width"]);
                 productListDto.WidthType = Convert.ToString(dr["WidthType"]);
+                if (dr["Quantity"] != DBNull.Value)
+                {
+                    productListDto.Quantity = Convert.ToInt32(dr["Quantity"]);
+                }
+                else
+                {
+                    productListDto.Quantity = Convert.ToInt32(0);
+                }
+
                 lstProductListDto.Add(productListDto);
             }
             connectionRepository.con.Close();
@@ -64,6 +73,14 @@ namespace ArtGalleryECommerce.Dal.User
                 productListDto.HeightType = Convert.ToString(dr["HeightType"]);
                 productListDto.Width = Convert.ToDecimal(dr["Width"]);
                 productListDto.WidthType = Convert.ToString(dr["WidthType"]);
+                if (dr["Quantity"] != DBNull.Value)
+                {
+                    productListDto.Quantity = Convert.ToInt32(dr["Quantity"]);
+                }
+                else
+                {
+                    productListDto.Quantity = Convert.ToInt32(0);
+                }
                 lstProductListDto.Add(productListDto);
             }
             connectionRepository.con.Close();
@@ -74,6 +91,7 @@ namespace ArtGalleryECommerce.Dal.User
             double amount = 0;
             decimal converted_amount = 0;
             string currencyValue = "";
+            string prevCurrencyValue = "";
             if (HttpContext.Current.Session["currency"] == null)
             {
                 currencyValue = "INR";
@@ -82,10 +100,20 @@ namespace ArtGalleryECommerce.Dal.User
             {
                 currencyValue = HttpContext.Current.Session["currency"].ToString();
             }
+            if (HttpContext.Current.Session["PrevCurrency"] == null)
+            {
+                prevCurrencyValue = "INR";
+            }
+            else
+            {
+                prevCurrencyValue = HttpContext.Current.Session["PrevCurrency"].ToString();
+            }
             DateTime dateTime = Convert.ToDateTime(System.DateTime.Now.ToShortDateString());
             if (double.TryParse(Convert.ToString(price), out amount))
             {
-                string url = string.Format("http://currencyconverter.kowabunga.net/converter.asmx/GetConversionAmount?CurrencyFrom={0}&CurrencyTo={1}&RateDate=" + dateTime.Month + '-' + dateTime.Day + '-' + dateTime.Year + "&Amount={2}", "INR", currencyValue, price);
+                string  url = string.Format("http://currencyconverter.kowabunga.net/converter.asmx/GetConversionAmount?CurrencyFrom={0}&CurrencyTo={1}&RateDate=" + dateTime.Month + '-' + dateTime.Day + '-' + dateTime.Year + "&Amount={2}", prevCurrencyValue, currencyValue, price);
+
+
                 WebClient client = new WebClient();
                 client.Headers.Add("User-Agent: Other");   //that is the simple line!
                 string rates = client.DownloadString(url);
@@ -120,6 +148,14 @@ namespace ArtGalleryECommerce.Dal.User
                 productListDto.HeightType = Convert.ToString(dr["HeightType"]);
                 productListDto.Width = Convert.ToDecimal(dr["Width"]);
                 productListDto.WidthType = Convert.ToString(dr["WidthType"]);
+                if (dr["Quantity"] != DBNull.Value)
+                {
+                    productListDto.Quantity = Convert.ToInt32(dr["Quantity"]);
+                }
+                else
+                {
+                    productListDto.Quantity = Convert.ToInt32(0);
+                }
                 lstProductListDto.Add(productListDto);
             }
             connectionRepository.con.Close();
@@ -151,6 +187,14 @@ namespace ArtGalleryECommerce.Dal.User
                 productListDto.HeightType = Convert.ToString(dr["HeightType"]);
                 productListDto.Width = Convert.ToDecimal(dr["Width"]);
                 productListDto.WidthType = Convert.ToString(dr["WidthType"]);
+                if (dr["Quantity"] != DBNull.Value)
+                {
+                    productListDto.Quantity = Convert.ToInt32(dr["Quantity"]);
+                }
+                else
+                {
+                    productListDto.Quantity = Convert.ToInt32(0);
+                }
                 lstProductListDto.Add(productListDto);
             }
             connectionRepository.con.Close();
@@ -182,6 +226,14 @@ namespace ArtGalleryECommerce.Dal.User
                 productListDto.HeightType = Convert.ToString(dr["HeightType"]);
                 productListDto.Width = Convert.ToDecimal(dr["Width"]);
                 productListDto.WidthType = Convert.ToString(dr["WidthType"]);
+                if (dr["Quantity"] != DBNull.Value)
+                {
+                    productListDto.Quantity = Convert.ToInt32(dr["Quantity"]);
+                }
+                else
+                {
+                    productListDto.Quantity = Convert.ToInt32(0);
+                }
 
             }
             connectionRepository.con.Close();

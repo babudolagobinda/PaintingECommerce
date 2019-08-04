@@ -23,5 +23,6 @@ namespace ArtGalleryECommerce.Model.UserDTO
         public decimal Mrp { get; set; }
         public decimal Discount { get; set; }
         public decimal Price { get; set; }
+        public int Quantity { get; set; }
     }
 }

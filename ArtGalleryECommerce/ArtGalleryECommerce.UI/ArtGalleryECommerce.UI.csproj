@@ -53,6 +53,12 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -154,6 +160,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AdminLoginModel.cs" />
+    <Compile Include="Models\DashBoardViewModel.cs" />
     <Compile Include="Models\ItemGroupModel.cs" />
     <Compile Include="Models\UserAddressModel.cs" />
     <Compile Include="Models\UserLoginModel.cs" />
@@ -345,9 +352,13 @@
     <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\timepicker\jquery.timepicker.css" />
     <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\timepicker\jquery.timepicker.min.js" />
     <Content Include="AdminTemplate\themepixels.me\bracketplus\img\bracketplus-social.png" />
+    <Content Include="Content\Pagignation.css" />
+    <Content Include="Content\AdminDashBoard.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\roundButton.css" />
+    <Content Include="Content\ThankYou.css" />
     <Content Include="CustomScripts\AdminLogin.js" />
     <Content Include="CustomScripts\ItemCategory.js" />
     <Content Include="CustomScripts\ItemDetails.js" />
@@ -357,9 +368,12 @@
     <Content Include="CustomScripts\ManageUser.js" />
     <Content Include="CustomScripts\StockMaster.js" />
     <Content Include="CustomScripts\UserSignUp.js" />
+    <Content Include="EmailTemplate\demoEmailTemplate.html" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\emptyBag.gif" />
-    <Content Include="fonts\emptybag2.gif" />
+    <Content Include="fonts\emptyBag2.gif" />
+    <Content Include="fonts\EmptyBag3.gif" />
+    <Content Include="fonts\emptybag1.gif" />
+    <Content Include="fonts\emptyBag4.gif" />
     <Content Include="fonts\giphy.gif" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\logo-web %281%29.gif" />
@@ -368,8 +382,11 @@
     <Content Include="fonts\logo.jpg" />
     <Content Include="fonts\logo.png" />
     <Content Include="fonts\logo2.png" />
+    <Content Include="fonts\mailbox.png" />
     <Content Include="fonts\Preloader_8.gif" />
     <Content Include="fonts\Ripple-1s-200px.gif" />
+    <Content Include="fonts\success.gif" />
+    <Content Include="fonts\thanku.gif" />
     <Content Include="fonts\watermark1.png" />
     <Content Include="fonts\watermark.png" />
     <Content Include="fonts\watermark_logo.png" />
@@ -551,6 +568,11 @@
     <Content Include="Views\User\UserRegister.cshtml" />
     <Content Include="Views\User\MyProfile.cshtml" />
     <Content Include="Views\Admin\ManageUser.cshtml" />
+    <Content Include="Views\User\WishList.cshtml" />
+    <Content Include="Views\Shared\_PartialMyWishList.cshtml" />
+    <Content Include="Views\User\ThankYou.cshtml" />
+    <Content Include="Views\User\MyOrders.cshtml" />
+    <Content Include="Views\Admin\UserOrders.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -26,7 +26,7 @@ label {
 a {
     color: #30323A;
     -webkit-transition: 0.3s color;
-    transition: 0.3s color;
+    transition: all 0.1s color;
 }
 
     a:hover, a:focus {
@@ -116,7 +116,7 @@ hr {
 .input {
     width: 100%;
     height: 40px;
-    padding: 0px 15px;
+    padding: 0px 10px;
     border: none;
     background-color: transparent;
     -webkit-box-shadow: 0px 0px 0px 1px #DADADA inset, 0px 0px 0px 5px transparent;
@@ -153,10 +153,11 @@ textarea.input {
 	Lists
 \*----------------------------*/
 
-.list-links .list-links-title {
+.list-links-title {
     text-transform: uppercase;
-    margin-bottom: 10px;
+    padding: 7px 0;
     font-size: 16px;
+    border-bottom: 1px solid #000;
 }
 
 .list-links li > a {
@@ -180,6 +181,7 @@ textarea.input {
         visibility: hidden;
         -webkit-transition: 0.3s all;
         transition: 0.3s all;
+        margin-right: 10px;
     }
 
     .list-links li > a:hover, .list-links li > a:focus, .list-links li.active > a {
@@ -266,7 +268,7 @@ textarea.input {
     -webkit-transform: translateY(-4px);
     transform: translateY(-4px);
     position: relative;
-    z-index: 999;
+    z-index: 99;
 }
 
 /*----------------------------*\
@@ -321,7 +323,6 @@ textarea.input {
     float: left;
     padding: 15px 0px;
     margin-top: 15px;
-    margin-left: 25px;
 }
 
 
@@ -359,6 +360,11 @@ ul.header-btns {
     margin-top: 15px;
 }
 
+    ul.header-btns .custom-menu {
+        top: 70%;
+        left: 60%;
+    }
+
     ul.header-btns select {
         height: 40px;
     }
@@ -370,13 +376,12 @@ ul.header-btns {
 }
 
     .header-btns > li + li {
-        margin-left: 15px;
+        margin-left: 5px;
     }
 
     .header-btns > li .header-btns-icon {
         position: relative;
         float: left;
-        margin-right: 15px;
         width: 40px;
         height: 40px;
         line-height: 40px;
@@ -391,8 +396,17 @@ ul.header-btns {
     cursor: pointer;
 }
 
+    .header-btns .dropdown-toggle strong {
+        line-height: 3;
+        margin-left: 15px;
+    }
+
+.header-account.dropdown .custom-menu > li > a.btn > i {
+    color: #fff;
+}
+
 .header-account.dropdown .custom-menu > li > a > i {
-    margin-right: 15px;
+    margin-right: 12px;
     color: #FE980F;
 }
 
@@ -542,18 +556,13 @@ ul.header-btns {
 
     .menu-nav .menu-list > li > a {
         display: block;
-        padding: 10px 15px;
+        padding: 10px;
         text-transform: uppercase;
     }
 
-        .menu-nav .menu-list > li > a.active {
+        .menu-nav .menu-list > li > a.active, .menu-nav .menu-list > li > a:hover, .menu-nav .menu-list > li > a:focus, .menu-nav .menu-list > li.dropdown.open > a {
             background: #FE980F;
             color: #fff;
-        }
-
-        .menu-nav .menu-list > li > a:hover, .menu-nav .menu-list > li > a:focus, .menu-nav .menu-list > li.dropdown.open > a {
-            color: #fff;
-            background: rgba(254,152,15,0.53);
         }
 
 /*----------------------------*\
@@ -616,13 +625,13 @@ ul.header-btns {
   -ms-transform: translate(0px, 15px);
   transform: translate(0px, 15px);*/
     width: auto;
-    min-width: 550px;
+    min-width: 600px;
     max-width: 100%;
 }
 
     .dropdown.mega-dropdown > .custom-menu ul.list-links {
-        padding: 15px;
-        line-height: 2;
+        line-height: 1.7;
+        margin-bottom: 10px;
     }
 
     .dropdown.mega-dropdown > .custom-menu .col-md-2:nth-child(2n+1) {
@@ -671,22 +680,13 @@ ul.header-btns {
         display: inline-block;
     }
 
-    header .pull-left, header .pull-right {
-        float: none !important;
-    }
-
-    header .pull-right {
-        margin-top: 10px;
-    }
 
     #responsive-nav {
         position: fixed;
         left: 0;
         top: 0;
-        bottom: 0;
-        max-width: 270px;
-        width: 0%;
-        overflow: hidden;
+        max-width: 250px;
+        /*width: 0%;*/
         background-color: #FFF;
         -webkit-transform: translateX(-100%);
         -ms-transform: translateX(-100%);
@@ -715,7 +715,6 @@ ul.header-btns {
 
         #responsive-nav .dropdown.open .custom-menu {
             display: block;
-            min-width: auto;
             -webkit-transform: translate(0px, 0px);
             -ms-transform: translate(0px, 0px);
             transform: translate(0px, 0px);
@@ -725,7 +724,7 @@ ul.header-btns {
         display: none;
         overflow-y: scroll;
         overflow-x: hidden;
-        max-height: calc(100vh - 100px);
+        /* max-height: calc(100vh - 100px);*/
     }
 
         .category-nav .category-list.open, .menu-nav .menu-list.open {
@@ -1616,15 +1615,11 @@ ul.header-btns {
 	10 -> FOOTER
 ===========================================================*/
 
-.footer {
-    margin: 15px 0px;
+.footer .footer-header {
+    font-size: 18px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
 }
-
-    .footer .footer-header {
-        font-size: 18px;
-        text-transform: uppercase;
-        margin-bottom: 30px;
-    }
 
 .footer-logo {
     margin-bottom: 30px;
@@ -1650,9 +1645,9 @@ ul.header-btns {
     }
 
 .footer {
-    margin-top: 15px;
     text-transform: uppercase;
     font-size: 14px;
+    margin: 15px 0px;
 }
 
 /*=========================================================
@@ -1747,7 +1742,15 @@ ul.header-btns {
     }
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 540px) {
+    .header-btns .dropdown-toggle strong {
+        display: none;
+    }
+
+    .header-logo {
+        margin-right: 0;
+    }
+
     [class*='col-xs'] {
         width: 100%;
     }
@@ -1763,10 +1766,15 @@ ul.header-btns {
 }
 
 .banner-img {
-    margin: 20px;
-    max-height: 320px;
-    overflow: hidden;
+    width: 850px;
+    height: 450px;
+    margin: auto;
 }
+
+    .banner-img img {
+        max-width: 100%;
+        height: 100%;
+    }
 
 .carousel-indicators li {
     background: #C4C4BE;
@@ -1776,16 +1784,28 @@ ul.header-btns {
         background: #FE980F;
     }
 
+.carousel-inner > .item > a > img, .carousel-inner > .item > img, .img-responsive, .thumbnail a > img, .thumbnail > img {
+    width: 100%;
+}
+
 .item {
-    padding-left: 100px;
-    height: 360px;
+    /*padding-left: 100px;
+    height: 360px;*/
     overflow: hidden;
 }
 
 .pricing {
     position: absolute;
-    right: 40%;
-    top: 52%;
+    left: 19%;
+    top: 19%;
+    background: rgba(0,0,0,0.5);
+    padding: 10px;
+    color: #fff;
+    max-width: 400px;
+    min-width: 320px;
+    min-height: 280px;
+    max-height: 280px;
+    overflow: auto;
 }
 
 .paint-slide {
@@ -1793,9 +1813,10 @@ ul.header-btns {
 }
 
 .item h1 {
-    color: #B4B1AB;
+    color: #fff;
+    /*color: #B4B1AB;*/
     font-size: 48px;
-    margin-top: 68px;
+    margin-top: 38px;
 }
 
     .item h1 span {
@@ -1803,7 +1824,8 @@ ul.header-btns {
     }
 
 .item h2 {
-    color: #363432;
+    color: #fff;
+    /*color: #363432;*/
     font-size: 28px;
     font-weight: 700;
     margin-bottom: 22px;
@@ -1811,7 +1833,8 @@ ul.header-btns {
 }
 
 .item p {
-    color: #363432;
+    color: #fff;
+    /*#363432;*/
     font-size: 16px;
     font-weight: 300;
 }
@@ -1834,10 +1857,13 @@ ul.header-btns {
 
 .control-carousel {
     position: absolute;
-    top: 50%;
-    font-size: 60px;
-    color: #C2C2C1;
+    top: 42%;
+    font-size: 35px;
+    color: #ffffff;
+    background: rgba(0,0,0,0.4);
+    padding: 10px;
 }
+
 
     .control-carousel:hover {
         color: #FE980F;
@@ -1989,3 +2015,92 @@ h2.title:before{
         left: 45%;
         top: 30%;
     }
+
+
+/* Style the Image Used to Trigger the Modal */
+#myImg {
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+    #myImg:hover {
+        opacity: 0.7;
+    }
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 101; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (Image) */
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+
+/* Caption of Modal Image (Image Text) - Same Width as the Image */
+#caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 150px;
+}
+
+/* Add Animation - Zoom in the Modal */
+.modal-content, #caption {
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+@keyframes zoom {
+    from {
+        transform: scale(0)
+    }
+
+    to {
+        transform: scale(1)
+    }
+}
+
+/* The Close Button */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    opacity: 0.7;
+}
+
+    .close:hover,
+    .close:focus {
+        color: #bbb;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px) {
+    .modal-content {
+        width: 100%;
+    }
+}

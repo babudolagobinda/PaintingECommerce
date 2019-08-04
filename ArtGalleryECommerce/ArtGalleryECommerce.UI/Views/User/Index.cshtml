@@ -5,16 +5,22 @@
 }
 
 <!-- HOME -->
-<div id="home">
-    <!-- container -->
-    <div class="container-fluid">
+<div id="home"> 
         <div class="row">
             <div class="col-sm-12">
-                <div id="slider-carousel" class="carousel slide" data-ride="carousel">
+                <div id="slider-carousel" class="carousel slide" data-ride="carousel" style="background:#eee;">
                     <ol class="carousel-indicators">
-                        <li data-target="#slider-carousel" data-slide-to="0" class=""></li>
-                        <li data-target="#slider-carousel" data-slide-to="1" class="active"></li>
-                        <li data-target="#slider-carousel" data-slide-to="2"></li>
+                        @{
+                            if (ViewBag.MainBanners != null)
+                            {
+                                for (int i = 0; i < ViewBag.MainBanners.Count; i++)
+                                {
+                                    @*<li data-target="#slider-carousel" data-slide-to="0" class=""></li>*@
+                                    <li data-target="#slider-carousel" data-slide-to="1" class="active"></li>
+                                    @*<li data-target="#slider-carousel" data-slide-to="2"></li>*@
+                                }
+                            }
+                        }
                     </ol>
 
                     <div class="carousel-inner">
@@ -26,12 +32,12 @@
                                 {
                                     counter++;
                                     <div class="item active">
-                                        <div class="col-sm-3">
+                                        <div class="pricing">
                                             <h1><span>@item.BannerName</span></h1>
                                             <p>@item.BannerDesc. </p>
                                             <button type="button" class="btn btn-default get">Get it now</button>
                                         </div>
-                                        <div class="col-sm-8 banner-img">
+                                        <div class="banner-img">
                                             <img src="~/UploadImages/@item.BannerImage" class="img-responsive" alt="">
                                         </div>
                                     </div>
@@ -39,12 +45,12 @@
                                 else
                                 {
                                     <div class="item">
-                                        <div class="col-sm-3">
+                                        <div class="pricing">
                                             <h1><span>@item.BannerName</span></h1>
                                             <p>@item.BannerDesc. </p>
                                             <button type="button" class="btn btn-default get">Get it now</button>
                                         </div>
-                                        <div class="col-sm-8 banner-img">
+                                        <div class="banner-img">
                                             <img src="~/UploadImages/@item.BannerImage" class="img-responsive" alt="">
                                         </div>
                                     </div>
@@ -53,33 +59,21 @@
                         }
                     </div>
 
-                    <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
+                    @*<a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
                         <i class="fa fa-angle-left"></i>
                     </a>
                     <a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
                         <i class="fa fa-angle-right"></i>
-                    </a>
+                    </a>*@
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- /container -->
+        </div> 
 </div>
 <!-- /HOME -->
 <!-- section -->
-@*<div class="section section-grey">
-        <div class="container">
-            <div class="page-header">
-                <h2>Welcome!</h2>
-            </div>
-            <p>Brief Introduction...</p>
-        </div>
-    </div>*@
-<!-- /section -->
-<!-- section -->
 <div class="section">
     <!-- container -->
-    <div class="container-fluid">
+    <div class="container">
         <!-- row -->
         <div class="row">
             <!-- section title -->
@@ -111,7 +105,7 @@
                                     {
                                         if (Session["currency"].ToString() == "INR")
                                         {
-                                            currencySymbol = "Rs.";
+                                            currencySymbol = "₹";
                                         }
                                         else if (Session["currency"].ToString() == "USD")
                                         {
@@ -125,16 +119,25 @@
                                     }
                                     else
                                     {
-                                        currencySymbol = "Rs.";
+                                        currencySymbol = "₹";
                                     }
                                     @currencySymbol @item.Price
+                                    
                                 }
                             </h3>
                             <div class="product-rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o empty"></i> </div>
                             <h2 class="product-name"><a href="#">@item.ItemName</a></h2>
                             <div class="product-btns">
-                                <button class="main-btn icon-btn"><i class="fa fa-heart"></i> </button>
-                                <button class="primary-btn add-to-cart" data-pid="@item.ItemId"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+                                <button type="button" onclick="AddToWishList(@item.ItemId);" class="main-btn icon-btn"><i class="fa fa-heart"></i> </button>
+                                @*<button class="primary-btn add-to-cart" data-pid="@item.ItemId"><i class="fa fa-shopping-cart"></i> Add to Cart</button>*@
+                                @if (item.Quantity > 0)
+                                {
+                                    <button class="primary-btn add-to-cart" data-pid="@item.ItemId"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+                                }
+                                else
+                                {
+                                    <button class="main-btn" disabled data-pid="@item.ItemId"><i class="fa fa-truck"></i> Out Of Stuck</button>
+                                }
                             </div>
 
                         </div>
@@ -197,8 +200,15 @@
                             <div class="product-rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o empty"></i> </div>
                             <h2 class="product-name"><a href="#">@item.ItemName</a></h2>
                             <div class="product-btns">
-                                <button class="main-btn icon-btn"><i class="fa fa-heart"></i> </button>
-                                <button class="primary-btn add-to-cart" data-pid="@item.ItemId"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+                                <button class="main-btn icon-btn" type="button" onclick="AddToWishList(@item.ItemId);"><i class="fa fa-heart"></i> </button>
+                                @if (item.Quantity > 0)
+                                {
+                                    <button class="primary-btn add-to-cart" data-pid="@item.ItemId"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+                                }
+                                else
+                                {
+                                    <button class="main-btn" disabled data-pid="@item.ItemId"><i class="fa fa-truck"></i> Out Of Stuck</button>
+                                }
                             </div>
 
                         </div>
@@ -291,5 +301,43 @@
         localStorage.setItem("itemsArray", JSON.stringify(oldItems));
         $("#spnQuantity").text(oldItems.length);
         return exist;
+    }
+    function AddToWishList(par) {
+        $.ajax({
+            type: 'POST',
+            dataType: 'JSON',
+            url: '/User/AddToWishList',
+            data: { ItemId: par },
+            success: function (res) {
+                debugger;
+                if (res == null || res == "") {
+                    alert('You can add to wishlist after Login');
+                    window.location.href = '/User/UserLogin';
+                }
+                else {
+                    if (!localStorage.getItem("wishListArray")) {
+                        localStorage.setItem("wishListArray", "[]");
+                    }
+                    var oldItems = JSON.parse(localStorage.getItem('wishListArray')) || [];
+                    var exist = false;
+                    for (var i = 0; i < oldItems.length; i++)
+                        if (oldItems[i] == par) {
+                            exist = true;
+                            break;
+                        }
+                    if (!exist) {
+                        oldItems.push(par);
+                        exist = true;
+                        alert('You added to WishList');
+                    }
+                    else {
+                        alert("Only You Can Add One Painting per Piece in WishList");
+                        exist = false;
+                    }
+                    localStorage.setItem("wishListArray", JSON.stringify(oldItems));
+                    return exist;
+                }
+            }
+        })
     }
 </script>
