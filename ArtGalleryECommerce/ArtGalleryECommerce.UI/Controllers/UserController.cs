@@ -458,6 +458,11 @@ namespace ArtGalleryECommerce.UI.Controllers
         {
             return View();
         }
-
+        public ActionResult ContactUs()
+        {
+            List<ItemGroupDto> lstItemGroupDto = itemGroupDal.GetAndEditItemGroup(0, 1);
+            ViewBag.ItemGroups = lstItemGroupDto;
+            return View();
+        }
     }
 }

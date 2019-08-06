@@ -97,7 +97,6 @@
             return false;
         }
         else {
-            debugger;
             var itemId = JSON.parse(localStorage.getItem('itemsArray')) || [];
             var addressId = $('input[name="rbShipping"]:checked').val();
             const splitTotalPaidPrice = $("#totalPaidPrice").text().split(" ");
@@ -121,7 +120,6 @@
                 url: '/User/SaveUserOrderDetails',
                 data: { ItemId: itemId, AddressId: addressId, CurrencyType: currencyType, PaidPrice: paidPrice, PaymentType: paymentType },
                 success: function (res) {
-                    debugger;
                     if (res > 0) {
                         localStorage.removeItem('itemsArray');
                         window.location.href = '/User/ThankYou';

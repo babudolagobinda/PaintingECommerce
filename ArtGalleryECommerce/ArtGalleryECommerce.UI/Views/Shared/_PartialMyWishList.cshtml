@@ -56,7 +56,7 @@
                                         <div class="product-rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o empty"></i> </div>
                                         <h2 class="product-name"><a href="#">@item.ItemName</a></h2>
                                         <div class="product-btns text-right">
-                                            <button class="primary-btn add-to-cart" data-pid="@item.ItemId"><i class="fa fa-shopping-cart add-to-cart"></i> Add to Bag</button>
+                                            <button class="primary-btn add-to-cart" data-pid="@item.ItemId" onclick="AddToBag(@item.ItemId);"><i class="fa fa-shopping-cart add-to-cart"></i> Add to Bag</button>
                                             <button class="main-btn icon-btn" onclick="RemoveItem(@item.ItemId)"><i class="fa fa-trash"></i></button>
                                         </div>
                                     </div>

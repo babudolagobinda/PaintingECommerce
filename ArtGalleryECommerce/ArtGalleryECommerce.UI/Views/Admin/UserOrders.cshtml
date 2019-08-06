@@ -187,6 +187,15 @@
                                                         myOrdersDetailsResponseDto.EmailId = Convert.ToString(dr["EmailId"]);
                                                         myOrdersDetailsResponseDto.MobileNo = Convert.ToString(dr["MobileNo"]);
                                                         myOrdersDetailsResponseDto.AddressId = Convert.ToInt32(dr["AddressId"]);
+
+                                                        //myOrdersDetailsResponseDto.UserName = Convert.ToString(dr["UserName"]);
+                                                        //myOrdersDetailsResponseDto.UserMobileNo = Convert.ToString(dr["UserMobileNo"]);
+                                                        //myOrdersDetailsResponseDto.UserPincode = Convert.ToString(dr["UserPincode"]);
+                                                        //myOrdersDetailsResponseDto.UserAddress = Convert.ToString(dr["UserAddress"]);
+                                                        //myOrdersDetailsResponseDto.UserLocality = Convert.ToString(dr["UserLocality"]);
+                                                        //myOrdersDetailsResponseDto.UserCity = Convert.ToString(dr["UserCity"]);
+                                                        //myOrdersDetailsResponseDto.UserState = Convert.ToString(dr["UserState"]);
+                                                        //myOrdersDetailsResponseDto.UserCountry = Convert.ToString(dr["UserCountry"]);
                                                         lstMyOrdersDetailsResponseDto.Add(myOrdersDetailsResponseDto);
                                                     }
                                                     con.Close();
@@ -197,21 +206,25 @@
                                                     <table id="datatable1" class="table table-responsive table-bordered table-colored table-info">
                                                         <thead class="thead-colored thead-light">
                                                             <tr>
+                                                                @*<th class="wd-15p">Name</th>*@
                                                                 <th class="wd-15p"><b>GroupName</b></th>
-                                                                <th class="wd-15p">CategoryName</th>
-                                                                <th class="wd-25p">ItemName</th>
-                                                                <th class="wd-15p">Price</th>
-                                                                <th class="wd-10p">Size</th>
-                                                                <th class="wd-5p">Quantity</th>
-                                                                <th class="wd-15p">Status</th>
+                                                                <th class="wd-15p"><b>CategoryName</b></th>
+                                                                <th class="wd-15p"><b>ItemName</b></th>
+                                                                <th class="wd-10p"><b>ItemImage</b></th>
+                                                                <th class="wd-10p"><b>Price</b></th>
+                                                                <th class="wd-10p"><b>Size</b></th>
+                                                                <th class="wd-5p"><b>Quantity</b></th>
+                                                                <th class="wd-15p"><b>Status</b></th>
                                                                 @*<th class="wd-10p">Action</th>*@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             <tr>
+                                                                @*<td>@userOrders.Name</td>*@
                                                                 <td>@userOrders.GroupName</td>
                                                                 <td>@userOrders.CategoryName</td>
                                                                 <td>@userOrders.ItemName</td>
+                                                                <td><img src="~/UploadImages/@userOrders.ItemImage" height="50" width="50" /></td>
                                                                 <td>@userOrders.Price</td>
                                                                 <td>@userOrders.Width * @userOrders.Height</td>
                                                                 <td>@userOrders.Quantity</td>

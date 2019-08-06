@@ -35,5 +35,13 @@ namespace ArtGalleryECommerce.Model.UserDTO
         public string EmailId { get; set; }
         public string MobileNo { get; set; }
         public int AddressId { get; set; }
+        public string UserName { get; set; }
+        public string UserMobileNo { get; set; }
+        public string UserPincode { get; set; }
+        public string UserAddress { get; set; }
+        public string UserLocality { get; set; }
+        public string UserCity { get; set; }
+        public string UserState { get; set; }
+        public string UserCountry { get; set; }
     }
 }

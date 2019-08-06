@@ -22,8 +22,6 @@
     <script type="text/javascript">
         var prevCurrencyValue = "";
         $(document).ready(function () {
-            debugger;
-
             prevCurrencyValue = $("#ddlCurrency").val();
             var curr = $("#hdnCurrency").val();
             var prevCurr = $("#hdnPrevCurrency").val();
@@ -34,7 +32,6 @@
             }
         })
         function CurrencyConverter(selectedValue) {
-            debugger;
             var previousCurrency = prevCurrencyValue;
             if (selectedValue != null) {
                 $.ajax({
@@ -43,7 +40,6 @@
                     data: { currency: selectedValue, prevCurrency: previousCurrency },
                     url: '/User/CurrencyPriceConverter',
                     success: function (res) {
-                        debugger;
                         $("#hdnCurrency").val(res[0]);
                         $("#hdnPrevCurrency").val(res[1]);
                         window.location.reload();
@@ -141,7 +137,7 @@
                                     </li>
                                     <li><a href="#">About Us</a></li>
                                     <li><a href="#">Blog</a></li>
-                                    <li><a href="#">Contact Us</a></li>
+                                    <li><a href="@Url.Action("ContactUs","User")">Contact Us</a></li>
                                 </ul>
                             </div>
                             <!-- menu nav -->
@@ -187,7 +183,7 @@
 
                                 <li><a href="@Url.Action("MyProfile","User")"><i class="fa fa-user-o"></i> My Profile</a></li>
                                 <li><a href="@Url.Action("WishList","User")"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
-                                <li><a href="@Url.Action("MyOrders","User")"><i class="fa fa-file-text-o"></i>My Orders</a></li>
+                                <li><a href="@Url.Action("MyOrders","User")"><i class="fa fa-file-o"></i>  My Orders</a></li>
                                 @if (Session["UserId"] != null)
                                 {
                                     <li><a href="@Url.Action("SignOut", "User")"><i class="fa fa-sign-out"></i> Sign Out</a></li>
@@ -377,8 +373,8 @@
                         <h3 class="footer-header">Customer Service</h3>
                         <ul class="list-links">
                             <li><a href="#">About Us</a></li>
-                            <li><a href="#">Shiping &amp; Return</a></li>
-                            <li><a href="#">FAQ</a></li>
+                            <li><a href="@Url.Action("ContactUs","User")">Contact Us</a></li>
+                            <li><a href="#">Blog</a></li>
                         </ul>
                     </div>
                 </div>
@@ -406,7 +402,6 @@
     <script src="~/UserTemplate/js/main.js"></script>
     <script>
         $(document).ready(function () {
-            debugger;
             //localStorage.removeItem('itemsArray');
             var oldItems = JSON.parse(localStorage.getItem('itemsArray')) || [];
             $("#spnQuantity").text(oldItems.length);
