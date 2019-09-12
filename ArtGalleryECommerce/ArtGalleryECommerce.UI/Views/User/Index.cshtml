@@ -227,7 +227,6 @@
 <script>
     $(document).ready(function () {
         $('.add-to-cart').on('click', function () {
-            debugger;
             var par = $(this).data('pid');
             if (AddToCart(par)) {
                 var cart = $('.shopping-cart');
@@ -273,8 +272,6 @@
 </script>
 <script>
     function AddToCart(par) {
-        debugger;
-
         if (!localStorage.getItem("itemsArray")) {
             localStorage.setItem("itemsArray", "[]");
         }
@@ -309,7 +306,6 @@
             url: '/User/AddToWishList',
             data: { ItemId: par },
             success: function (res) {
-                debugger;
                 if (res == null || res == "") {
                     alert('You can add to wishlist after Login');
                     window.location.href = '/User/UserLogin';

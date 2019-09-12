@@ -464,5 +464,23 @@ namespace ArtGalleryECommerce.UI.Controllers
             ViewBag.ItemGroups = lstItemGroupDto;
             return View();
         }
+        public ActionResult PrivacyPolicy()
+        {
+            List<ItemGroupDto> lstItemGroupDto = itemGroupDal.GetAndEditItemGroup(0, 1);
+            ViewBag.ItemGroups = lstItemGroupDto;
+            return View();
+        }
+        public ActionResult AboutMe()
+        {
+            List<ItemGroupDto> lstItemGroupDto = itemGroupDal.GetAndEditItemGroup(0, 1);
+            ViewBag.ItemGroups = lstItemGroupDto;
+            return View();
+        }
+        public ActionResult TermsAndConditions()
+        {
+            List<ItemGroupDto> lstItemGroupDto = itemGroupDal.GetAndEditItemGroup(0, 1);
+            ViewBag.ItemGroups = lstItemGroupDto;
+            return View();
+        }
     }
 }

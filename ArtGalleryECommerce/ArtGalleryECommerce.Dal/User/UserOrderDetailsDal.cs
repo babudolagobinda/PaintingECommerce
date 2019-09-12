@@ -64,27 +64,58 @@ namespace ArtGalleryECommerce.Dal.User
             connectionRepository.con.Close();
             return lstUserOrderDetailsDto;
         }
-        public List<UserOrderDetailsDto> GetAllOrderDetails(string OrderNumber)
+        public List<UserOrderAndAddressDto> GetUserAddressDetails(string OrderNumber)
         {
-            List<UserOrderDetailsDto> lstUserOrderDetailsDto = new List<UserOrderDetailsDto>();
-            SqlCommand cmd = new SqlCommand("select * from [dbo].[OrderDetails] where OrderNumber=@OrderNumber", connectionRepository.con);
-            cmd.CommandType = CommandType.Text;
+            List<UserOrderAndAddressDto> lstUserOrderAndAddressDto = new List<UserOrderAndAddressDto>();
+            SqlCommand cmd = new SqlCommand("GetUserAddressDetails", connectionRepository.con);
+            cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@OrderNumber", OrderNumber);
             connectionRepository.con.Open();
             SqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
             {
-                UserOrderDetailsDto userOrderDetailsDto = new UserOrderDetailsDto();
-                userOrderDetailsDto.OrderId = Convert.ToInt32(dr["OrderId"]);
-                userOrderDetailsDto.ItemId = Convert.ToInt32(dr["ItemId"]);
-                userOrderDetailsDto.AddressId = Convert.ToInt32(dr["AddressId"]);
-                userOrderDetailsDto.Mrp = Convert.ToDecimal(dr["Mrp"]);
-                userOrderDetailsDto.Price = Convert.ToDecimal(dr["Price"]);
+                UserOrderAndAddressDto userOrderDetailsDto = new UserOrderAndAddressDto();
+                userOrderDetailsDto.OrderNumber = Convert.ToString(dr["OrderNumber"]);
+                userOrderDetailsDto.TotalAmount = Convert.ToDecimal(dr["TotalAmount"]);
+                userOrderDetailsDto.PaymentType= Convert.ToString(dr["PaymentType"]);
                 userOrderDetailsDto.Status = Convert.ToInt32(dr["Status"]);
-                lstUserOrderDetailsDto.Add(userOrderDetailsDto);
+                userOrderDetailsDto.UserId = Convert.ToInt32(dr["UserId"]);
+                userOrderDetailsDto.Name = Convert.ToString(dr["Name"]);
+                userOrderDetailsDto.AddressId = Convert.ToInt32(dr["AddressId"]);
+                userOrderDetailsDto.MobileNo = Convert.ToString(dr["MobileNo"]);
+                userOrderDetailsDto.Pincode = Convert.ToString(dr["Pincode"]);
+                userOrderDetailsDto.Address = Convert.ToString(dr["Address"]);
+                userOrderDetailsDto.Locality = Convert.ToString(dr["Locality"]);
+                userOrderDetailsDto.City = Convert.ToString(dr["City"]);
+                userOrderDetailsDto.State = Convert.ToString(dr["State"]);
+                userOrderDetailsDto.Country = Convert.ToString(dr["Country"]);
+                lstUserOrderAndAddressDto.Add(userOrderDetailsDto);
             }
             connectionRepository.con.Close();
-            return lstUserOrderDetailsDto;
+            return lstUserOrderAndAddressDto;
+        }
+        public List<UserOrderDetailsResponseDto> GetAllOrderDetails(string OrderNumber)
+        {
+            List<UserOrderDetailsResponseDto> lstUserOrderDetailsResponseDto = new List<UserOrderDetailsResponseDto>();
+            SqlCommand cmd = new SqlCommand("GetUserOrderByOrderNumber", connectionRepository.con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@OrderNumber", OrderNumber);
+            connectionRepository.con.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                UserOrderDetailsResponseDto userOrderDetailsResponseDto = new UserOrderDetailsResponseDto();
+                userOrderDetailsResponseDto.OrderNumber = Convert.ToString(dr["OrderNumber"]);
+                userOrderDetailsResponseDto.ItemName = Convert.ToString(dr["ItemName"]);
+                userOrderDetailsResponseDto.ItemImage = Convert.ToString(dr["ItemImage"]);
+                userOrderDetailsResponseDto.Price = Convert.ToDecimal(dr["Price"]);
+                userOrderDetailsResponseDto.Quantity = Convert.ToInt32(dr["Quantity"]);
+                userOrderDetailsResponseDto.EmailId = Convert.ToString(dr["EmailId"]);
+                userOrderDetailsResponseDto.Name = Convert.ToString(dr["Name"]);
+                lstUserOrderDetailsResponseDto.Add(userOrderDetailsResponseDto);
+            }
+            connectionRepository.con.Close();
+            return lstUserOrderDetailsResponseDto;
         }
         public List<MyOrdersDetailsResponseDto> GetOrderHistoryByUserId(int UserId)
         {
@@ -141,6 +172,49 @@ namespace ArtGalleryECommerce.Dal.User
                 myOrdersDetailsResponseDto.Name = Convert.ToString(dr["Name"]);
                 myOrdersDetailsResponseDto.EmailId = Convert.ToString(dr["EmailId"]);
                 myOrdersDetailsResponseDto.MobileNo = Convert.ToString(dr["MobileNo"]);
+                lstMyOrdersDetailsResponseDto.Add(myOrdersDetailsResponseDto);
+            }
+            connectionRepository.con.Close();
+            return lstMyOrdersDetailsResponseDto;
+        }
+        public List<MyOrdersDetailsResponseDto> GetAllUserOrderDetails(string OrderNumber)
+        {
+            List<MyOrdersDetailsResponseDto> lstMyOrdersDetailsResponseDto = new List<MyOrdersDetailsResponseDto>();
+            SqlCommand cmd = new SqlCommand("GetAllUserOrderDetails", connectionRepository.con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@OrderNo", OrderNumber);
+            connectionRepository.con.Open();
+            SqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                MyOrdersDetailsResponseDto myOrdersDetailsResponseDto = new MyOrdersDetailsResponseDto();
+                myOrdersDetailsResponseDto.GroupId = Convert.ToInt32(dr["GroupId"]);
+                myOrdersDetailsResponseDto.GroupName = Convert.ToString(dr["GroupName"]);
+                myOrdersDetailsResponseDto.CategoryId = Convert.ToInt32(dr["CategoryId"]);
+                myOrdersDetailsResponseDto.CategoryName = Convert.ToString(dr["CategoryName"]);
+                myOrdersDetailsResponseDto.ItemId = Convert.ToInt32(dr["ItemId"]);
+                myOrdersDetailsResponseDto.ItemName = Convert.ToString(dr["ItemName"]);
+                myOrdersDetailsResponseDto.ItemImage = Convert.ToString(dr["ItemImage"]);
+                myOrdersDetailsResponseDto.Mrp = Convert.ToDecimal(dr["Mrp"]);
+                myOrdersDetailsResponseDto.Discount = Convert.ToDecimal(dr["Discount"]);
+                myOrdersDetailsResponseDto.Price = Convert.ToDecimal(dr["Price"]);
+                myOrdersDetailsResponseDto.Width = Convert.ToInt32(dr["Width"]);
+                myOrdersDetailsResponseDto.WidthType = Convert.ToString(dr["WidthType"]);
+                myOrdersDetailsResponseDto.Height = Convert.ToInt32(dr["Height"]);
+                myOrdersDetailsResponseDto.HeightType = Convert.ToString(dr["HeightType"]);
+                myOrdersDetailsResponseDto.CurrencyType = Convert.ToString(dr["CurrencyType"]);
+                myOrdersDetailsResponseDto.Quantity = Convert.ToInt32(dr["Quantity"]);
+                myOrdersDetailsResponseDto.Status = Convert.ToInt32(dr["Status"]);
+                myOrdersDetailsResponseDto.OrderId = Convert.ToInt32(dr["OrderId"]);
+                myOrdersDetailsResponseDto.OrderNumber = Convert.ToString(dr["OrderNumber"]);
+                myOrdersDetailsResponseDto.OrderDate = Convert.ToString(dr["OrderDate"]);
+                myOrdersDetailsResponseDto.PaymentDate = Convert.ToString(dr["PaymentDate"]);
+                myOrdersDetailsResponseDto.PaymentType = Convert.ToString(dr["PaymentType"]);
+                myOrdersDetailsResponseDto.UserId = Convert.ToInt32(dr["UserId"]);
+                myOrdersDetailsResponseDto.Name = Convert.ToString(dr["Name"]);
+                myOrdersDetailsResponseDto.EmailId = Convert.ToString(dr["EmailId"]);
+                myOrdersDetailsResponseDto.MobileNo = Convert.ToString(dr["MobileNo"]);
+                myOrdersDetailsResponseDto.AddressId = Convert.ToInt32(dr["AddressId"]);
                 lstMyOrdersDetailsResponseDto.Add(myOrdersDetailsResponseDto);
             }
             connectionRepository.con.Close();

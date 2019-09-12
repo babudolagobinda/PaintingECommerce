@@ -571,11 +571,18 @@ namespace ArtGalleryECommerce.UI.Controllers
             return View(UserOrderDetailsDto);
         }
         [HttpPost]
+        public ActionResult GetUserAddressDetails(string OrderNumber)
+        {
+            UserOrderDetailsDal userOrderDetailsDal = new UserOrderDetailsDal();
+            List<UserOrderAndAddressDto> lstUserOrderAndAddressDto = userOrderDetailsDal.GetUserAddressDetails(OrderNumber);
+            return Json(lstUserOrderAndAddressDto, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
         public ActionResult OrderApprove(string OrderNo)
         {
             UserOrderDetailsDal userOrderDetailsDal = new UserOrderDetailsDal();
             int i = userOrderDetailsDal.ApproveAndDeclineOrderDetails(OrderNo, 1);
-            SendMail(OrderNo);
+            SendApproveMail(OrderNo);
             return Json(i, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
@@ -583,41 +590,116 @@ namespace ArtGalleryECommerce.UI.Controllers
         {
             UserOrderDetailsDal userOrderDetailsDal = new UserOrderDetailsDal();
             int i = userOrderDetailsDal.ApproveAndDeclineOrderDetails(OrderNo, 2);
+            SendDeclineMail(OrderNo);
             return Json(i, JsonRequestBehavior.AllowGet);
         }
-        public void SendMail(string OrderNo)
+        [Authorize(Roles = "Admin")]
+        [UserAuthenticationFilter]
+        public ActionResult GenerateInvoice()
+        {
+            ViewBag.AdminDetails = TempData["AdminDetails"];
+            TempData.Keep();
+            UserOrderDetailsDal userOrderDetailsDal = new UserOrderDetailsDal();
+            List<UserOrderDetailsDto> userOrderDetailsDtos = userOrderDetailsDal.GetAllOrderTable();
+            ViewBag.AllOrders = userOrderDetailsDtos;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult GenerateInvoice(string OrderNumber)
+        {
+            ViewBag.AdminDetails = TempData["AdminDetails"];
+            TempData.Keep();
+            UserOrderDetailsDal userOrderDetailsDal = new UserOrderDetailsDal();
+            List<UserOrderAndAddressDto> lstUserOrderAndAddressDto = userOrderDetailsDal.GetUserAddressDetails(OrderNumber);
+            List<MyOrdersDetailsResponseDto> lstUserOrderDetailsDto = userOrderDetailsDal.GetAllUserOrderDetails(OrderNumber);
+            TempData["UserAddress"] = lstUserOrderAndAddressDto;
+            TempData["UserOrderDetails"] = lstUserOrderDetailsDto;
+            TempData["OrderNumber"] = OrderNumber;
+            TempData["OrderDate"] = lstUserOrderDetailsDto[0].OrderDate;
+            TempData.Keep();
+            return Json(lstUserOrderAndAddressDto, JsonRequestBehavior.AllowGet);
+        }
+        [Authorize(Roles = "Admin")]
+        [UserAuthenticationFilter]
+        public ActionResult Invoice()
+        {
+            if (TempData["UserAddress"] != null)
+            {
+                ViewBag.OrderNumber = TempData["OrderNumber"];
+                ViewBag.OrderDate = TempData["OrderDate"];
+                ViewBag.UserAddress = TempData["UserAddress"];
+                ViewBag.UserOrderDetails = TempData["UserOrderDetails"];
+                return View();
+            }
+            else
+            {
+                return Redirect("GenerateInvoice");
+            }
+        }
+        public void SendApproveMail(string OrderNo)
         {
             UserOrderDetailsDal userOrderDetailsDal = new UserOrderDetailsDal();
-            List<UserOrderDetailsDto> userOrderDetailsDto = userOrderDetailsDal.GetAllOrderDetails(OrderNo);
-            using (MailMessage mm = new MailMessage("babudolagobinda@gmail.com", "babudolagobinda@gmail.com"))
+            List<UserOrderDetailsResponseDto> userOrderDetailsResponseDto = userOrderDetailsDal.GetAllOrderDetails(OrderNo);
+            List<UserOrderAndAddressDto> userOrderAndAddressDto = userOrderDetailsDal.GetUserAddressDetails(OrderNo);
+            using (MailMessage mm = new MailMessage(userOrderDetailsResponseDto[0].EmailId, userOrderDetailsResponseDto[0].EmailId))
             {
-                mm.Subject = "Prodcuct Confirmation";
-                string body = System.IO.File.ReadAllText(HttpContext.Server.MapPath("../EmailTemplate/demoEmailTemplate.html"));
+                mm.Subject = "Order Confirmation";
+                string body = System.IO.File.ReadAllText(HttpContext.Server.MapPath("../EmailTemplate/ApproveEmailTemplate.html"));
                 body = body.Replace("#OrderNumber", OrderNo);
                 var itemListBody = string.Empty;
-                foreach (var item in userOrderDetailsDto)
+                var userAddressBody = string.Empty;
+                var billingDetailsBody = string.Empty;
+                userAddressBody += "<tr><td>" + userOrderAndAddressDto[0].Address + "</td></tr>";
+                userAddressBody += "<tr><td>" + userOrderAndAddressDto[0].Locality + "," + userOrderAndAddressDto[0].City + "," + userOrderAndAddressDto[0].State + "," + userOrderAndAddressDto[0].Country + "</td></tr>";
+                userAddressBody += "<tr><td>" + userOrderAndAddressDto[0].Pincode + "</td></tr>";
+
+                billingDetailsBody += "<tr><td>Total Amount:</td><td>" + userOrderAndAddressDto[0].TotalAmount + "</td></tr>";
+                billingDetailsBody+= "<tr><td>Shipping Charge:</td><td>0.00</td></tr>";
+                billingDetailsBody += "<tr><td>Mode Of Payment:</td><td>" + userOrderAndAddressDto[0].PaymentType + "</td></tr>";
+
+                foreach (var item in userOrderDetailsResponseDto)
                 {
-                    itemListBody += "<tr class='tr'><td class='td'><img src = '#ItemImage' height='80' width='80' /></td><td class='td'>";
+                    itemListBody += "<tr class='tr'><td class='td'><img src = '" + "~/UploadImages/" + item.ItemImage + "' height='80' width='80' /></td><td class='td'>";
                     itemListBody += "<table class='table' style='font-family:'Open Sans', Arial, sans-serif; font-size:14px; line-height:17px; color:black;' valign='top'>";
-                    itemListBody += "<tr><td><b>#ItemName</b></td></tr><tr><td>Size</td><td>#Size </td></tr><tr><td>Quantity</td><td>#Quantity</td></tr><tr><td>Price</td>";
+                    itemListBody += "<tr><td><b>" + item.ItemName + "</b></td></tr><tr><td>Quantity</td><td>" + item.Quantity + "</td></tr><tr><td>Price</td>";
                     itemListBody += "<td><b>" + item.Price + "</b></td></tr></table></td></tr>";
-                    // body = itemListBody.Replace("#Price", item.Price.ToString());
                 }
+                body = body.Replace("#userAddress", userAddressBody);
+                body = body.Replace("#billingDetails", billingDetailsBody);
                 body = body.Replace("#itemList", itemListBody);
-                //body += "<br /><br />Please click the following link to activate your account";
-                //body += "<br /><a href = '" + string.Format("{0}://{1}/Home/Activation/{2}", Request.Url.Scheme, Request.Url.Authority, activationCode) + "'>Click here to activate your account.</a>";
-                //body += "<br /><br />Thanks";
                 mm.Body = body;
                 mm.IsBodyHtml = true;
                 SmtpClient smtp = new SmtpClient();
                 smtp.Host = "smtp.gmail.com";
                 smtp.EnableSsl = true;
-                NetworkCredential NetworkCred = new NetworkCredential("babudolagobinda@gmail.com", "Cybria@0909");
+                NetworkCredential NetworkCred = new NetworkCredential("chandnicreativeart@gmail.com", "ravenclaw12");
                 smtp.UseDefaultCredentials = true;
                 smtp.Credentials = NetworkCred;
                 smtp.Port = 587;
                 smtp.Send(mm);
             }
+        }
+
+
+        public void SendDeclineMail(string OrderNo)
+        {
+            UserOrderDetailsDal userOrderDetailsDal = new UserOrderDetailsDal();
+            List<UserOrderDetailsResponseDto> userOrderDetailsResponseDto = userOrderDetailsDal.GetAllOrderDetails(OrderNo);
+            List<UserOrderAndAddressDto> userOrderAndAddressDto = userOrderDetailsDal.GetUserAddressDetails(OrderNo);
+            MailMessage mail = new MailMessage();
+            mail.To.Add(userOrderDetailsResponseDto[0].EmailId);
+            mail.From = new MailAddress(userOrderDetailsResponseDto[0].EmailId);
+            mail.Subject = "Order Rejected";
+            string body = System.IO.File.ReadAllText(HttpContext.Server.MapPath("../EmailTemplate/DeclineEmailTemplate.html"));
+            mail.Body = body;
+            mail.IsBodyHtml = true;
+            SmtpClient smtp = new SmtpClient();
+            smtp.Host = "smtp.gmail.com";
+            smtp.Port = 587;
+            smtp.UseDefaultCredentials = false;
+            smtp.Credentials = new NetworkCredential("chandnicreativeart@gmail.com", "ravenclaw12"); // Enter seders User name and password  
+            smtp.EnableSsl = true;
+            smtp.Send(mail);
         }
     }
 }

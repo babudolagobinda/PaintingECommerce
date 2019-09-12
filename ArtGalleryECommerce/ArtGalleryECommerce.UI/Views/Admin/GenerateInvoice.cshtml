@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "GenerateInvoice";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<link href="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/select2/css/bootstrap-select.min.css" rel="stylesheet" />
+<script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/select2/js/bootstrap-select.min.js"></script>
+<div class="br-mainpanel">
+    <div class="br-pagetitle">
+        <div>
+            <h4>INVOICE DATATABLE </h4>
+        </div>
+    </div>
+    @{
+        <div class="br-pagebody">
+            <div class="row">
+                <div class="col-lg-4 mg-t-20 mg-lg-t-0">
+                    <input type="hidden"  id="hdnOrderNo"/>
+                    <select class="form-control select2-show-search selectpicker"  id="ddlOrderNumber" data-placeholder="Choose one (with searchbox)" data-show-subtext="true" data-live-search="true">
+                        <option label="Choose one"></option>
+                        @foreach (var item in ViewBag.AllOrders)
+                        {
+                            <option value="@item.OrderNumber">@item.OrderNumber</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-lg-2 mg-t-20 mg-lg-t-0">
+                    @*<a href="@Url.Action("Invoice", "Admin")?OrderNumber=hdnOrderNo" class="btn btn-primary">Generate Invoice</a>*@
+                    <button type="button" class="btn btn-primary" onclick="GenerateInvoice();">Generate Invoice</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script>
+    
+    function GenerateInvoice() {
+        var orderNo = $("#ddlOrderNumber").val();
+        $.ajax({
+            type: 'POST',
+            dataTyoe: 'JSON',
+            url: '/Admin/GenerateInvoice',
+            data: { OrderNumber: orderNo },
+            success: function (res) {
+                window.location.href='/Admin/Invoice'
+            }
+
+        })
+    }
+</script>

@@ -1,0 +1,112 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Invoice</title>
+    <link href="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/css/invoice.css" rel="stylesheet" />
+
+</head>
+<body>
+    @*<div id="divPartialInvoice">
+            @Html.Partial("_PartialInvoice")
+        </div>*@
+
+    <header>
+        <h1>Invoice</h1>
+        @foreach (var item in ViewBag.UserAddress)
+        {
+            <address>
+                <p><b>@item.Name</b></p>
+                <p>@item.MobileNo</p>
+                <p>@item.Address</p>
+                <p>@item.Locality</p>
+                <p>@item.City</p>
+                <p>@item.State</p>
+                <p>@item.Country</p>
+                <p>@item.Pincode</p>
+            </address>
+        }
+        <span><img alt="" src="~/fonts/logo.png" height="70" width="70" /></span>
+    </header>
+    <article>
+        @{
+            decimal totalAmount = 0;
+            var currencySymbol = "";
+            @*<h1>Recipient</h1>
+                <address contenteditable>
+                    <p>Some Company<br>c/o Some Guy</p>
+                </address>*@
+            <table class="meta">
+                <tr>
+                    <th><span>Order Number #</span></th>
+                    <td><span>@ViewBag.OrderNumber</span></td>
+                </tr>
+                <tr>
+                    <th><span>Date</span></th>
+                    <td><span>@ViewBag.OrderDate</span></td>
+                </tr>
+                @*<tr>
+                        <th><span contenteditable>Amount Due</span></th>
+                        <td><span id="prefix" contenteditable>$</span><span>600.00</span></td>
+                    </tr>*@
+            </table>
+            <table class="inventory">
+                <thead>
+                    <tr>
+                        <th><span>Item</span></th>
+                        <th><span>Rate</span></th>
+                        <th><span>Quantity</span></th>
+                        <th><span>Price</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.UserOrderDetails)
+                    {
+                        totalAmount += @item.Price;
+                        <tr>
+                            <td><span>@item.ItemName</span></td>
+                            <td>
+                                <span>
+                                    @if (item.CurrencyType == "INR")
+                                    {
+                                        currencySymbol = "₹";
+                                    }
+                                    else if (item.CurrencyType == "USD")
+                                    {
+                                        currencySymbol = "$";
+                                    }
+                                    else if (item.CurrencyType == "EUR")
+                                    {
+                                        currencySymbol = "€";
+                                    }
+                                    @currencySymbol
+                                </span><span>@item.Price</span>
+                            </td>
+                            <td><span>@item.Quantity</span></td>
+                            <td>
+                                <span>
+                                    @currencySymbol
+                                </span><span>@item.Price</span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <table class="balance">
+                <tr>
+                    <th><span>Total</span></th>
+                    <td><span>@currencySymbol</span><span>@totalAmount</span></td>
+                </tr>
+            </table>
+        }
+    </article>
+
+</body>
+</html>

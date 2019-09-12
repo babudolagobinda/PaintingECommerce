@@ -67,6 +67,15 @@
             </li>
             <li class="br-menu-item">
                 <a href="#" class="br-menu-link with-sub">
+                    <i class="menu-item-icon ion-ios-redo-outline tx-24"></i>
+                    <span class="menu-item-label">Banners Catalog</span>
+                </a><!-- br-menu-link -->
+                <ul class="br-menu-sub">
+                    <li class="sub-item"><a href="@Url.Action("MainBanner","Admin")" class="sub-link">Main Banner</a></li>
+                </ul>
+            </li>
+            <li class="br-menu-item">
+                <a href="#" class="br-menu-link with-sub">
                     <i class="menu-item-icon icon ion-ios-filing-outline tx-24"></i>
                     <span class="menu-item-label">Stocks Catalog</span>
                 </a><!-- br-menu-link -->
@@ -86,21 +95,21 @@
             </li><!-- br-menu-item -->
             <li class="br-menu-item">
                 <a href="#" class="br-menu-link with-sub">
-                    <i class="menu-item-icon ion-ios-redo-outline tx-24"></i>
+                    <i class="menu-item-icon icon ion-ios-filing-outline tx-24"></i>
                     <span class="menu-item-label">Orders Catalog</span>
                 </a><!-- br-menu-link -->
                 <ul class="br-menu-sub">
                     <li class="sub-item"><a href="@Url.Action("UserOrders","Admin")" class="sub-link">Users Order</a></li>
-                    <li class="sub-item"><a href="navigation.html" class="sub-link">Users Order</a></li>
+                    <li class="sub-item"><a href="@Url.Action("UserOrderCategory","Admin")" class="sub-link">Users Order Category</a></li>
                 </ul>
             </li>
             <li class="br-menu-item">
                 <a href="#" class="br-menu-link with-sub">
-                    <i class="menu-item-icon ion-ios-redo-outline tx-24"></i>
-                    <span class="menu-item-label">Banners Catalog</span>
+                    <i class="menu-item-icon icon ion-ios-bookmarks-outline tx-20"></i>
+                    <span class="menu-item-label">Invoice Catalog</span>
                 </a><!-- br-menu-link -->
                 <ul class="br-menu-sub">
-                    <li class="sub-item"><a href="@Url.Action("MainBanner","Admin")" class="sub-link">Main Banner</a></li>
+                    <li class="sub-item"><a href="@Url.Action("GenerateInvoice","Admin")" class="sub-link">Generate Invoice</a></li>
                 </ul>
             </li>
         </ul><!-- br-sideleft-menu -->

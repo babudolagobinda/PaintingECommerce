@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Chandni Creative Art</title>
-    <link rel="icon" href="~/fonts/logo-web.png" type="image/x-icon">
+    <link rel="icon" href="~/fonts/LogoPrefinal6.jpg" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
     <link href="~/UserTemplate/css/bootstrap.min.css" rel="stylesheet" />
     <link type="text/css" rel="stylesheet" href="~/UserTemplate/css/slick.css" />
@@ -17,8 +17,10 @@
     <link type="text/css" rel="stylesheet" href="~/UserTemplate/css/nouislider.min.css" />
     <link rel="stylesheet" href="~/UserTemplate/css/font-awesome.min.css">
     <link type="text/css" rel="stylesheet" href="~/UserTemplate/css/style.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script>*@
     <script type="text/javascript">
         var prevCurrencyValue = "";
         $(document).ready(function () {
@@ -58,9 +60,6 @@
 <body>
     <div class="loader" id="divLoader">
         <img src="~/fonts/Ripple-1s-200px.gif" />
-        @*<img src="~/fonts/Preloader_8.gif" />*@
-        @*<img src="~/fonts/logo-web (2).gif" />*@
-        @*<img src="~/fonts/logo.png" width="90" />*@
     </div>
     <!-- HEADER -->
     <header>
@@ -71,7 +70,8 @@
                     <!-- Logo -->
                     <div class="header-logo">
                         <a class="logo" href="@Url.Action("Index", "User")">
-                            <img src="~/fonts/logo.png" />
+                            @*<img src="~/fonts/logo.png" />*@
+                            <img src="~/fonts/LogoPrefinal6.jpg" />
                         </a>
                     </div>
                     <!-- /Logo -->
@@ -135,8 +135,8 @@
                                             </div>
                                         </div>
                                     </li>
-                                    <li><a href="#">About Us</a></li>
-                                    <li><a href="#">Blog</a></li>
+                                    <li><a href="@Url.Action("AboutMe","User")">About Me</a></li>
+                                    @*<li><a href="#">Blog</a></li>*@
                                     <li><a href="@Url.Action("ContactUs","User")">Contact Us</a></li>
                                 </ul>
                             </div>
@@ -336,30 +336,26 @@
             <!-- row -->
             <div class="row">
                 <!-- footer widget -->
-                <div class="col-md-3 col-xs-6">
-                    <div class="footer">
-
-                        <p>Share:</p>
-
-                        <!-- footer social -->
-                        <ul class="footer-social">
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                            <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                        </ul>
-                        <!-- /footer social -->
-                    </div>
-                </div>
+                @*<div class="col-md-3 col-xs-6">
+                        <div class="footer">
+                            <p>Share:</p>
+                            <ul class="footer-social">
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>*@
                 <!-- /footer widget -->
                 <!-- footer widget -->
                 <div class="col-md-3 col-sm-6 col-xs-6">
                     <div class="footer">
                         <h3 class="footer-header">My Account</h3>
                         <ul class="list-links">
-                            <li><a href="#">My Account</a></li>
-                            <li><a href="#">My Wishlist</a></li>
+                            <li><a href="@Url.Action("MyProfile","User")">My Account</a></li>
+                            <li><a href="@Url.Action("Wishlist","User")">My Wishlist</a></li>
                         </ul>
                     </div>
                 </div>
@@ -370,16 +366,43 @@
                 <!-- footer widget -->
                 <div class="col-md-3 col-sm-6 col-xs-6">
                     <div class="footer">
-                        <h3 class="footer-header">Customer Service</h3>
+                        <h3 class="footer-header">About</h3>
                         <ul class="list-links">
-                            <li><a href="#">About Us</a></li>
+                            <li><a href="@Url.Action("AboutMe","User")">About Me</a></li>
                             <li><a href="@Url.Action("ContactUs","User")">Contact Us</a></li>
-                            <li><a href="#">Blog</a></li>
+                            @*<li><a href="#">Blog</a></li>*@
                         </ul>
                     </div>
                 </div>
                 <!-- /footer widget -->
+                <div class="clearfix visible-sm visible-xs"></div>
 
+                <!-- footer widget -->
+                <div class="col-md-3 col-sm-6 col-xs-6">
+                    <div class="footer">
+                        <h3 class="footer-header">Policy</h3>
+                        <ul class="list-links">
+                            <li><a href="@Url.Action("PrivacyPolicy","User")">Privacy Policy</a></li>
+                            <li><a href="@Url.Action("TermsAndConditions","User")">Terms &amp; Conditions</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /footer widget -->
+                <div class="clearfix visible-sm visible-xs"></div>
+
+                <!-- footer widget -->
+                <div class="col-md-3 col-sm-6 col-xs-6">
+                    <div class="footer">
+                        <h3 class="footer-header">Social</h3>
+                        <ul class="list-links">
+                            @*<li><a href="@Url.Action("PrivacyPolicy","User")">Privacy Policy</a></li>
+                                <li><a href="@Url.Action("ContactUs","User")">Terms &Aacute; Conditionss</a></li>*@
+                            <li><a href="#"><i class="fa fa-facebook"></i> Facebook</a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i> Twitter</a></li>
+                            <li><a href="#"><i class="fa fa-instagram"></i> Instagram</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
             <!-- /row -->
             <hr>

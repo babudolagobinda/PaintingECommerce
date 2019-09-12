@@ -176,6 +176,7 @@
     <Content Include="AdminTemplate\hts-log.txt" />
     <Content Include="AdminTemplate\index.html" />
     <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\css\bracket.css" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\css\invoice.css" />
     <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img1.jpg" />
     <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img10.jpg" />
     <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\img\img11.jpg" />
@@ -341,7 +342,9 @@
     <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\rickshaw\rickshaw.min.js" />
     <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\rickshaw\vendor\d3.layout.min.js" />
     <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\rickshaw\vendor\d3.min.js" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\select2\css\bootstrap-select.min.css" />
     <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\select2\css\select2.min.css" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\select2\js\bootstrap-select.min.js" />
     <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\select2\js\select2.full.min.js" />
     <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\select2\js\select2.min.js" />
     <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\spectrum-colorpicker\spectrum.css" />
@@ -368,8 +371,13 @@
     <Content Include="CustomScripts\ManageUser.js" />
     <Content Include="CustomScripts\StockMaster.js" />
     <Content Include="CustomScripts\UserSignUp.js" />
-    <Content Include="EmailTemplate\demoEmailTemplate.html" />
+    <Content Include="EmailTemplate\ApproveEmailTemplate.html" />
+    <Content Include="EmailTemplate\DeclineEmailTemplate.html" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\About me.jpg" />
+    <Content Include="fonts\aboutMeFinal-1.png" />
+    <Content Include="fonts\aboutMeFinal.jpg" />
+    <Content Include="fonts\aboutMeFinal.png" />
     <Content Include="fonts\contact-banner.jpg" />
     <Content Include="fonts\emptyBag2.gif" />
     <Content Include="fonts\EmptyBag3.gif" />
@@ -383,9 +391,11 @@
     <Content Include="fonts\logo.jpg" />
     <Content Include="fonts\logo.png" />
     <Content Include="fonts\logo2.png" />
+    <Content Include="fonts\LogoPrefinal6.jpg" />
     <Content Include="fonts\mailbox.png" />
     <Content Include="fonts\Preloader_8.gif" />
     <Content Include="fonts\Ripple-1s-200px.gif" />
+    <Content Include="fonts\sorry.gif" />
     <Content Include="fonts\success.gif" />
     <Content Include="fonts\thanku.gif" />
     <Content Include="fonts\watermark1.png" />
@@ -408,12 +418,14 @@
     <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\summernote\font\summernotec360.eot" />
     <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\summernote\font\summernotec360.ttf" />
     <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\summernote\font\summernotec360.woff" />
+    <Content Include="fonts\aboutMeFinal.pdf" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\dirPagination.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -575,6 +587,12 @@
     <Content Include="Views\User\MyOrders.cshtml" />
     <Content Include="Views\Admin\UserOrders.cshtml" />
     <Content Include="Views\User\ContactUs.cshtml" />
+    <Content Include="Views\Admin\GenerateInvoice.cshtml" />
+    <Content Include="Views\Admin\Invoice.cshtml" />
+    <Content Include="Views\Shared\_PartialInvoice.cshtml" />
+    <Content Include="Views\User\PrivacyPolicy.cshtml" />
+    <Content Include="Views\User\AboutMe.cshtml" />
+    <Content Include="Views\User\TermsAndConditions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

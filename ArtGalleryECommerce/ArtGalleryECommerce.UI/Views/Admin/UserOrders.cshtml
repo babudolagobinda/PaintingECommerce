@@ -44,28 +44,23 @@
     }
 </style>
 
-<div id="modalStatus" class="modal fade">
-    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+<div id="modalUserAddress" class="modal fade">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content bd-0 tx-14">
-            <div class="modal-header pd-x-20">
-                <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Notice</h6>
+            <div class="modal-header pd-y-20 pd-x-25">
+                <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">User Address Preview</h6>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body pd-20">
-                <select class="form-control select2" data-placeholder="Choose one">
-                    <option label="Choose one"></option>
-                    <option value="Firefox">Confirm</option>
-                    <option value="Chrome">Decline</option>
-                </select>
+            <div class="modal-body pd-25">
+                <div id="divUserAddress">
+
+                </div>
             </div>
-            <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-primary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium">Save changes</button>
-                <button type="button" class="btn btn-secondary tx-11 tx-uppercase pd-y-12 pd-x-25 tx-mont tx-medium" data-dismiss="modal">Close</button>
-            </div>
+
         </div>
-    </div><!-- modal-dialog -->
+    </div>
 </div>
 
 <div class="br-mainpanel">
@@ -86,21 +81,22 @@
 
                                 <div id="accordion" class="accordion" role="tablist" aria-multiselectable="true">
                                     <div class="card">
-                                        <div class="br-pagetitle pull-right">
+                                        <div class="pull-right">
                                             <div class="selected pull-right">
                                                 @if (@item.Status == 0)
                                                 {
-                                                    <button type="button" id="btnApprove" class="btn btn-link" value="@item.OrderNumber" onclick="OrderApprove(this.value);">Approve</button>
-                                                    <button type="button" id="btnDecline" class="btn btn-link" value="@item.OrderNumber" onclick="OrderDecline(this.value);">Decline</button>
+                                                    <button type="button" id="btnApprove" class="btn btn-info btn-circle" value="@item.OrderNumber" onclick="OrderApprove(this.value);"><i class="fa fa-check"></i></button>
+                                                    <button type="button" id="btnDecline" class="btn btn-danger btn-circle" value="@item.OrderNumber" onclick="OrderDecline(this.value);"><i class="icon ion-close"></i></button>
                                                 }
                                                 else if (@item.Status == 1)
                                                 {
-                                                    <button type="button" id="btnDecline" class="btn btn-link" value="@item.OrderNumber" onclick="OrderDecline(this.value);">Decline</button>
+                                                    <button type="button" id="btnDecline" class="btn btn-danger btn-circle" value="@item.OrderNumber" onclick="OrderDecline(this.value);"><i class="icon ion-close"></i></button>
                                                 }
                                                 else
                                                 {
-                                                    <button type="button" id="btnApprove" class="btn btn-link" value="@item.OrderNumber" onclick="OrderApprove(this.value);">Approve</button>
+                                                    <button type="button" id="btnApprove" class="btn btn-info btn-circle" value="@item.OrderNumber" onclick="OrderApprove(this.value);"><i class="fa fa-check"></i></button>
                                                 }
+                                                <button type="button" id="btnUserDetails" class="btn btn-primary btn-circle modal-effect" data-target="#modalUserAddress" data-effect="effect-fall" value="@item.OrderNumber" onclick="ShowUserDetails(this.value);"><i class="fas fa-address-card"></i></button>
 
                                             </div>
                                         </div>
@@ -225,7 +221,7 @@
                                                                 <td>@userOrders.CategoryName</td>
                                                                 <td>@userOrders.ItemName</td>
                                                                 <td><img src="~/UploadImages/@userOrders.ItemImage" height="50" width="50" /></td>
-                                                                <td>@userOrders.Price</td>
+                                                                <td>@userOrders.CurrencyType @userOrders.Price</td>
                                                                 <td>@userOrders.Width * @userOrders.Height</td>
                                                                 <td>@userOrders.Quantity</td>
                                                                 @if (@userOrders.Status == 0)
@@ -240,7 +236,7 @@
                                                                 {
                                                                     <td>Declined</td>
                                                                 }
-
+                                                               
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -282,10 +278,10 @@
         $('.modal-effect').on('click', function (e) {
             e.preventDefault();
             var effect = $(this).attr('data-effect');
-            $('#modalStatus').addClass(effect);
-            $('#modalStatus').modal('show');
+            $('#modalUserAddress').addClass(effect);
+            $('#modalUserAddress').modal('show');
         });
-        $('#modalStatus').on('hidden.bs.modal', function (e) {
+        $('#modalUserAddress').on('hidden.bs.modal', function (e) {
             $(this).removeClass(function (index, className) {
                 return (className.match(/(^|\s)effect-\S+/g) || []).join(' ');
             });
@@ -350,7 +346,7 @@
                         success: function (res) {
                             if (res > 0) {
                                 swal("Success!", "You Decline the Order.", "success");
-                                 window.location.reload();
+                                window.location.reload();
                             }
                             else {
                                 swal("Not Deleted!", "Some Error Has been Occoured.", "error");
@@ -361,6 +357,30 @@
                     swal("Cancelled", "Your imaginary file is safe :)", "error");
                 }
             })
+    }
+
+    function ShowUserDetails(par) {
+        $.ajax({
+            type: 'POST',
+            dataType: 'JSON',
+            url: '/Admin/GetUserAddressDetails',
+            data: { OrderNumber: par },
+            success: function (res) {
+                debugger;
+                if (res.length > 0) {
+                    var a = "<b>Name:</b> " + res[0].Name + "</br>";
+                    a += "<b>Mobile No:</b> " + res[0].MobileNo + "</br>";
+                    a += "<b>Address:</b> " + res[0].Address + "</br>";
+                    a += "<b>Locality:</b> " + res[0].Locality + "</br>";
+                    a += "<b>City:</b> " + res[0].City + "</br>";
+                    a += "<b>State:</b> " + res[0].State + "</br>";
+                    a += "<b>Country:</b> " + res[0].Country + "</br>";
+                    a += res[0].Pincode;
+                    $("#divUserAddress").html(a);
+                }
+
+            }
+        })
     }
 
 </script>
