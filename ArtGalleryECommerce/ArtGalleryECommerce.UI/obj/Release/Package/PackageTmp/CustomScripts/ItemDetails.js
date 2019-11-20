@@ -140,6 +140,13 @@ app.controller("divItemDetailsController", function ($http, $scope) {
     $scope.resetAll = function () {
         resetItemDetails();
     };
+    $scope.CalculatePrice = function () {
+        var mrp = parseFloat($scope.Mrp);
+        var discount = parseFloat($scope.Discount);
+        var discountMrp = mrp * discount / 100;
+        var discountPrice = mrp - discountMrp;
+        $scope.Price = discountPrice;
+    };
     function GetAllItemMaster() {
         $http({
             method: 'POST',

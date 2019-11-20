@@ -1,0 +1,88 @@
+﻿@model IEnumerable<ArtGalleryECommerce.Model.UserDTO.ProductListDto>
+
+@{
+    if (Model != null && Model.Count() != 0)
+    {
+        <div id="breadcrumb">
+            <div class="container">
+                <ul class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li class="active">Wishlist</li>
+                </ul>
+            </div>
+        </div>
+        <div class="section">
+            <div class="container">
+                <div class="row">
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <div class="col-md-4 col-sm-6 col-xs-6">
+                                <div class="product product-single">
+                                    <div class="product-thumb">
+                                        @*<div class="product-label"> <span>New</span> <span class="sale">-20%</span> </div>*@
+                                        <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
+                                        <img src="~/UploadImages/@item.ItemImage" alt="">
+                                    </div>
+                                    <div class="product-body">
+                                        <h3 class="product-price">
+                                            @*@item.Price*@
+                                            @{
+                                                var currencySymbol = "";
+                                                if (TempData["currency"] != null)
+                                                {
+                                                    if (TempData["currency"].ToString() == "INR")
+                                                    {
+                                                        currencySymbol = "₹";
+                                                    }
+                                                    else if (TempData["currency"].ToString() == "USD")
+                                                    {
+                                                        currencySymbol = "$";
+                                                    }
+                                                    else if (TempData["currency"].ToString() == "EUR")
+                                                    {
+                                                        currencySymbol = "€";
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    currencySymbol = "₹";
+                                                }
+                                                @currencySymbol @item.Price
+                                            }
+                                        </h3>
+                                        <div class="product-rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o empty"></i> </div>
+                                        <h2 class="product-name"><a href="#">@item.ItemName</a></h2>
+                                        <div class="product-btns text-right">
+                                            <button class="primary-btn add-to-cart" data-pid="@item.ItemId" onclick="AddToBag(@item.ItemId);"><i class="fa fa-shopping-cart add-to-cart"></i> Add to Bag</button>
+                                            <button class="main-btn icon-btn" onclick="RemoveItem(@item.ItemId)"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <section id="cover">
+            <div id="cover-caption">
+                <div id="container" class="container">
+                    <div class="row">
+                        <div class="col-sm-12 offset-sm-1 text-center">
+                            <img src="~/fonts/emptyBag2.gif" height="300" width="300" />
+                            <h3>Hey, it feels so light!</h3>
+                            <h5>There is nothing in your bag. Let's add some items. <a href="@Url.Action("Index","User")" class="btn btn-secondary-outline btn-sm" role="button">↓</a></h5>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+}

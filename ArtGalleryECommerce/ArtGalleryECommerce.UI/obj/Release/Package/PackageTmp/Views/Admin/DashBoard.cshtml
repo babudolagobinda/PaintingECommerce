@@ -1,39 +1,56 @@
-﻿
+﻿@using PagedList.Mvc
+@model  PagedList.IPagedList<ArtGalleryECommerce.Model.UserDTO.UserOrderDetailsDto>
+@using System.Data;
+@using System.Data.SqlClient;
+@using ArtGalleryECommerce.Model.UserDTO;
+
 @{
     ViewBag.Title = "DashBoard";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-
+<link href="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-dt/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-responsive-dt/css/responsive.dataTables.min.css" rel="stylesheet">
+<script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-dt/js/dataTables.dataTables.min.js"></script>
+<script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-responsive-dt/js/responsive.dataTables.min.js"></script>
+@*<link href="~/Content/Pagignation.css" rel="stylesheet" />*@
 <div class="br-mainpanel">
     <div class="br-pagetitle">
     </div>
     <div class="br-pagebody">
         <div class="row row-sm">
             <div class="col-sm-6 col-xl-3">
-                <div class="bg-info rounded overflow-hidden">
-                    <div class="pd-x-20 pd-t-20 d-flex align-items-center">
-                        <i class="ion ion-earth tx-60 lh-0 tx-white op-7"></i>
-                        <div class="mg-l-20">
-                            <p class="tx-10 tx-spacing-1 tx-mont tx-semibold tx-uppercase tx-white-8 mg-b-10">Total Users</p>
-                            <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1">1,975,224</p>
-                            <span class="tx-11 tx-roboto tx-white-8">24% higher yesterday</span>
+                <a href="@Url.Action("ManageUser","Admin")">
+                    <div class="bg-info rounded overflow-hidden">
+                        <div class="pd-x-20 pd-t-20 d-flex align-items-center">
+                            <i class="ion ion-earth tx-60 lh-0 tx-white op-7"></i>
+                            <div class="mg-l-20">
+                                <p class="tx-10 tx-spacing-1 tx-mont tx-semibold tx-uppercase tx-white-8 mg-b-10">Total Users</p>
+                                <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1">@ViewBag.UserCount</p>
+                                @*<span class="tx-11 tx-roboto tx-white-8">24% higher yesterday</span>*@
+                            </div>
                         </div>
+                        <div id="ch1" class="ht-50 tr-y-1"></div>
                     </div>
-                    <div id="ch1" class="ht-50 tr-y-1"></div>
-                </div>
+                </a>
+
+
             </div><!-- col-3 -->
             <div class="col-sm-6 col-xl-3 mg-t-20 mg-sm-t-0">
-                <div class="bg-purple rounded overflow-hidden">
-                    <div class="pd-x-20 pd-t-20 d-flex align-items-center">
-                        <i class="ion ion-bag tx-60 lh-0 tx-white op-7"></i>
-                        <div class="mg-l-20">
-                            <p class="tx-10 tx-spacing-1 tx-mont tx-semibold tx-uppercase tx-white-8 mg-b-10">Total Stocks</p>
-                            <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1">$329,291</p>
-                            <span class="tx-11 tx-roboto tx-white-8">$390,212 before tax</span>
+                <a href="@Url.Action("StockMaster","Admin")">
+                    <div class="bg-purple rounded overflow-hidden">
+                        <div class="pd-x-20 pd-t-20 d-flex align-items-center">
+                            <i class="ion ion-bag tx-60 lh-0 tx-white op-7"></i>
+                            <div class="mg-l-20">
+                                <p class="tx-10 tx-spacing-1 tx-mont tx-semibold tx-uppercase tx-white-8 mg-b-10">Total Stocks</p>
+                                <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1">@ViewBag.StockCount</p>
+                                @*<span class="tx-11 tx-roboto tx-white-8">$390,212 before tax</span>*@
+                            </div>
                         </div>
+                        <div id="ch3" class="ht-50 tr-y-1"></div>
                     </div>
-                    <div id="ch3" class="ht-50 tr-y-1"></div>
-                </div>
+                </a>
             </div><!-- col-3 -->
             <div class="col-sm-6 col-xl-3 mg-t-20 mg-xl-t-0">
                 <div class="bg-teal rounded overflow-hidden">
@@ -42,139 +59,241 @@
                         <div class="mg-l-20">
                             <p class="tx-10 tx-spacing-1 tx-mont tx-semibold tx-uppercase tx-white-8 mg-b-10">Users Rating</p>
                             <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1">54.45%</p>
-                            <span class="tx-11 tx-roboto tx-white-8">23% average duration</span>
+                            @*<span class="tx-11 tx-roboto tx-white-8">23% average duration</span>*@
                         </div>
                     </div>
                     <div id="ch2" class="ht-50 tr-y-1"></div>
                 </div>
             </div><!-- col-3 -->
             <div class="col-sm-6 col-xl-3 mg-t-20 mg-xl-t-0">
+
                 <div class="bg-primary rounded overflow-hidden">
                     <div class="pd-x-20 pd-t-20 d-flex align-items-center">
                         <i class="ion ion-clock tx-60 lh-0 tx-white op-7"></i>
                         <div class="mg-l-20">
                             <p class="tx-10 tx-spacing-1 tx-mont tx-semibold tx-uppercase tx-white-8 mg-b-10">New Orders</p>
-                            <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1">32.16%</p>
-                            <span class="tx-11 tx-roboto tx-white-8">65.45% on average time</span>
+                            <p class="tx-24 tx-white tx-lato tx-bold mg-b-0 lh-1">@ViewBag.AllOrdersCount</p>
+                            @*<span class="tx-11 tx-roboto tx-white-8">65.45% on average time</span>*@
                         </div>
                     </div>
                     <div id="ch4" class="ht-50 tr-y-1"></div>
                 </div>
+
             </div><!-- col-3 -->
         </div><!-- row -->
         <div class="row row-sm mg-t-20">
             <div class="col-lg-12">
                 <div class="card bd-0 shadow-base">
-                    <div class="d-md-flex justify-content-between pd-25">
-                        @*<div>
-                            <h6 class="tx-13 tx-uppercase tx-inverse tx-semibold tx-spacing-1">How Engaged Our Users Daily</h6>
-                            <p>Past 30 Days — Last Updated Oct 14, 2017</p>
-                        </div>
-                        <div class="d-sm-flex">
+                    <div class="br-section-wrapper">
+                        <h6 class="br-section-label">Order Details</h6>
+                        @*<p class="br-section-text">The default collapse behavior to create an accordion.</p>*@
+                        @foreach (var item in Model)
+                        {
                             <div>
-                                <p class="mg-b-5 tx-uppercase tx-10 tx-mont tx-semibold">Bounce Rate</p>
-                                <h4 class="tx-lato tx-inverse tx-bold mg-b-0">23.32%</h4>
-                                <span class="tx-12 tx-success tx-roboto">2.7% increased</span>
+                                <div class="card">
+                                    <div class="card-header" role="tab" id="headingOne">
+                                        <h6 class="mg-b-0">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#@item.OrderNumber" aria-expanded="false" aria-controls="collapseOne" class="tx-gray-800 transition">
+                                                <div class="table-wrapper">
+                                                    <table id="datatable1" class="table display responsive nowrap">
+                                                        <thead class="thead-colored thead-teal">
+                                                            <tr>
+                                                                <th class="wd-10p">Sl. No.</th>
+                                                                <th class="wd-25p">Order Number</th>
+                                                                <th class="wd-25p">TotalAmount</th>
+                                                                <th class="wd-15p">Status</th>
+                                                                @*<th class="wd-25p">Action</th>*@
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>@item.Id</td>
+                                                                <td>@item.OrderNumber</td>
+                                                                <td>@item.TotalAmount</td>
+                                                                @if (@item.Status == 0)
+                                                                {
+                                                                    <td>Pending</td>
+                                                                }
+                                                                else if (@item.Status == 1)
+                                                                {
+                                                                    <td>Approved</td>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <td>Declined</td>
+                                                                }
+                                                                @*<td>
+                                                                        @if (@item.Status == 0)
+                                                                        {
+                                                                            <input type="button" class="btn btn-success btn-block" value="Approved" />
+                                                                            <input type="button" class="btn btn-danger btn-block" value="Declined" />
+
+                                                                        }
+                                                                        else if (@item.Status == 1)
+                                                                        {
+                                                                            <input type="button" class="btn btn-danger btn-block mg-b-6" value="Declined" />
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <input type="button" class="btn btn-success btn-block mg-b-6" value="Approved" />
+                                                                        }
+
+
+                                                                    </td>*@
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </a>
+                                        </h6>
+                                    </div><!-- card-header -->
+                                    @*<div id="@item.OrderNumber" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+                                        <div class="card-block pd-20">
+                                            @{
+                                                SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["conn"].ConnectionString);
+                                                List<MyOrdersDetailsResponseDto> lstMyOrdersDetailsResponseDto = new List<MyOrdersDetailsResponseDto>();
+                                                SqlCommand cmd = new SqlCommand("GetAllUserOrderDetails", con);
+                                                cmd.CommandType = CommandType.StoredProcedure;
+                                                cmd.Parameters.AddWithValue("@OrderNo", @item.OrderNumber);
+                                                con.Open();
+                                                SqlDataReader dr = cmd.ExecuteReader();
+                                                while (dr.Read())
+                                                {
+                                                    MyOrdersDetailsResponseDto myOrdersDetailsResponseDto = new MyOrdersDetailsResponseDto();
+                                                    myOrdersDetailsResponseDto.GroupId = Convert.ToInt32(dr["GroupId"]);
+                                                    myOrdersDetailsResponseDto.GroupName = Convert.ToString(dr["GroupName"]);
+                                                    myOrdersDetailsResponseDto.CategoryId = Convert.ToInt32(dr["CategoryId"]);
+                                                    myOrdersDetailsResponseDto.CategoryName = Convert.ToString(dr["CategoryName"]);
+                                                    myOrdersDetailsResponseDto.ItemId = Convert.ToInt32(dr["ItemId"]);
+                                                    myOrdersDetailsResponseDto.ItemName = Convert.ToString(dr["ItemName"]);
+                                                    myOrdersDetailsResponseDto.ItemImage = Convert.ToString(dr["ItemImage"]);
+                                                    myOrdersDetailsResponseDto.Mrp = Convert.ToDecimal(dr["Mrp"]);
+                                                    myOrdersDetailsResponseDto.Discount = Convert.ToDecimal(dr["Discount"]);
+                                                    myOrdersDetailsResponseDto.Price = Convert.ToDecimal(dr["Price"]);
+                                                    myOrdersDetailsResponseDto.Width = Convert.ToInt32(dr["Width"]);
+                                                    myOrdersDetailsResponseDto.WidthType = Convert.ToString(dr["WidthType"]);
+                                                    myOrdersDetailsResponseDto.Height = Convert.ToInt32(dr["Height"]);
+                                                    myOrdersDetailsResponseDto.HeightType = Convert.ToString(dr["HeightType"]);
+                                                    myOrdersDetailsResponseDto.CurrencyType = Convert.ToString(dr["CurrencyType"]);
+                                                    myOrdersDetailsResponseDto.Quantity = Convert.ToInt32(dr["Quantity"]);
+                                                    myOrdersDetailsResponseDto.Status = Convert.ToInt32(dr["Status"]);
+                                                    myOrdersDetailsResponseDto.OrderId = Convert.ToInt32(dr["OrderId"]);
+                                                    myOrdersDetailsResponseDto.OrderNumber = Convert.ToString(dr["OrderNumber"]);
+                                                    myOrdersDetailsResponseDto.OrderDate = Convert.ToString(dr["OrderDate"]);
+                                                    myOrdersDetailsResponseDto.PaymentDate = Convert.ToString(dr["PaymentDate"]);
+                                                    myOrdersDetailsResponseDto.PaymentType = Convert.ToString(dr["PaymentType"]);
+                                                    myOrdersDetailsResponseDto.UserId = Convert.ToInt32(dr["UserId"]);
+                                                    myOrdersDetailsResponseDto.Name = Convert.ToString(dr["Name"]);
+                                                    myOrdersDetailsResponseDto.EmailId = Convert.ToString(dr["EmailId"]);
+                                                    myOrdersDetailsResponseDto.MobileNo = Convert.ToString(dr["MobileNo"]);
+                                                    myOrdersDetailsResponseDto.AddressId = Convert.ToInt32(dr["AddressId"]);
+                                                    lstMyOrdersDetailsResponseDto.Add(myOrdersDetailsResponseDto);
+                                                }
+                                                con.Close();
+                                                ViewBag.AllUserOrderDetails = lstMyOrdersDetailsResponseDto;
+                                            }
+                                            @foreach (var userOrders in ViewBag.AllUserOrderDetails)
+                                            {
+                                                <table id="datatable1" class="table display responsive nowrap">
+                                                    <thead class="thead-colored thead-light">
+                                                        <tr>
+                                                            <th class="wd-15p">GroupName</th>
+                                                            <th class="wd-15p">CategoryName</th>
+                                                            <th class="wd-25p">ItemName</th>
+                                                            <th class="wd-15p">Price</th>
+                                                            <th class="wd-10p">Size</th>
+                                                            <th class="wd-5p">Quantity</th>
+                                                            <th class="wd-20p">Status</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>@userOrders.GroupName</td>
+                                                            <td>@userOrders.CategoryName</td>
+                                                            <td>@userOrders.ItemName</td>
+                                                            <td>@userOrders.Price</td>
+                                                            <td>@userOrders.Width * @userOrders.Height</td>
+                                                            <td>@userOrders.Quantity</td>
+                                                            @if (@userOrders.Status == 0)
+                                                            {
+                                                                <td>Pending</td>
+                                                            }
+                                                            else if (@userOrders.Status == 1)
+                                                            {
+                                                                <td>Approved</td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td>Declined</td>
+                                                            }
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            }
+                                            
+                                        </div>
+                                    </div>*@
+                                </div>
                             </div>
-                            <div class="bd-sm-l pd-sm-l-20 mg-sm-l-20 mg-t-20 mg-sm-t-0">
-                                <p class="mg-b-5 tx-uppercase tx-10 tx-mont tx-semibold">Page Views</p>
-                                <h4 class="tx-lato tx-inverse tx-bold mg-b-0">38.20%</h4>
-                                <span class="tx-12 tx-danger tx-roboto">4.65% decreased</span>
-                            </div>
-                            <div class="bd-sm-l pd-sm-l-20 mg-sm-l-20 mg-t-20 mg-sm-t-0">
-                                <p class="mg-b-5 tx-uppercase tx-10 tx-mont tx-semibold">Time On Site</p>
-                                <h4 class="tx-lato tx-inverse tx-bold mg-b-0">12:30</h4>
-                                <span class="tx-12 tx-success tx-roboto">1.22% increased</span>
-                            </div>
-                        </div>*@<!-- d-flex -->
-                    </div><!-- d-flex -->
-                    <div class="pd-l-25 pd-r-15 pd-b-25">
-                        <div id="ch5" class="ht-250 ht-sm-300"></div>
+                        }
+                        @*<div class="pagination p1" style="margin-left: 400px">
+                                <ul>
+
+                                    <li>
+                                        Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+                                        of @Model.PageCount   @Html.PagedListPager(Model, page => Url.Action("DashBoard", new { page }))
+                                    </li>
+
+                                </ul>
+
+
+                            </div>*@
+                        <div class="ht-80 bd d-flex align-items-center justify-content-center mg-t-20">
+                            <ul class="pagination pagination-circle mg-b-0">
+                                <li>
+                                    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+                                    of @Model.PageCount
+                                    @Html.PagedListPager(Model, page => Url.Action("DashBoard", new { page = page }),
+                                            new PagedListRenderOptions
+                                            {
+                                              LiElementClasses = new string[] { "page-item" },
+
+                                              //PageClasses = new string[] { "page-link" }
+                                            })
+                                </li>
+                            </ul>
+                        </div>
+
                     </div>
                 </div><!-- card -->
                 <div class="card bd-0 shadow-base pd-25 mg-t-20">
                     <div class="d-md-flex justify-content-between">
-                        @*<div>
-                            <h6 class="tx-13 tx-uppercase tx-inverse tx-semibold tx-spacing-1">How Engaged Our Users Daily</h6>
-                            <p>Past 30 Days — Last Updated Oct 14, 2017</p>
+                        <div>
+
                         </div>
-                        <div class="wd-200">
-                            <select class="form-control select2" data-placeholder="Choose location">
-                                <option label="Choose one"></option>
-                                <option value="1" selected>New York</option>
-                                <option value="2">San Francisco</option>
-                                <option value="3">Los Angeles</option>
-                                <option value="4">Chicago</option>
-                                <option value="5">Seattle</option>
-                            </select>
-                        </div>*@
+
                     </div>
                     <div class="row mg-t-20">
                         <div class="col-sm-9">
                             <div id="ch12" class="ht-250 ht-sm-300"></div>
                         </div>
-                        @*<div class="col-sm-3 mg-t-40 mg-sm-t-0">
-                            <div>
-                                <p class="mg-b-5 tx-uppercase tx-10 tx-mont tx-semibold">Bounce Rate</p>
-                                <h4 class="tx-lato tx-inverse tx-bold mg-b-0">23.32%</h4>
-                                <span class="tx-12 tx-success tx-roboto">2.7% increased</span>
-                            </div>
-                            <div class="mg-t-20 pd-t-20 bd-t">
-                                <p class="mg-b-5 tx-uppercase tx-10 tx-mont tx-semibold">Page Views</p>
-                                <h4 class="tx-lato tx-inverse tx-bold mg-b-0">38.20%</h4>
-                                <span class="tx-12 tx-danger tx-roboto">4.65% decreased</span>
-                            </div>
-                            <div class="mg-t-20 pd-t-20 bd-t">
-                                <p class="mg-b-5 tx-uppercase tx-10 tx-mont tx-semibold">Time On Site</p>
-                                <h4 class="tx-lato tx-inverse tx-bold mg-b-0">12:30</h4>
-                                <span class="tx-12 tx-success tx-roboto">1.22% increased</span>
-                            </div>
-                        </div>*@
+
                     </div>
                 </div><!-- card -->
                 <div class="card shadow-base bd-0 pd-25 mg-t-20">
                     <div class="d-md-flex justify-content-between align-items-center">
-                        @*<div>
-                            <h6 class="tx-13 tx-uppercase tx-inverse tx-semibold tx-spacing-1">Delivery Overview</h6>
-                            <p class="mg-b-0">Past 30 Days — Last Updated Oct 20, 2017</p>
+                        <div>
+                            <h6 class="tx-13 tx-uppercase tx-inverse tx-semibold tx-spacing-1"></h6>
+                            <p class="mg-b-0"></p>
                         </div>
-                        <div class="wd-200 mg-t-20 mg-md-t-0">
-                            <select class="form-control select2" data-placeholder="Choose location">
-                                <option label="Choose one"></option>
-                                <option value="1" selected>New York</option>
-                                <option value="2">San Francisco</option>
-                                <option value="3">Los Angeles</option>
-                                <option value="4">Chicago</option>
-                                <option value="5">Seattle</option>
-                            </select>
-                        </div>*@<!-- wd-200 -->
+
                     </div><!-- d-flex -->
                     <div id="mapShiftWorker" class="ht-300 ht-sm-400 mg-t-25"></div>
                     <div class="row row-xs mg-t-25">
-                        @*<div class="col-sm-4">
-                            <div class="tx-center pd-y-15 bd">
-                                <p class="mg-b-5 tx-uppercase tx-10 tx-mont tx-semibold">New Deliveries</p>
-                                <h4 class="tx-lato tx-inverse tx-bold mg-b-0">12,344</h4>
-                                <span class="tx-12 tx-danger tx-roboto">2.7% increased</span>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 mg-t-20 mg-sm-t-0">
-                            <div class="tx-center pd-y-15 bd">
-                                <p class="mg-b-5 tx-uppercase tx-10 tx-mont tx-semibold">Delivered</p>
-                                <h4 class="tx-lato tx-inverse tx-bold mg-b-0">24,333</h4>
-                                <span class="tx-12 tx-danger tx-roboto">2.7% decreased</span>
-                            </div>
-                        </div>
-                        <div class="col-sm-4 mg-t-20 mg-sm-t-0">
-                            <div class="tx-center pd-y-15 bd">
-                                <p class="mg-b-5 tx-uppercase tx-10 tx-mont tx-semibold">Returned</p>
-                                <h4 class="tx-lato tx-inverse tx-bold mg-b-0">432</h4>
-                                <span class="tx-12 tx-success tx-roboto">2.7% decreased</span>
-                            </div>
-                        </div>*@
+
                     </div>
                 </div>
-            </div>         
+            </div>
         </div>
     </div>
 </div>

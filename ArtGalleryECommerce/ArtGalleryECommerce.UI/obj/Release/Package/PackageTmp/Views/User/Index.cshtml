@@ -5,77 +5,71 @@
 }
 
 <!-- HOME -->
-<div id="home">
-    <!-- container -->
-    <div class="container">
+<div id="home"> 
         <div class="row">
             <div class="col-sm-12">
-                <div id="slider-carousel" class="carousel slide" data-ride="carousel">
+                <div id="slider-carousel" class="carousel slide" data-ride="carousel" style="background:#eee;">
                     <ol class="carousel-indicators">
-                        <li data-target="#slider-carousel" data-slide-to="0" class=""></li>
-                        <li data-target="#slider-carousel" data-slide-to="1" class="active"></li>
-                        <li data-target="#slider-carousel" data-slide-to="2"></li>
+                        @{
+                            if (ViewBag.MainBanners != null)
+                            {
+                                for (int i = 0; i < ViewBag.MainBanners.Count; i++)
+                                {
+                                    @*<li data-target="#slider-carousel" data-slide-to="0" class=""></li>*@
+                                    <li data-target="#slider-carousel" data-slide-to="1" class="active"></li>
+                                    @*<li data-target="#slider-carousel" data-slide-to="2"></li>*@
+                                }
+                            }
+                        }
                     </ol>
 
                     <div class="carousel-inner">
-                        <div class="item">
-                            <div class="col-sm-6">
-                                <h1><span>Painting</span></h1>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                                <button type="button" class="btn btn-default get">Get it now</button>
-                            </div>
-                            <div class="col-sm-5 banner-img">
-                                <img src="~/UserTemplate/img/banner01.jpg" class="img-responsive" alt="">
-                            </div>
-                        </div>
-                        <div class="item active">
-                            <div class="col-sm-6">
-                                <h1><span>Painting</span></h1>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                                <button type="button" class="btn btn-default get">Get it now</button>
-                            </div>
-                            <div class="col-sm-5 banner-img">
-                                <img src="~/UserTemplate/img/banner02.jpg" class="img-responsive" alt="">
-                            </div>
-                        </div>
-
-                        <div class="item">
-                            <div class="col-sm-6">
-                                <h1><span>Painting</span></h1>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                                <button type="button" class="btn btn-default get">Get it now</button>
-                            </div>
-                            <div class="col-sm-5 banner-img">
-                                <img src="~/UserTemplate/img/banner03.jpg" class="img-responsive" alt="">
-                            </div>
-                        </div>
-
+                        @{
+                            var counter = 0;
+                            foreach (var item in ViewBag.MainBanners)
+                            {
+                                if (counter == 0)
+                                {
+                                    counter++;
+                                    <div class="item active">
+                                        <div class="pricing">
+                                            <h1><span>@item.BannerName</span></h1>
+                                            <p>@item.BannerDesc. </p>
+                                            <button type="button" class="btn btn-default get">Get it now</button>
+                                        </div>
+                                        <div class="banner-img">
+                                            <img src="~/UploadImages/@item.BannerImage" class="img-responsive" alt="">
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="item">
+                                        <div class="pricing">
+                                            <h1><span>@item.BannerName</span></h1>
+                                            <p>@item.BannerDesc. </p>
+                                            <button type="button" class="btn btn-default get">Get it now</button>
+                                        </div>
+                                        <div class="banner-img">
+                                            <img src="~/UploadImages/@item.BannerImage" class="img-responsive" alt="">
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
                     </div>
 
-                    <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
+                    @*<a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
                         <i class="fa fa-angle-left"></i>
                     </a>
                     <a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
                         <i class="fa fa-angle-right"></i>
-                    </a>
+                    </a>*@
                 </div>
-
             </div>
-        </div>
-    </div>
-    <!-- /container -->
+        </div> 
 </div>
 <!-- /HOME -->
-<!-- section -->
-@*<div class="section section-grey">
-        <div class="container">
-            <div class="page-header">
-                <h2>Welcome!</h2>
-            </div>
-            <p>Brief Introduction...</p>
-        </div>
-    </div>*@
-<!-- /section -->
 <!-- section -->
 <div class="section">
     <!-- container -->
@@ -92,22 +86,60 @@
             <!-- Product Single -->
             @foreach (var item in ViewBag.LatestProduct)
             {
-                <div class="col-md-3 col-sm-6 col-xs-6">
+                <div class="col-md-3 col-sm-6 col-xs-6 items">
 
                     <div class="product product-single">
                         <div class="product-thumb">
-                            <div class="product-label"> <span>New</span> <span class="sale">-20%</span> </div>
-                            <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
+                            <div class="product-label">
+                                <span>New</span>@if (item.Discount != 0)
+                                {<span class="sale">@item.Discount</span>}
+                            </div>
+                            <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> <a href="@Url.Action("ProductDetails", "User")?itemId=@item.ItemId"> Quick view</a></button>
                             <img src="~/UploadImages/@item.ItemImage" alt="">
                         </div>
                         <div class="product-body">
-                            <h3 class="product-price">Rs.@item.Price</h3>
+                            <h3 class="product-price">
+                                @{
+                                    var currencySymbol = "";
+                                    if (Session["currency"] != null)
+                                    {
+                                        if (Session["currency"].ToString() == "INR")
+                                        {
+                                            currencySymbol = "₹";
+                                        }
+                                        else if (Session["currency"].ToString() == "USD")
+                                        {
+                                            currencySymbol = "$";
+                                        }
+                                        else if (Session["currency"].ToString() == "EUR")
+                                        {
+                                            currencySymbol = "€";
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        currencySymbol = "₹";
+                                    }
+                                    @currencySymbol @item.Price
+                                    
+                                }
+                            </h3>
                             <div class="product-rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o empty"></i> </div>
                             <h2 class="product-name"><a href="#">@item.ItemName</a></h2>
                             <div class="product-btns">
-                                <button class="main-btn icon-btn"><i class="fa fa-heart"></i> </button>
-                                <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+                                <button type="button" onclick="AddToWishList(@item.ItemId);" class="main-btn icon-btn"><i class="fa fa-heart"></i> </button>
+                                @*<button class="primary-btn add-to-cart" data-pid="@item.ItemId"><i class="fa fa-shopping-cart"></i> Add to Cart</button>*@
+                                @if (item.Quantity > 0)
+                                {
+                                    <button class="primary-btn add-to-cart" data-pid="@item.ItemId"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+                                }
+                                else
+                                {
+                                    <button class="main-btn" disabled data-pid="@item.ItemId"><i class="fa fa-truck"></i> Out Of Stuck</button>
+                                }
                             </div>
+
                         </div>
                     </div>
 
@@ -125,83 +157,65 @@
             </div>
             <!-- section title -->
             <!-- Product Single -->
-            <div class="col-md-3 col-sm-6 col-xs-6">
-                <div class="product product-single">
-                    <div class="product-thumb">
-                        <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-                        <img src="~/UserTemplate/img/product01.jpg" alt="">
-                    </div>
-                    <div class="product-body">
-                        <h3 class="product-price">$32.50</h3>
-                        <div class="product-rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o empty"></i> </div>
-                        <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                        <div class="product-btns">
-                            <button class="main-btn icon-btn"><i class="fa fa-heart"></i> </button>
-                            <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+            @foreach (var item in ViewBag.OldestProduct)
+            {
+                <div class="col-md-3 col-sm-6 col-xs-6 items">
+
+                    <div class="product product-single">
+                        <div class="product-thumb">
+                            <div class="product-label">
+                                @if (item.Discount != 0)
+                                {<span class="sale">@item.Discount</span>}
+                            </div>
+                            <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> <a href="@Url.Action("ProductDetails", "User")?itemId=@item.ItemId"> Quick view</a></button>
+                            <img src="~/UploadImages/@item.ItemImage" alt="">
+                        </div>
+                        <div class="product-body">
+                            <h3 class="product-price">
+                                @{
+                                    var currencySymbol = "";
+                                    if (Session["currency"] != null)
+                                    {
+                                        if (Session["currency"].ToString() == "INR")
+                                        {
+                                            currencySymbol = "₹";
+                                        }
+                                        else if (Session["currency"].ToString() == "USD")
+                                        {
+                                            currencySymbol = "$";
+                                        }
+                                        else if (Session["currency"].ToString() == "EUR")
+                                        {
+                                            currencySymbol = "€";
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        currencySymbol = "₹";
+                                    }
+                                    @currencySymbol @item.Price
+                                }
+                            </h3>
+                            <div class="product-rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o empty"></i> </div>
+                            <h2 class="product-name"><a href="#">@item.ItemName</a></h2>
+                            <div class="product-btns">
+                                <button class="main-btn icon-btn" type="button" onclick="AddToWishList(@item.ItemId);"><i class="fa fa-heart"></i> </button>
+                                @if (item.Quantity > 0)
+                                {
+                                    <button class="primary-btn add-to-cart" data-pid="@item.ItemId"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+                                }
+                                else
+                                {
+                                    <button class="main-btn" disabled data-pid="@item.ItemId"><i class="fa fa-truck"></i> Out Of Stuck</button>
+                                }
+                            </div>
+
                         </div>
                     </div>
+
                 </div>
-            </div>
-            <!-- /Product Single -->
-            <!-- Product Single -->
-            <div class="col-md-3 col-sm-6 col-xs-6">
-                <div class="product product-single">
-                    <div class="product-thumb">
-                        <div class="product-label"> <span>New</span> </div>
-                        <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-                        <img src="~/UserTemplate/img/product02.jpg" alt="">
-                    </div>
-                    <div class="product-body">
-                        <h3 class="product-price">$32.50</h3>
-                        <div class="product-rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o empty"></i> </div>
-                        <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                        <div class="product-btns">
-                            <button class="main-btn icon-btn"><i class="fa fa-heart"></i> </button>
-                            <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /Product Single -->
-            <!-- Product Single -->
-            <div class="col-md-3 col-sm-6 col-xs-6">
-                <div class="product product-single">
-                    <div class="product-thumb">
-                        <div class="product-label"> <span class="sale">-20%</span> </div>
-                        <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-                        <img src="~/UserTemplate/img/product03.jpg" alt="">
-                    </div>
-                    <div class="product-body">
-                        <h3 class="product-price">$32.50 <del class="product-old-price">$45.00</del></h3>
-                        <div class="product-rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o empty"></i> </div>
-                        <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                        <div class="product-btns">
-                            <button class="main-btn icon-btn"><i class="fa fa-heart"></i> </button>
-                            <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /Product Single -->
-            <!-- Product Single -->
-            <div class="col-md-3 col-sm-6 col-xs-6">
-                <div class="product product-single">
-                    <div class="product-thumb">
-                        <div class="product-label"> <span>New</span> <span class="sale">-20%</span> </div>
-                        <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-                        <img src="~/UserTemplate/img/product01.jpg" alt="">
-                    </div>
-                    <div class="product-body">
-                        <h3 class="product-price">$32.50 <del class="product-old-price">$45.00</del></h3>
-                        <div class="product-rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o empty"></i> </div>
-                        <h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
-                        <div class="product-btns">
-                            <button class="main-btn icon-btn"><i class="fa fa-heart"></i> </button>
-                            <button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            }
             <!-- /Product Single -->
         </div>
         <!-- /row -->
@@ -209,3 +223,117 @@
     <!-- /container -->
 </div>
 <!-- /section -->
+
+<script>
+    $(document).ready(function () {
+        $('.add-to-cart').on('click', function () {
+            var par = $(this).data('pid');
+            if (AddToCart(par)) {
+                var cart = $('.shopping-cart');
+                var imgtodrag = $(this).closest('.items').find("img").eq(0);
+                if (imgtodrag) {
+                    var imgclone = imgtodrag.clone()
+                        .offset({
+                            top: imgtodrag.offset().top,
+                            left: imgtodrag.offset().left
+                        })
+                        .css({
+                            'opacity': '0.5',
+                            'position': 'absolute',
+                            'height': '150px',
+                            'width': '150px',
+                            'z-index': '100'
+                        })
+                        .appendTo($('body'))
+                        .animate({
+                            'top': cart.offset().top + 10,
+                            'left': cart.offset().left + 10,
+                            'width': 75,
+                            'height': 75
+                        }, 1000, 'easeInOutExpo');
+
+                    setTimeout(function () {
+                        cart.effect("shake", {
+                            times: 2
+                        }, 200);
+                    }, 1500);
+
+                    imgclone.animate({
+                        'width': 0,
+                        'height': 0
+                    }, function () {
+                        $(this).detach()
+                    });
+                }
+            }
+
+        });
+    })
+</script>
+<script>
+    function AddToCart(par) {
+        if (!localStorage.getItem("itemsArray")) {
+            localStorage.setItem("itemsArray", "[]");
+        }
+        //var oldItems = JSON.parse(localStorage.getItem("itemsArray"));
+        var oldItems = JSON.parse(localStorage.getItem('itemsArray')) || [];
+
+        //var newItem = {
+        //    'ItemId': par,
+        //};
+        var exist = false;
+        for (var i = 0; i < oldItems.length; i++)
+            if (oldItems[i] == par) {
+                exist = true;
+                break;
+            }
+        if (!exist) {
+            oldItems.push(par);
+            exist = true;
+        }
+        else {
+            alert("Only You Can Add One Painting per Piece");
+            exist = false;
+        }
+        localStorage.setItem("itemsArray", JSON.stringify(oldItems));
+        $("#spnQuantity").text(oldItems.length);
+        return exist;
+    }
+    function AddToWishList(par) {
+        $.ajax({
+            type: 'POST',
+            dataType: 'JSON',
+            url: '/User/AddToWishList',
+            data: { ItemId: par },
+            success: function (res) {
+                if (res == null || res == "") {
+                    alert('You can add to wishlist after Login');
+                    window.location.href = '/User/UserLogin';
+                }
+                else {
+                    if (!localStorage.getItem("wishListArray")) {
+                        localStorage.setItem("wishListArray", "[]");
+                    }
+                    var oldItems = JSON.parse(localStorage.getItem('wishListArray')) || [];
+                    var exist = false;
+                    for (var i = 0; i < oldItems.length; i++)
+                        if (oldItems[i] == par) {
+                            exist = true;
+                            break;
+                        }
+                    if (!exist) {
+                        oldItems.push(par);
+                        exist = true;
+                        alert('You added to WishList');
+                    }
+                    else {
+                        alert("Only You Can Add One Painting per Piece in WishList");
+                        exist = false;
+                    }
+                    localStorage.setItem("wishListArray", JSON.stringify(oldItems));
+                    return exist;
+                }
+            }
+        })
+    }
+</script>

@@ -45,6 +45,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="AdminTemplate/themepixels.me/bracketplus/1.4/app/css/bracket.css">
       <publishTime>06/14/2019 15:03:38</publishTime>
     </File>
+    <File Include="AdminTemplate/themepixels.me/bracketplus/1.4/app/css/invoice.css">
+      <publishTime>08/09/2019 12:34:43</publishTime>
+    </File>
     <File Include="AdminTemplate/themepixels.me/bracketplus/1.4/app/img/img1.jpg">
       <publishTime>06/14/2019 14:43:37</publishTime>
     </File>
@@ -415,7 +418,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/14/2019 14:43:37</publishTime>
     </File>
     <File Include="AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/fortawesome/fontawesome-free/css/all.min.css">
-      <publishTime>06/14/2019 14:43:37</publishTime>
+      <publishTime>06/23/2019 16:54:22</publishTime>
     </File>
     <File Include="AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/fortawesome/fontawesome-free/webfonts/fa-brands-400.woff2">
       <publishTime>06/14/2019 14:43:37</publishTime>
@@ -555,8 +558,14 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/rickshaw/vendor/d3.min.js">
       <publishTime>06/14/2019 14:43:37</publishTime>
     </File>
+    <File Include="AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/select2/css/bootstrap-select.min.css">
+      <publishTime>08/09/2019 11:24:37</publishTime>
+    </File>
     <File Include="AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/select2/css/select2.min.css">
       <publishTime>06/14/2019 14:43:37</publishTime>
+    </File>
+    <File Include="AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/select2/js/bootstrap-select.min.js">
+      <publishTime>08/09/2019 11:27:02</publishTime>
     </File>
     <File Include="AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/select2/js/select2.full.min.js">
       <publishTime>06/14/2019 14:43:37</publishTime>
@@ -604,22 +613,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/14/2019 14:43:38</publishTime>
     </File>
     <File Include="bin/ArtGalleryECommerce.Dal.dll">
-      <publishTime>06/22/2019 20:32:38</publishTime>
+      <publishTime>09/12/2019 23:56:18</publishTime>
     </File>
     <File Include="bin/ArtGalleryECommerce.Dal.pdb">
-      <publishTime>06/22/2019 20:32:38</publishTime>
+      <publishTime>09/12/2019 23:56:18</publishTime>
     </File>
     <File Include="bin/ArtGalleryECommerce.Model.dll">
-      <publishTime>06/22/2019 20:32:38</publishTime>
+      <publishTime>09/12/2019 23:56:17</publishTime>
     </File>
     <File Include="bin/ArtGalleryECommerce.Model.pdb">
-      <publishTime>06/22/2019 20:32:38</publishTime>
+      <publishTime>09/12/2019 23:56:17</publishTime>
     </File>
     <File Include="bin/ArtGalleryECommerce.UI.dll">
-      <publishTime>06/22/2019 20:32:42</publishTime>
+      <publishTime>09/12/2019 23:56:21</publishTime>
     </File>
     <File Include="bin/ArtGalleryECommerce.UI.pdb">
-      <publishTime>06/22/2019 20:32:42</publishTime>
+      <publishTime>09/12/2019 23:56:21</publishTime>
+    </File>
+    <File Include="bin/AutoMapper.dll">
+      <publishTime>02/24/2016 19:36:08</publishTime>
     </File>
     <File Include="bin/Microsoft.AI.Agent.Intercept.dll">
       <publishTime>06/14/2019 14:43:38</publishTime>
@@ -650,6 +662,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>06/14/2019 14:43:38</publishTime>
+    </File>
+    <File Include="bin/PagedList.dll">
+      <publishTime>09/30/2013 17:36:38</publishTime>
+    </File>
+    <File Include="bin/PagedList.Mvc.dll">
+      <publishTime>09/30/2013 18:15:20</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>06/14/2019 14:43:38</publishTime>
@@ -753,17 +771,29 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/WebGrease.dll">
       <publishTime>06/14/2019 14:43:39</publishTime>
     </File>
+    <File Include="Content/AdminDashBoard.css">
+      <publishTime>07/18/2019 14:34:47</publishTime>
+    </File>
     <File Include="Content/bootstrap.css">
       <publishTime>06/14/2019 14:43:37</publishTime>
     </File>
     <File Include="Content/bootstrap.min.css">
       <publishTime>06/14/2019 14:43:37</publishTime>
     </File>
+    <File Include="Content/PagedList.css">
+      <publishTime>07/19/2019 10:32:31</publishTime>
+    </File>
+    <File Include="Content/Pagignation.css">
+      <publishTime>07/19/2019 15:46:35</publishTime>
+    </File>
     <File Include="Content/roundButton.css">
       <publishTime>06/14/2019 15:24:00</publishTime>
     </File>
     <File Include="Content/Site.css">
       <publishTime>06/14/2019 14:43:37</publishTime>
+    </File>
+    <File Include="Content/ThankYou.css">
+      <publishTime>07/17/2019 18:22:28</publishTime>
     </File>
     <File Include="CustomScripts/AdminLogin.js">
       <publishTime>06/14/2019 15:04:03</publishTime>
@@ -772,19 +802,64 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/14/2019 15:04:04</publishTime>
     </File>
     <File Include="CustomScripts/ItemDetails.js">
-      <publishTime>06/21/2019 18:03:22</publishTime>
+      <publishTime>06/28/2019 23:19:43</publishTime>
     </File>
     <File Include="CustomScripts/ItemGroup.js">
-      <publishTime>06/14/2019 16:31:34</publishTime>
+      <publishTime>06/24/2019 15:06:27</publishTime>
     </File>
     <File Include="CustomScripts/ItemMaster.js">
-      <publishTime>06/22/2019 19:38:02</publishTime>
+      <publishTime>08/06/2019 16:27:07</publishTime>
+    </File>
+    <File Include="CustomScripts/MainBanner.js">
+      <publishTime>06/23/2019 22:17:58</publishTime>
+    </File>
+    <File Include="CustomScripts/ManageUser.js">
+      <publishTime>07/06/2019 15:27:15</publishTime>
     </File>
     <File Include="CustomScripts/StockMaster.js">
-      <publishTime>06/22/2019 19:35:27</publishTime>
+      <publishTime>07/06/2019 15:09:16</publishTime>
+    </File>
+    <File Include="CustomScripts/UserSignUp.js">
+      <publishTime>07/01/2019 12:47:40</publishTime>
+    </File>
+    <File Include="EmailTemplate/ApproveEmailTemplate.html">
+      <publishTime>08/13/2019 16:24:52</publishTime>
+    </File>
+    <File Include="EmailTemplate/DeclineEmailTemplate.html">
+      <publishTime>08/13/2019 18:16:43</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>06/14/2019 14:43:38</publishTime>
+    </File>
+    <File Include="fonts/About me.jpg">
+      <publishTime>09/12/2019 16:27:01</publishTime>
+    </File>
+    <File Include="fonts/aboutMeFinal-1.png">
+      <publishTime>09/12/2019 20:24:35</publishTime>
+    </File>
+    <File Include="fonts/aboutMeFinal.jpg">
+      <publishTime>09/12/2019 18:36:28</publishTime>
+    </File>
+    <File Include="fonts/aboutMeFinal.pdf">
+      <publishTime>09/12/2019 11:56:31</publishTime>
+    </File>
+    <File Include="fonts/aboutMeFinal.png">
+      <publishTime>09/12/2019 20:24:35</publishTime>
+    </File>
+    <File Include="fonts/contact-banner.jpg">
+      <publishTime>08/05/2019 15:31:40</publishTime>
+    </File>
+    <File Include="fonts/emptybag1.gif">
+      <publishTime>07/10/2019 16:11:09</publishTime>
+    </File>
+    <File Include="fonts/emptyBag2.gif">
+      <publishTime>07/11/2019 12:12:27</publishTime>
+    </File>
+    <File Include="fonts/EmptyBag3.gif">
+      <publishTime>06/28/2019 17:09:02</publishTime>
+    </File>
+    <File Include="fonts/emptyBag4.gif">
+      <publishTime>06/28/2019 17:37:02</publishTime>
     </File>
     <File Include="fonts/giphy.gif">
       <publishTime>06/14/2019 16:24:40</publishTime>
@@ -801,8 +876,44 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="fonts/glyphicons-halflings-regular.woff">
       <publishTime>06/14/2019 14:43:38</publishTime>
     </File>
+    <File Include="fonts/logo-web %281%29.gif">
+      <publishTime>07/05/2019 19:55:30</publishTime>
+    </File>
+    <File Include="fonts/logo-web %282%29.gif">
+      <publishTime>07/05/2019 19:55:30</publishTime>
+    </File>
+    <File Include="fonts/logo-web.png">
+      <publishTime>07/01/2019 16:00:50</publishTime>
+    </File>
+    <File Include="fonts/logo.jpg">
+      <publishTime>06/30/2019 12:13:14</publishTime>
+    </File>
+    <File Include="fonts/logo.png">
+      <publishTime>07/04/2019 18:13:10</publishTime>
+    </File>
     <File Include="fonts/logo2.png">
       <publishTime>06/20/2019 18:30:05</publishTime>
+    </File>
+    <File Include="fonts/LogoPrefinal6.jpg">
+      <publishTime>09/12/2019 18:52:50</publishTime>
+    </File>
+    <File Include="fonts/mailbox.png">
+      <publishTime>07/24/2019 19:00:50</publishTime>
+    </File>
+    <File Include="fonts/Preloader_8.gif">
+      <publishTime>07/06/2019 10:29:06</publishTime>
+    </File>
+    <File Include="fonts/Ripple-1s-200px.gif">
+      <publishTime>07/06/2019 10:36:27</publishTime>
+    </File>
+    <File Include="fonts/sorry.gif">
+      <publishTime>08/13/2019 18:11:23</publishTime>
+    </File>
+    <File Include="fonts/success.gif">
+      <publishTime>07/24/2019 17:40:41</publishTime>
+    </File>
+    <File Include="fonts/thanku.gif">
+      <publishTime>07/24/2019 17:11:50</publishTime>
     </File>
     <File Include="fonts/watermark.png">
       <publishTime>06/21/2019 13:33:58</publishTime>
@@ -817,7 +928,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/14/2019 14:43:37</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>06/14/2019 14:43:38</publishTime>
+      <publishTime>07/19/2019 10:32:31</publishTime>
     </File>
     <File Include="Scripts/angular.min.js">
       <publishTime>06/14/2019 14:43:37</publishTime>
@@ -839,6 +950,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Scripts/jquery-1.10.2.min.map">
       <publishTime>06/14/2019 14:43:37</publishTime>
+    </File>
+    <File Include="Scripts/jquery-ui.min.js">
+      <publishTime>08/07/2019 12:01:58</publishTime>
     </File>
     <File Include="Scripts/jquery.validate.js">
       <publishTime>06/14/2019 14:43:37</publishTime>
@@ -1047,68 +1161,74 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="UserTemplate/.DS_Store">
       <publishTime>06/18/2019 15:39:05</publishTime>
     </File>
+    <File Include="UserTemplate/cart.html">
+      <publishTime>06/27/2019 17:33:44</publishTime>
+    </File>
     <File Include="UserTemplate/checkout.html">
-      <publishTime>06/18/2019 15:39:05</publishTime>
+      <publishTime>06/27/2019 17:33:46</publishTime>
+    </File>
+    <File Include="UserTemplate/contact.html">
+      <publishTime>06/27/2019 17:33:46</publishTime>
     </File>
     <File Include="UserTemplate/css/bootstrap.min.css">
-      <publishTime>06/18/2019 15:39:05</publishTime>
+      <publishTime>06/27/2019 17:33:48</publishTime>
     </File>
     <File Include="UserTemplate/css/font-awesome.min.css">
-      <publishTime>06/18/2019 15:39:05</publishTime>
+      <publishTime>06/27/2019 17:33:48</publishTime>
     </File>
     <File Include="UserTemplate/css/nouislider.min.css">
-      <publishTime>06/18/2019 15:39:05</publishTime>
+      <publishTime>06/27/2019 17:33:48</publishTime>
     </File>
     <File Include="UserTemplate/css/slick-theme.css">
-      <publishTime>06/18/2019 15:39:05</publishTime>
+      <publishTime>06/27/2019 17:33:48</publishTime>
     </File>
     <File Include="UserTemplate/css/slick.css">
-      <publishTime>06/18/2019 15:39:05</publishTime>
+      <publishTime>07/12/2019 19:56:10</publishTime>
     </File>
     <File Include="UserTemplate/css/style.css">
-      <publishTime>06/18/2019 17:50:52</publishTime>
+      <publishTime>07/30/2019 16:08:09</publishTime>
     </File>
     <File Include="UserTemplate/fonts/fontawesome-webfont.eot">
-      <publishTime>06/18/2019 15:39:05</publishTime>
+      <publishTime>06/27/2019 17:33:48</publishTime>
     </File>
     <File Include="UserTemplate/fonts/fontawesome-webfont.svg">
-      <publishTime>06/18/2019 15:39:05</publishTime>
+      <publishTime>06/27/2019 17:33:48</publishTime>
     </File>
     <File Include="UserTemplate/fonts/fontawesome-webfont.ttf">
-      <publishTime>06/18/2019 15:39:05</publishTime>
+      <publishTime>06/27/2019 17:33:48</publishTime>
     </File>
     <File Include="UserTemplate/fonts/fontawesome-webfont.woff">
-      <publishTime>06/18/2019 15:39:05</publishTime>
+      <publishTime>06/27/2019 17:33:48</publishTime>
     </File>
     <File Include="UserTemplate/fonts/fontawesome-webfont.woff2">
-      <publishTime>06/18/2019 15:39:05</publishTime>
+      <publishTime>06/27/2019 17:33:48</publishTime>
     </File>
     <File Include="UserTemplate/fonts/FontAwesome.otf">
-      <publishTime>06/18/2019 15:39:05</publishTime>
+      <publishTime>06/27/2019 17:33:48</publishTime>
     </File>
     <File Include="UserTemplate/fonts/glyphicons-halflings-regular.eot">
-      <publishTime>06/18/2019 15:39:05</publishTime>
+      <publishTime>06/27/2019 17:33:48</publishTime>
     </File>
     <File Include="UserTemplate/fonts/glyphicons-halflings-regular.svg">
-      <publishTime>06/18/2019 15:39:05</publishTime>
+      <publishTime>06/27/2019 17:33:48</publishTime>
     </File>
     <File Include="UserTemplate/fonts/glyphicons-halflings-regular.ttf">
-      <publishTime>06/18/2019 15:39:05</publishTime>
+      <publishTime>06/27/2019 17:33:48</publishTime>
     </File>
     <File Include="UserTemplate/fonts/glyphicons-halflings-regular.woff">
-      <publishTime>06/18/2019 15:39:05</publishTime>
+      <publishTime>06/27/2019 17:33:48</publishTime>
     </File>
     <File Include="UserTemplate/fonts/glyphicons-halflings-regular.woff2">
-      <publishTime>06/18/2019 15:39:05</publishTime>
+      <publishTime>06/27/2019 17:33:48</publishTime>
     </File>
     <File Include="UserTemplate/img/banner01.jpg">
-      <publishTime>06/18/2019 15:39:05</publishTime>
+      <publishTime>06/27/2019 17:33:48</publishTime>
     </File>
     <File Include="UserTemplate/img/banner02.jpg">
-      <publishTime>06/18/2019 15:39:05</publishTime>
+      <publishTime>06/27/2019 17:33:48</publishTime>
     </File>
     <File Include="UserTemplate/img/banner03.jpg">
-      <publishTime>06/18/2019 15:39:05</publishTime>
+      <publishTime>06/27/2019 17:33:48</publishTime>
     </File>
     <File Include="UserTemplate/img/banner04.jpg">
       <publishTime>06/18/2019 15:39:05</publishTime>
@@ -1117,55 +1237,67 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/18/2019 15:39:05</publishTime>
     </File>
     <File Include="UserTemplate/img/main-product03.jpg">
-      <publishTime>06/18/2019 15:39:05</publishTime>
+      <publishTime>06/27/2019 17:33:48</publishTime>
     </File>
     <File Include="UserTemplate/img/product01.jpg">
-      <publishTime>06/18/2019 15:39:05</publishTime>
+      <publishTime>06/27/2019 17:33:48</publishTime>
     </File>
     <File Include="UserTemplate/img/product02.jpg">
-      <publishTime>06/18/2019 15:39:05</publishTime>
+      <publishTime>06/27/2019 17:33:49</publishTime>
     </File>
     <File Include="UserTemplate/img/product03.jpg">
-      <publishTime>06/18/2019 15:39:05</publishTime>
+      <publishTime>06/27/2019 17:33:49</publishTime>
     </File>
     <File Include="UserTemplate/img/product04.jpg">
-      <publishTime>06/18/2019 15:39:05</publishTime>
+      <publishTime>06/27/2019 17:33:49</publishTime>
     </File>
     <File Include="UserTemplate/img/product06.jpg">
       <publishTime>06/18/2019 15:39:05</publishTime>
     </File>
+    <File Include="UserTemplate/img/products.html">
+      <publishTime>06/27/2019 17:33:49</publishTime>
+    </File>
     <File Include="UserTemplate/img/thumb-product01.jpg">
-      <publishTime>06/18/2019 15:39:05</publishTime>
+      <publishTime>06/27/2019 17:33:49</publishTime>
     </File>
     <File Include="UserTemplate/img/thumb-product03.jpg">
-      <publishTime>06/18/2019 15:39:05</publishTime>
+      <publishTime>06/27/2019 17:33:49</publishTime>
     </File>
     <File Include="UserTemplate/index.html">
-      <publishTime>06/18/2019 15:39:05</publishTime>
+      <publishTime>06/27/2019 17:33:46</publishTime>
     </File>
     <File Include="UserTemplate/js/bootstrap.min.js">
-      <publishTime>06/18/2019 15:39:05</publishTime>
+      <publishTime>06/27/2019 17:33:49</publishTime>
     </File>
     <File Include="UserTemplate/js/jquery.min.js">
-      <publishTime>06/18/2019 15:39:05</publishTime>
+      <publishTime>06/27/2019 17:33:49</publishTime>
     </File>
     <File Include="UserTemplate/js/jquery.zoom.min.js">
-      <publishTime>06/18/2019 15:39:05</publishTime>
+      <publishTime>06/27/2019 17:33:49</publishTime>
     </File>
     <File Include="UserTemplate/js/main.js">
-      <publishTime>06/18/2019 17:31:14</publishTime>
+      <publishTime>07/12/2019 19:39:17</publishTime>
     </File>
     <File Include="UserTemplate/js/nouislider.min.js">
-      <publishTime>06/18/2019 15:39:05</publishTime>
+      <publishTime>06/27/2019 17:33:49</publishTime>
     </File>
     <File Include="UserTemplate/js/slick.min.js">
-      <publishTime>06/18/2019 15:39:05</publishTime>
+      <publishTime>06/27/2019 17:33:49</publishTime>
+    </File>
+    <File Include="UserTemplate/login.html">
+      <publishTime>07/01/2019 15:44:57</publishTime>
+    </File>
+    <File Include="UserTemplate/myprofile.html">
+      <publishTime>06/27/2019 17:33:46</publishTime>
     </File>
     <File Include="UserTemplate/product-page.html">
-      <publishTime>06/18/2019 15:39:05</publishTime>
+      <publishTime>06/27/2019 17:33:46</publishTime>
     </File>
     <File Include="UserTemplate/products.html">
-      <publishTime>06/18/2019 15:39:05</publishTime>
+      <publishTime>06/27/2019 17:33:46</publishTime>
+    </File>
+    <File Include="UserTemplate/wishlist.html">
+      <publishTime>06/27/2019 17:33:46</publishTime>
     </File>
     <File Include="VideoUrl/video1.mp4">
       <publishTime>06/14/2019 15:04:26</publishTime>
@@ -1177,25 +1309,40 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/14/2019 15:04:27</publishTime>
     </File>
     <File Include="Views/Admin/DashBoard.cshtml">
-      <publishTime>06/18/2019 13:12:25</publishTime>
+      <publishTime>08/08/2019 11:32:55</publishTime>
+    </File>
+    <File Include="Views/Admin/GenerateInvoice.cshtml">
+      <publishTime>08/09/2019 16:06:06</publishTime>
     </File>
     <File Include="Views/Admin/Index.cshtml">
-      <publishTime>06/22/2019 20:32:13</publishTime>
+      <publishTime>07/01/2019 11:52:28</publishTime>
+    </File>
+    <File Include="Views/Admin/Invoice.cshtml">
+      <publishTime>08/09/2019 17:38:30</publishTime>
     </File>
     <File Include="Views/Admin/ItemCategory.cshtml">
-      <publishTime>06/14/2019 15:20:26</publishTime>
+      <publishTime>08/08/2019 11:43:41</publishTime>
     </File>
     <File Include="Views/Admin/ItemDetails.cshtml">
-      <publishTime>06/21/2019 16:16:07</publishTime>
+      <publishTime>08/08/2019 11:43:54</publishTime>
     </File>
     <File Include="Views/Admin/ItemGroup.cshtml">
-      <publishTime>06/18/2019 13:02:03</publishTime>
+      <publishTime>08/08/2019 11:44:05</publishTime>
     </File>
     <File Include="Views/Admin/ItemMaster.cshtml">
-      <publishTime>06/21/2019 15:59:52</publishTime>
+      <publishTime>08/08/2019 11:42:52</publishTime>
+    </File>
+    <File Include="Views/Admin/MainBanner.cshtml">
+      <publishTime>08/08/2019 11:44:19</publishTime>
+    </File>
+    <File Include="Views/Admin/ManageUser.cshtml">
+      <publishTime>07/06/2019 15:14:36</publishTime>
     </File>
     <File Include="Views/Admin/StockMaster.cshtml">
-      <publishTime>06/22/2019 14:41:23</publishTime>
+      <publishTime>08/08/2019 11:44:48</publishTime>
+    </File>
+    <File Include="Views/Admin/UserOrders.cshtml">
+      <publishTime>08/08/2019 15:44:59</publishTime>
     </File>
     <File Include="Views/Home/About.cshtml">
       <publishTime>06/14/2019 14:43:37</publishTime>
@@ -1210,19 +1357,70 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/14/2019 15:20:42</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>06/14/2019 15:20:41</publishTime>
+      <publishTime>07/12/2019 20:14:19</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutAdmin.cshtml">
-      <publishTime>06/19/2019 12:36:37</publishTime>
+      <publishTime>08/08/2019 18:03:05</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutUser.cshtml">
-      <publishTime>06/22/2019 11:25:00</publishTime>
+      <publishTime>09/12/2019 18:55:30</publishTime>
+    </File>
+    <File Include="Views/Shared/_PartialInvoice.cshtml">
+      <publishTime>08/09/2019 15:15:24</publishTime>
+    </File>
+    <File Include="Views/Shared/_PartialMyCart.cshtml">
+      <publishTime>07/23/2019 16:31:13</publishTime>
+    </File>
+    <File Include="Views/Shared/_PartialMyWishList.cshtml">
+      <publishTime>08/06/2019 15:33:19</publishTime>
+    </File>
+    <File Include="Views/Shared/_PartialProductList.cshtml">
+      <publishTime>07/14/2019 15:43:02</publishTime>
+    </File>
+    <File Include="Views/User/AboutMe.cshtml">
+      <publishTime>09/12/2019 20:26:20</publishTime>
+    </File>
+    <File Include="Views/User/ContactUs.cshtml">
+      <publishTime>08/05/2019 17:20:36</publishTime>
     </File>
     <File Include="Views/User/Index.cshtml">
-      <publishTime>06/22/2019 11:14:50</publishTime>
+      <publishTime>08/06/2019 16:08:23</publishTime>
+    </File>
+    <File Include="Views/User/MyCart.cshtml">
+      <publishTime>08/06/2019 16:09:41</publishTime>
+    </File>
+    <File Include="Views/User/MyOrders.cshtml">
+      <publishTime>08/08/2019 15:37:26</publishTime>
+    </File>
+    <File Include="Views/User/MyProfile.cshtml">
+      <publishTime>09/12/2019 12:19:47</publishTime>
+    </File>
+    <File Include="Views/User/PrivacyPolicy.cshtml">
+      <publishTime>09/12/2019 15:43:59</publishTime>
+    </File>
+    <File Include="Views/User/ProductDetails.cshtml">
+      <publishTime>08/06/2019 16:09:45</publishTime>
     </File>
     <File Include="Views/User/ProductList.cshtml">
-      <publishTime>06/21/2019 19:25:13</publishTime>
+      <publishTime>08/06/2019 16:09:12</publishTime>
+    </File>
+    <File Include="Views/User/TermsAndConditions.cshtml">
+      <publishTime>09/12/2019 16:09:40</publishTime>
+    </File>
+    <File Include="Views/User/ThankYou.cshtml">
+      <publishTime>07/24/2019 19:13:07</publishTime>
+    </File>
+    <File Include="Views/User/UserCheckOut.cshtml">
+      <publishTime>08/06/2019 15:58:51</publishTime>
+    </File>
+    <File Include="Views/User/UserLogin.cshtml">
+      <publishTime>07/02/2019 13:00:42</publishTime>
+    </File>
+    <File Include="Views/User/UserRegister.cshtml">
+      <publishTime>07/02/2019 14:17:55</publishTime>
+    </File>
+    <File Include="Views/User/WishList.cshtml">
+      <publishTime>08/06/2019 15:58:32</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>06/14/2019 14:43:37</publishTime>
@@ -1231,7 +1429,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/14/2019 14:43:37</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>06/22/2019 20:34:31</publishTime>
+      <publishTime>09/12/2019 23:56:22</publishTime>
     </File>
   </ItemGroup>
 </Project>

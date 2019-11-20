@@ -107,6 +107,9 @@ app.controller("divItemGroupController", function ($scope, $http) {
                 $scope.dataItemGroups = res.data;
                 $("#divSpinner").hide();
             }
+            else {
+                $scope.dataItemGroups = '';
+            }
         });
     }
 });

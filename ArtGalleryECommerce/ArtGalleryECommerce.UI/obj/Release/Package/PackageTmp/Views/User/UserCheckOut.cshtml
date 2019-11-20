@@ -1,0 +1,299 @@
+﻿@model ArtGalleryECommerce.UI.Models.UserAddressModel
+@{
+    ViewBag.Title = "UserCheckOut";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //$("#ddlCurrency").prop("disabled", true);
+        $("#ddlCurrency").hide();
+    })
+
+    function EditUserAdress(par) {
+        $.ajax({
+            type: 'POST',
+            dataType: 'JSON',
+            url: '/User/EditUserAddress',
+            data: { AddressId: par },
+            success: function (res) {
+                $("#AddressId").val(res.AddressId);
+                $("#UserId").val(res.UserId);
+                $("#Name").val(res.Name);
+                $("#MobileNo").val(res.MobileNo);
+                $("#Pincode").val(res.Pincode);
+                $("#Address").val(res.Address);
+                $("#Locality").val(res.Locality);
+                $("#City").val(res.City);
+                $("#State").val(res.State);
+                $("#Country").val(res.Country);
+            }
+        })
+    }
+    function DeleteUserAdress(par) {
+        swal({
+            title: "Are You Sure ?",
+            text: "You Will Not Be Able To Recover This Imaginary File !",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, Delete It !",
+            cancelButtonText: "No, Cancel Plz !",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+            function (isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        type: 'POST',
+                        dataType: 'JSON',
+                        url: '/User/DeleteUserAddress',
+                        data: { addressId: par },
+                        success: function (res) {
+                            if (res > 0) {
+                                swal(
+                                    'Deleted!',
+                                    'Your file has been deleted.',
+                                    'success'
+                                );
+                                window.location.reload();
+                            }
+                            else {
+                                swal("Not Deleted!", "Some Error Has been Occoured.", "error");
+                            }
+                        }
+                    })
+                }
+                else {
+                    swal("Cancelled", "Your imaginary file is safe :)", "error");
+                }
+            });
+    };
+
+    function resetUserAddress() {
+        $("#AddressId").val('');
+        $("#UserId").val('');
+        $("#Name").val('');
+        $("#MobileNo").val('');
+        $("#Pincode").val('');
+        $("#Address").val('');
+        $("#Locality").val('');
+        $("#City").val('');
+        $("#State").val('');
+        $("#Country").val('');
+        $("#msgName").text('');
+        $("#msgMobileNo").text('');
+        $("#msgPincode").text('');
+        $("#msgAddress").text('');
+        $("#msgLocality").text('');
+        $("#msgCity").text('');
+        $("#msgState").text('');
+        $("#msgCountry").text('');
+    }
+    function GotoPaymentMethod() {
+        if ($('input[name="rbShipping"]:checked').length == 0) {
+            alert('Please Add Address.');
+            return false;
+        }
+        else {
+            var itemId = JSON.parse(localStorage.getItem('itemsArray')) || [];
+            var addressId = $('input[name="rbShipping"]:checked').val();
+            const splitTotalPaidPrice = $("#totalPaidPrice").text().split(" ");
+            var currencySymbol = splitTotalPaidPrice[0];
+            var currencyType = "";
+            if (currencySymbol == "₹") {
+                currencyType = "INR";
+            }
+            else if (currencySymbol == "$") {
+                currencyType = "USD";
+            }
+            else if (currencySymbol == "€") {
+                currencyType = "EUR";
+            }
+
+            var paidPrice = splitTotalPaidPrice[1];
+            var paymentType = "Cash On Delivery";
+            $.ajax({
+                type: 'POST',
+                dataType: 'JSON',
+                url: '/User/SaveUserOrderDetails',
+                data: { ItemId: itemId, AddressId: addressId, CurrencyType: currencyType, PaidPrice: paidPrice, PaymentType: paymentType },
+                success: function (res) {
+                    if (res > 0) {
+                        localStorage.removeItem('itemsArray');
+                        window.location.href = '/User/ThankYou';
+                    }
+                    else {
+                        alert('Out Of Stock.Sorry...')
+                    }
+                }
+            })
+        };
+    }
+</script>
+<!-- BREADCRUMB -->
+<div id="breadcrumb">
+    <div class="container">
+        <ul class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li class="active">Checkout</li>
+        </ul>
+    </div>
+</div>
+<!-- /BREADCRUMB -->
+<!-- section -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <form id="checkout-form" class="clearfix" action="UserCheckOut" method="post">
+                <div class="col-md-6">
+                    <div class="billing-details">
+                        <div class="section-title">
+                            <h3 class="title">Billing Details</h3>
+                        </div>
+                        <div class="form-group">
+                            @Html.HiddenFor(u => u.AddressId, new { @id = "AddressId" })
+                            @Html.HiddenFor(u => u.UserId, new { @id = "UserId" })
+                            @Html.TextBoxFor(u => u.Name, new { id = "Name", @class = "input", @placeholder = "Name" })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { id = "msgName", @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.TextBoxFor(u => u.MobileNo, new { id = "MobileNo", @class = "input", @placeholder = "Mobile No" })
+                            @Html.ValidationMessageFor(model => model.MobileNo, "", new { id = "msgMobileNo", @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.TextBoxFor(u => u.Pincode, new { id = "Pincode", @class = "input", @placeholder = "Pincode" })
+                            @Html.ValidationMessageFor(model => model.Pincode, "", new { id = "msgPincode", @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.TextBoxFor(u => u.Address, new { id = "Address", @class = "input", @placeholder = "Address(House No,Building,Street,Area)" })
+                            @Html.ValidationMessageFor(model => model.Address, "", new { id = "msgAddress", @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.TextBoxFor(u => u.Locality, new { id = "Locality", @class = "input", @placeholder = "Locality/Town" })
+                            @Html.ValidationMessageFor(model => model.Locality, "", new { id = "msgLocality", @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.TextBoxFor(u => u.City, new { id = "City", @class = "input", @placeholder = "City/District" })
+                            @Html.ValidationMessageFor(model => model.City, "", new { id = "msgCity", @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.TextBoxFor(u => u.State, new { id = "State", @class = "input", @placeholder = "State" })
+                            @Html.ValidationMessageFor(model => model.State, "", new { id = "msgState", @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.TextBoxFor(u => u.Country, new { id = "Country", @class = "input", @placeholder = "Country" })
+                            @Html.ValidationMessageFor(model => model.Country, "", new { id = "msgCountry", @class = "text-danger" })
+                        </div>
+                        <div class="col-md-12">
+                            <div class="order-summary clearfix">
+                                <div class="pull-right">
+                                    <button type="button" onclick="resetUserAddress();" class="main-btn">CANCEL</button>
+                                    <button type="submit" class="primary-btn">SAVE</button>
+                                </div>
+                                @if (ViewBag.successText != null || ViewBag.successText != "")
+                                {
+                                    <div class="tx-info tx-12 d-block mg-t-10 text-success">@ViewBag.successText</div>
+                                }
+                                @if (ViewBag.failureText != null || ViewBag.failureText != "")
+                                {
+                                    <div class="tx-info tx-12 d-block mg-t-10 text-danger">@ViewBag.failureText</div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="shiping-methods">
+                        <div class="section-title">
+                            <h4 class="title">Select Delivery Address</h4>
+                        </div>
+                        @if (ViewBag.UserAddress != null)
+                        {
+                            foreach (var item in ViewBag.UserAddress)
+                            {
+                                <div class="input-checkbox">
+                                    <input type="radio" name="rbShipping" id="rbShipping" value="@item.AddressId">
+                                    <label for="shipping-1"><h4>@item.Name</h4></label>
+                                    <div class="caption">
+                                        <p>
+                                            @item.Address,<br />
+                                            @item.Locality,<br />
+                                            @item.City - @item.Pincode,<br />
+                                            @item.State,@item.Country<br />
+                                            Mobile No- @item.MobileNo<br />
+                                            @*Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.*@
+                                            <button type="button" class="main-btn pull-right" onclick="DeleteUserAdress(@item.AddressId);">Remove</button>&nbsp;
+                                            <button type="button" class="main-btn pull-right" onclick="EditUserAdress(@item.AddressId);">Edit</button>
+                                        </p>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <div class="shiping-methods">
+                        <div class="section-title">
+                            <h4 class="title">Shiping Methods</h4>
+                        </div>
+                        <div class="input-checkbox">
+                            @*<input type="radio" name="shipping" id="shipping-1" checked>*@
+                            <label for="shipping-1">Free Shiping -  ₹ 0.00</label>
+                        </div>
+                    </div>
+                    <div class="shiping-methods">
+                        <div class="section-title">
+                            <h4 class="title">Price Details</h4>
+                        </div>
+                        <div class="input-checkbox">
+                            @*<input type="radio" name="shipping" id="shipping-1" checked>*@
+                            <div class="section-title">
+                                <h5 class="title">Total</h5> -
+                                <span>
+                                    @{
+                                        var currencySymbol = "";
+                                        if (Session["currency"] != null)
+                                        {
+                                            if (Session["currency"].ToString() == "INR")
+                                            {
+                                                currencySymbol = "₹";
+                                            }
+                                            else if (Session["currency"].ToString() == "USD")
+                                            {
+                                                currencySymbol = "$";
+                                            }
+                                            else if (Session["currency"].ToString() == "EUR")
+                                            {
+                                                currencySymbol = "€";
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            currencySymbol = "₹";
+                                        }
+                                        <h5 class="title" id="totalPaidPrice">@currencySymbol @TempData["TotalPrice"]</h5>
+                                    }
+
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="order-summary clearfix">
+                        <div class="pull-right">
+                            <button class="main-btn">Go To Shopping</button>
+                            <button class="primary-btn" type="button" onclick="GotoPaymentMethod();">Payment</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /section -->

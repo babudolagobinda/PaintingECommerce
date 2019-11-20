@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "AboutMe";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<style>
+
+    .hero-image {
+        background-image: url('../../fonts/About me.jpg');
+        background-color: #cccccc;
+        height: 500px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: relative;
+    }
+
+    .hero-text {
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+    }
+</style>
+<!-- BREADCRUMB -->
+<div id="breadcrumb">
+    <div class="container">
+        <ul class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li class="active">About Me</li>
+        </ul>
+    </div>
+</div>
+<!-- /BREADCRUMB -->
+
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <img src="~/fonts/aboutMeFinal-1.png" alt="About My Artist Inside" style="width:100%" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<a href="~/fonts/aboutMeFinal.pdf">~/fonts/aboutMeFinal.pdf</a>*@

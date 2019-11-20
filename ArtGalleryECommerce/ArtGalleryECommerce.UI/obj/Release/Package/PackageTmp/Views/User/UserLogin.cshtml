@@ -1,0 +1,116 @@
+﻿@model ArtGalleryECommerce.UI.Models.UserLoginModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Paintings</title>
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Hind:400,700" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="~/UserTemplate/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome Icon -->
+    <link rel="stylesheet" href="~/UserTemplate/css/font-awesome.min.css">
+    <!-- Custom stlylesheet -->
+    <link type="text/css" rel="stylesheet" href="~/UserTemplate/css/style.css" />
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+              <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+              <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+            <![endif]-->
+    <style>
+        form label {
+            display: inline-block;
+            width: 100px;
+        }
+
+        form div {
+            margin-bottom: 10px;
+        }
+
+        .error {
+            color: red;
+            margin-left: 5px;
+        }
+
+        label.error {
+            display: inline;
+        }
+    </style>
+</head>
+<body class="login-page">
+    <div class="login-box">
+        @*<div class="login-logo"> <a href="#"><img src="../fonts/logo.jpg" height="100" width="100" /></a> </div>*@
+        <!-- /.login-logo -->
+        <ul class="nav nav-pills nav-justified">
+            <li class="active"><a href="@Url.Action("UserLogin","User")">Login</a></li>
+            <li><a href="@Url.Action("UserRegister","User")">Register</a></li>
+        </ul>
+
+        <div class="login-box-body">
+            <p class="login-box-msg">Sign in to start your session</p>
+            @using (Html.BeginForm("UserLogin", "User", FormMethod.Post))
+            {
+                <form action="../../index2.html" method="post">
+                    <div class="form-group has-feedback">
+                        @Html.TextBox("EmailId", "", new { @class = "form-control", @placeholder = "Enter Your EmailId" })
+                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                        @Html.ValidationMessageFor(model => model.EmailId, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group has-feedback">
+                        @Html.Password("Password", "", new { @class = "form-control", @placeholder = "Enter Your Password" })
+                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-8">
+                            <div class="checkbox icheck">
+                                <label class="checkbox-inline" style="width:100%;">
+                                    <input type="checkbox" value="">
+                                    Remember Me
+                                </label>
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-xs-4 mb3">
+                            <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                </form>
+            }
+                <div class="social-auth-links text-center">
+                    <p><a href="#">I forgot my password</a></p>
+                    <p>
+                        <a href="@Url.Action("UserRegister","User")" class="text-center">New User! Please Sign Up </a>
+                    </p>
+                </div>
+            </div>
+    </div>
+
+
+
+
+    <!-- FOOTER -->
+    <footer id="footer" class="section-grey" style="position: fixed; bottom: 0; width: 100%;">
+        <!-- container -->
+        <div class="container text-center">
+            <div class="footer"> Copyright &copy; 2019 All rights reserved | Designed &amp; Developed <i class="fa fa-heart-o" aria-hidden="true"></i> by DolaGobind Behera. </div>
+        </div>
+        <!-- /container -->
+    </footer>
+    <!-- /FOOTER -->
+    <!-- jQuery Plugins -->
+    <script src="~/UserTemplate/js/jquery.min.js"></script>
+    <script src="~/UserTemplate/js/bootstrap.min.js"></script>
+    @*<script src="~/CustomScripts/UserSignUp.js"></script>*@
+</body>
+</html>

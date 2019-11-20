@@ -1,0 +1,150 @@
+﻿
+@{
+    ViewBag.Title = "MainBanner";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<link href="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/highlightjs/styles/github.css" rel="stylesheet">
+<link href="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-dt/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-responsive-dt/css/responsive.dataTables.min.css" rel="stylesheet">
+<link href="~/Content/roundButton.css" rel="stylesheet" />
+<script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-dt/js/dataTables.dataTables.min.js"></script>
+<script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="~/AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/datatables.net-responsive-dt/js/responsive.dataTables.min.js"></script>
+<script src="~/Scripts/angular.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<script src="~/CustomScripts/MainBanner.js"></script>
+<script src="~/Scripts/dirPagination.js"></script>
+<script src="~/CustomScripts/ItemGroup.js"></script>
+<style>
+
+    form.submitted .ng-invalid {
+        border: 1px solid #f00;
+    }
+</style>
+<style>
+    .textBoxForSearch {
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid #000000;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    .textBoxForSearchs {
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+
+    .loader {
+        left: 50%;
+        margin-left: -4em;
+    }
+</style>
+
+<div class="br-mainpanel" ng-app="divMainBannerApp" ng-controller="divMainBannerController">
+    <form name="ItemMainBannerForm" required>
+        <div id="modalMainBanner" class="modal fade">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content bd-0 tx-14">
+                    <div class="modal-header pd-y-20 pd-x-25">
+                        <h6 class="tx-14 mg-b-0 tx-uppercase tx-inverse tx-bold">Main Banner</h6>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="form-layout form-layout-5">
+                        <div class="row">
+                            <input type="hidden" name="GroupId" ng-model="BannerId" />
+                            <label class="col-sm-3 form-control-label"><span class="tx-danger">*</span> Item Name:</label>
+                            <div class="col-sm-9 mg-t-10 mg-sm-t-0">
+                                <select class="form-control" placeholder="Select ItemName" name="ItemId" ng-model="ItemId" ng-options="option.ItemId as option.ItemName for option in dataItemMasters" required>
+                                    <option value="">--Select Item Name--</option>
+                                </select>
+                                <span style="color:red" ng-if="!ItemMainBannerForm.ItemId.$valid">
+                                    Please Select Your Name Name
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row mg-t-20">
+                            <label class="col-sm-3 form-control-label"><span class="tx-danger">*</span> Banner Name:</label>
+                            <div class="col-sm-9 mg-t-10 mg-sm-t-0">
+                                <input type="text" class="form-control" placeholder="Enter Banner Name" name="BannerName" ng-model="BannerName" required />
+                                <span style="color:red" ng-if="!ItemMainBannerForm.BannerName.$valid">
+                                    Please Provide Your Banner Name
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row mg-t-20">
+                            <label class="col-sm-3 form-control-label"><span class="tx-danger">*</span> Banner Desc:</label>
+                            <div class="col-sm-9 mg-t-10 mg-sm-t-0">
+                                <input type="text" class="form-control" placeholder="Enter BannerDesc" name="BannerDesc" ng-model="BannerDesc" rows="2" required />
+                                <span style="color:red" ng-if="!ItemMainBannerForm.BannerDesc.$valid">
+                                    Please Provide Your Banner Desc
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row mg-t-20">
+                            <label class="col-sm-3 form-control-label"> Banner Image:</label>
+                            <div class="col-sm-9 mg-t-10 mg-sm-t-0">
+                                <input type="file" id="flBannerImage" class="form-control" name="BannerImage" file-model="BannerImage" />
+                            </div>
+                        </div>
+                        <!-- row -->
+                        <div class="row mg-t-30">
+                            <div class="col-sm-8 mg-l-auto">
+                                <div class="form-layout-footer">
+                                    <button class="btn btn-info" type="button" id="btnSaveMainBanner" data-loading-text="Loading..." ng-disabled="ItemMainBannerForm.$invalid" ng-click="SaveMainBanner()">Save</button>
+                                    <button class="btn btn-secondary" data-dismiss="modal" ng-click="resetAll();">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="br-pagetitle">
+        <div>
+            <h4>MAIN BANNER DATATABLE </h4>
+            <p class="mg-b-0">Searching, Ordering and Paging goodness will be immediately added to the table.</p>
+        </div>
+        <div class="selected">
+            <button class="btn btn-info modal-effect" data-effect="effect-newspaper" ng-click="resetAll();"><i class="fa fa-plus"></i> Add Main Banner</button>
+        </div>
+    </div>
+
+    <div class="br-pagebody">
+        <input type="text" ng-model="search" class="textBoxForSearch textBoxForSearchs form-control" placeholder="Click Here For Search....">
+        <div class="table-responsive">
+            <table class="table table-bordered table-colored table-dark">
+                <thead>
+                    <tr>
+                        <th class="wd-15p">Item Name</th>
+                        <th class="wd-15p">Banner Name</th>
+                        <th class="wd-20p">Description</th>
+                        <th class="wd-15p">Banner Image</th>
+                        <th class="wd-10p">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr dir-paginate="dataMainBanner in dataMainBanners |orderBy:sortKey:reverse|filter:search|itemsPerPage:5">
+                        <td>{{dataMainBanner.ItemName}}</td>
+                        <td>{{dataMainBanner.BannerName}}</td>
+                        <td>{{dataMainBanner.BannerDesc}}</td>
+                        <td><img src="~/UploadImages/{{dataMainBanner.BannerImage}}" height="50" width="50" /></td>
+                        <td>
+                            <button class="btn btn-info btn-circle" ng-click="EditMainBanner(dataMainBanner)"><i class="fa fa-pencil-alt"></i></button>
+                            <button class="btn btn-danger btn-circle" ng-click="DeleteMainBanner(dataMainBanner.BannerId)"><i class="fa fa-trash-alt"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
+            </dir-pagination-controls>
+        </div>
+    </div>
+</div>

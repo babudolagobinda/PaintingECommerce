@@ -374,10 +374,11 @@
     <Content Include="EmailTemplate\ApproveEmailTemplate.html" />
     <Content Include="EmailTemplate\DeclineEmailTemplate.html" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\About me.jpg" />
+    <Content Include="fonts\About_me.jpg" />
     <Content Include="fonts\aboutMeFinal-1.png" />
     <Content Include="fonts\aboutMeFinal.jpg" />
     <Content Include="fonts\aboutMeFinal.png" />
+    <Content Include="fonts\aboutMeFinal3.png" />
     <Content Include="fonts\contact-banner.jpg" />
     <Content Include="fonts\emptyBag2.gif" />
     <Content Include="fonts\EmptyBag3.gif" />
@@ -419,6 +420,10 @@
     <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\summernote\font\summernotec360.ttf" />
     <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\summernote\font\summernotec360.woff" />
     <Content Include="fonts\aboutMeFinal.pdf" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\fortawesome\fontawesome-free\webfonts\fa-brands-400.ttf" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\fortawesome\fontawesome-free\webfonts\fa-solid-900.eot" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\fortawesome\fontawesome-free\webfonts\fa-regular-400.eot" />
+    <Content Include="AdminTemplate\themepixels.me\bracketplus\1.4\app\lib\fortawesome\fontawesome-free\webfonts\fa-solid-900.ttf" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\dirPagination.js" />

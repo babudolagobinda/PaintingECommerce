@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "WishList";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<div id="divMyWishList">
+    @Html.Partial("_PartialMyWishList")
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var oldItems = JSON.parse(localStorage.getItem('wishListArray')) || [];
+        if (oldItems.length > 0) {
+            $.ajax({
+                url: '/User/WishList',
+                type: 'POST',
+                cache: false,
+                data: { ItemId: oldItems },
+            }).done(function (result) {
+                $('#divMyWishList').html(result);
+            });
+        }
+    });
+</script>
+<script>
+    function RemoveItem(par) {
+        const oldItems = JSON.parse(localStorage.getItem('wishListArray')) || [];
+        const valuesToRemove = [par]
+        const removedItems = oldItems.filter(item => !valuesToRemove.includes(item));
+        if (removedItems.length <= 0) {
+            $.ajax({
+                url: '/User/WishList',
+                type: 'POST',
+                cache: false,
+                data: { ItemId: 0 },
+            }).done(function (result) {
+                $('#divMyWishList').html(result);
+            });
+        }
+        else {
+            $.ajax({
+                url: '/User/WishList',
+                type: 'POST',
+                cache: false,
+                data: { ItemId: removedItems },
+            }).done(function (result) {
+                $('#divMyWishList').html(result);
+            });
+        }
+        localStorage.setItem("wishListArray", JSON.stringify(removedItems));
+
+    }
+    function AddToBag(par) {
+        RemoveItem(par);
+        AddToCart(par);
+    }
+    function AddToCart(par) {
+        if (!localStorage.getItem("itemsArray")) {
+            localStorage.setItem("itemsArray", "[]");
+        }
+        var oldItems = JSON.parse(localStorage.getItem('itemsArray')) || [];
+        var exist = false;
+        for (var i = 0; i < oldItems.length; i++)
+            if (oldItems[i] == par) {
+                exist = true;
+                break;
+            }
+        if (!exist) {
+            oldItems.push(par);
+            exist = true;
+        }
+        else {
+            alert("Only You Can Add One Painting per Piece");
+            exist = false;
+        }
+        localStorage.setItem("itemsArray", JSON.stringify(oldItems));
+        $("#spnQuantity").text(oldItems.length);
+        return exist;
+    }
+</script>

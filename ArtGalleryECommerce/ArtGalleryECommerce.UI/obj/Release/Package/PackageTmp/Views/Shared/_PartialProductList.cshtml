@@ -1,0 +1,82 @@
+﻿@model IEnumerable<ArtGalleryECommerce.Model.UserDTO.ProductListDto>
+<!-- STORE -->
+<div id="store">
+    @{
+        if (Model != null && Model.Count() != 0)
+        {
+            <!-- row -->
+            <div class="row">
+
+                <!-- Product Single -->
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-4 col-sm-6 col-xs-6 items">
+                        <div class="product product-single">
+                            <div class="product-thumb">
+                                <button class="main-btn quick-view"><i class="fa fa-search-plus"></i><a href="@Url.Action("ProductDetails","User")?itemId=@item.ItemId"> Quick view</a></button>
+                                <img src="~/UploadImages/@item.ItemImage" alt="">
+                                <input type="hidden" class="hdnClass" id="hdnItemId_@item.ItemId" value="@item.ItemId" />
+                            </div>
+                            <div class="product-body">
+                                @{
+                                    var price = item.Price;
+                                }
+                                <h3 class="product-price">
+                                    @{
+                                        var currencySymbol = "";
+                                        if (Session["currency"] != null)
+                                        {
+                                            if (Session["currency"].ToString() == "INR")
+                                            {
+                                                currencySymbol = "₹";
+                                            }
+                                            else if (Session["currency"].ToString() == "USD")
+                                            {
+                                                currencySymbol = "$";
+                                            }
+                                            else if (Session["currency"].ToString() == "EUR")
+                                            {
+                                                currencySymbol = "€";
+                                            }
+                                        }
+                                        else
+                                        {
+                                            currencySymbol = "₹";
+                                        }
+                                        @currencySymbol @item.Price
+                                    }
+                                </h3>
+                                <div class="product-rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o empty"></i> </div>
+                                <h2 class="product-name"><a href="#">@item.ItemName</a></h2>
+                                <div class="product-btns">
+                                    <button class="main-btn icon-btn" onclick="AddToWishList(@item.ItemId);"><i class="fa fa-heart"></i></button>
+                                    @if (item.Quantity > 0)
+                                    {
+                                        <button class="primary-btn add-to-cart" data-pid="@item.ItemId"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+                                    }
+                                    else
+                                    {
+                                        <button class="main-btn" disabled data-pid="@item.ItemId"><i class="fa fa-truck add-to-cart"></i> Out Of Stock</button>
+                                    }
+                                    @*<button class="primary-btn add-to-cart" data-pid="@item.ItemId"><i class="fa fa-shopping-cart add-to-cart"></i> Add to Cart</button>*@
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*<ul class="items product-thumb">
+                            <li><img src="~/UploadImages/@item.ItemImage" /><a href="javascript:void(0);" class="primary-btn add-to-cart">Add to cart</a></li>
+                        </ul>*@
+                }
+                <!-- /Product Single -->
+
+                <div class="clearfix visible-sm visible-xs"></div>
+
+
+            </div>
+            <!-- /row -->
+        }
+    }
+
+</div>
+<!-- /STORE -->

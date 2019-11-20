@@ -1,6 +1,5 @@
 (function($) {
-  "use strict"
-
+    "use strict";
   // NAVIGATION
   var responsiveNav = $('#responsive-nav'),
     catToggle = $('#responsive-nav .category-nav .category-header'),
@@ -120,7 +119,7 @@
   });
 
   // PRODUCT ZOOM
-  $('#product-main-view .product-view').zoom();
+  //$('#product-main-view .product-view').zoom();
 
   // PRICE SLIDER
   var slider = document.getElementById('price-slider');
@@ -142,6 +141,8 @@
         'max': 999
       }
     });
-  }
+    }
+
+
 
 })(jQuery);
