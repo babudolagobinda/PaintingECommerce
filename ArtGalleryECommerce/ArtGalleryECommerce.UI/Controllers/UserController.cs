@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -16,6 +17,8 @@ using System.Web.Security;
 using ArtGalleryECommerce.UI.CustomFilter;
 using AutoMapper;
 using System.Text.RegularExpressions;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace ArtGalleryECommerce.UI.Controllers
 {
@@ -27,6 +30,9 @@ namespace ArtGalleryECommerce.UI.Controllers
         UserSignUpDal userSignUpDal = new UserSignUpDal();
         UserReviewDal userReviewDal = new UserReviewDal();
         UserOrderDetailsDal userOrderDetailsDal = new UserOrderDetailsDal();
+        public string action1 = string.Empty;
+        public string hash1 = string.Empty;
+        public string txnid1 = string.Empty;
         // GET: User
         public ActionResult Index()
         {
@@ -150,46 +156,186 @@ namespace ArtGalleryECommerce.UI.Controllers
             ViewBag.UserAddress = userAddressModel;
             return View();
         }
+        //[HttpPost]
+        //[UserAuthenticationFilterForWebsite]
+        //public ActionResult UserCheckOut(UserAddressModel userAddressModel)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        ViewBag.UserAddress = GetAllUserAddress(Convert.ToInt32(Session["UserId"].ToString()));
+        //        return View(userAddressModel);
+        //    }
+        //    else
+        //    {
+        //        userAddressModel.UserId = Convert.ToInt32(Session["UserId"].ToString());
+        //        UserAddressDal userAddressDal = new UserAddressDal();
+        //        List<ItemGroupDto> lstItemGroupDto = itemGroupDal.GetAndEditItemGroup(0, 1);
+        //        ViewBag.ItemGroups = lstItemGroupDto;
+        //        UserAddressDto userAddressDto = new UserAddressDto();
+        //        userAddressDto.AddressId = userAddressModel.AddressId;
+        //        userAddressDto.UserId = userAddressModel.UserId;
+        //        userAddressDto.Name = userAddressModel.Name;
+        //        userAddressDto.MobileNo = userAddressModel.MobileNo;
+        //        userAddressDto.Pincode = userAddressModel.Pincode;
+        //        userAddressDto.Address = userAddressModel.Address;
+        //        userAddressDto.Locality = userAddressModel.Locality;
+        //        userAddressDto.City = userAddressModel.City;
+        //        userAddressDto.State = userAddressModel.State;
+        //        userAddressDto.Country = userAddressModel.Country;
+        //        userAddressDto.IsActive = 1;
+        //        int i = userAddressDal.SaveAndUpdateUserAddress(userAddressDto);
+        //        if (i > 0)
+        //        {
+        //            ViewBag.successText = "Successfully Address Saved";
+        //        }
+        //        else
+        //        {
+        //            ViewBag.failureText = "Your Address is not saved successfully in our Website. Please Try after Sometime ";
+        //        }
+
+        //        ModelState.Clear();
+        //        ViewBag.UserAddress = GetAllUserAddress(Convert.ToInt32(Session["UserId"].ToString()));
+        //        return View();
+        //    }
+        //}
         [HttpPost]
-        [UserAuthenticationFilterForWebsite]
-        public ActionResult UserCheckOut(UserAddressModel userAddressModel)
+        public void UserCheckOut(FormCollection form)
         {
-            if (!ModelState.IsValid)
+            string firstName = "Dolagobinda";
+            string amount = "1000.00";
+            string productInfo = "Demo Product";
+            string email = "babbudolagobinda@gmail.com";
+            string phone = "9337167373";
+            string surl = "http://localhost:64535/User/Index";
+            string furl = "http://localhost:64535/User/Index";
+
+
+            RemotePost myremotepost = new RemotePost();
+            string key = "StLG15HX";
+            string salt = "lJxnsim0Zz";
+
+            //posting all the parameters required for integration.
+
+            myremotepost.Url = "https://sandboxsecure.payu.in/_payment";
+            myremotepost.Add("key", key);
+            string txnid = Generatetxnid();
+            myremotepost.Add("txnid", txnid);
+            myremotepost.Add("amount", amount);
+            myremotepost.Add("productinfo", productInfo);
+            myremotepost.Add("firstname", firstName);
+            myremotepost.Add("phone", phone);
+            myremotepost.Add("email", email);
+            myremotepost.Add("surl", surl);//Change the success url here depending upon the port number of your local system.
+            myremotepost.Add("furl", furl);//Change the failure url here depending upon the port number of your local system.
+            myremotepost.Add("service_provider", "payu_paisa");
+            string hashString = key + "|" + txnid + "|" + amount + "|" + productInfo + "|" + firstName + "|" + email + "|" + phone + "|" + surl + "|" + furl + "|" + salt;
+            //string hashString = "3Q5c3q|2590640|3053.00|OnlineBooking|vimallad|ladvimal@gmail.com|||||||||||mE2RxRwx";
+            string hash = Generatehash512(hashString);
+            myremotepost.Add("hash", hash);
+
+            myremotepost.Post();
+        }
+        [HttpPost]
+        public void Demo(FormCollection form)
+        {
+
+            string firstName = "Dolagobinda";
+            string amount = "1000.00";
+            string productInfo = "Demo Product";
+            string email = "babbudolagobinda@gmail.com";
+            string phone = "9337167373";
+            string surl = "http://localhost:64535/User/Index";
+            string furl = "http://localhost:64535/User/Index";
+
+
+            RemotePost myremotepost = new RemotePost();
+            string key = "StLG15HX";
+            string salt = "lJxnsim0Zz";
+
+            //posting all the parameters required for integration.
+
+            myremotepost.Url = "https://test.payu.in/_payment";
+            myremotepost.Add("key", "JBZaLc");
+            string txnid = Generatetxnid();
+            myremotepost.Add("txnid", txnid);
+            myremotepost.Add("amount", amount);
+            myremotepost.Add("productinfo", productInfo);
+            myremotepost.Add("firstname", firstName);
+            myremotepost.Add("phone", phone);
+            myremotepost.Add("email", email);
+            myremotepost.Add("surl", surl);//Change the success url here depending upon the port number of your local system.
+            myremotepost.Add("furl", furl);//Change the failure url here depending upon the port number of your local system.
+            myremotepost.Add("service_provider", "payu_paisa");
+            string hashString = key + "|" + txnid + "|" + amount + "|" + productInfo + "|" + firstName + "|" + email + "|" + phone + "|" + surl + "|" + furl + "|" + salt;
+            //string hashString = "3Q5c3q|2590640|3053.00|OnlineBooking|vimallad|ladvimal@gmail.com|||||||||||mE2RxRwx";
+            string hash = Generatehash512(hashString);
+            myremotepost.Add("hash", hash);
+
+            myremotepost.Post();
+        }
+
+        public class RemotePost
+        {
+            private System.Collections.Specialized.NameValueCollection Inputs = new System.Collections.Specialized.NameValueCollection();
+
+
+            public string Url = "";
+            public string Method = "post";
+            public string FormName = "form1";
+
+            public void Add(string name, string value)
             {
-                ViewBag.UserAddress = GetAllUserAddress(Convert.ToInt32(Session["UserId"].ToString()));
-                return View(userAddressModel);
+                Inputs.Add(name, value);
             }
-            else
+
+            public void Post()
             {
-                userAddressModel.UserId = Convert.ToInt32(Session["UserId"].ToString());
-                UserAddressDal userAddressDal = new UserAddressDal();
-                List<ItemGroupDto> lstItemGroupDto = itemGroupDal.GetAndEditItemGroup(0, 1);
-                ViewBag.ItemGroups = lstItemGroupDto;
-                UserAddressDto userAddressDto = new UserAddressDto();
-                userAddressDto.AddressId = userAddressModel.AddressId;
-                userAddressDto.UserId = userAddressModel.UserId;
-                userAddressDto.Name = userAddressModel.Name;
-                userAddressDto.MobileNo = userAddressModel.MobileNo;
-                userAddressDto.Pincode = userAddressModel.Pincode;
-                userAddressDto.Address = userAddressModel.Address;
-                userAddressDto.Locality = userAddressModel.Locality;
-                userAddressDto.City = userAddressModel.City;
-                userAddressDto.State = userAddressModel.State;
-                userAddressDto.Country = userAddressModel.Country;
-                userAddressDto.IsActive = 1;
-                int i = userAddressDal.SaveAndUpdateUserAddress(userAddressDto);
-                if (i > 0)
+                System.Web.HttpContext.Current.Response.Clear();
+
+                System.Web.HttpContext.Current.Response.Write("<html><head>");
+
+                System.Web.HttpContext.Current.Response.Write(string.Format("</head><body onload=\"document.{0}.submit()\">", FormName));
+                System.Web.HttpContext.Current.Response.Write(string.Format("<form name=\"{0}\" method=\"{1}\" action=\"{2}\" >", FormName, Method, Url));
+                for (int i = 0; i < Inputs.Keys.Count; i++)
                 {
-                    ViewBag.successText = "Successfully Address Saved";
+                    System.Web.HttpContext.Current.Response.Write(string.Format("<input name=\"{0}\" type=\"hidden\" value=\"{1}\">", Inputs.Keys[i], Inputs[Inputs.Keys[i]]));
                 }
-                else
-                {
-                    ViewBag.failureText = "Your Address is not saved successfully in our Website. Please Try after Sometime ";
-                }
-                ModelState.Clear();
-                ViewBag.UserAddress = GetAllUserAddress(Convert.ToInt32(Session["UserId"].ToString()));
-                return View();
+                System.Web.HttpContext.Current.Response.Write("</form>");
+                System.Web.HttpContext.Current.Response.Write("</body></html>");
+
+                System.Web.HttpContext.Current.Response.End();
             }
+        }
+
+        //Hash generation Algorithm
+
+        public string Generatehash512(string text)
+        {
+
+            byte[] message = Encoding.UTF8.GetBytes(text);
+
+            UnicodeEncoding UE = new UnicodeEncoding();
+            byte[] hashValue;
+            SHA512Managed hashString = new SHA512Managed();
+            string hex = "";
+            hashValue = hashString.ComputeHash(message);
+            foreach (byte x in hashValue)
+            {
+                hex += String.Format("{0:x2}", x);
+            }
+            return hex;
+
+        }
+
+
+        public string Generatetxnid()
+        {
+
+            Random rnd = new Random();
+            string strHash = Generatehash512(rnd.ToString() + DateTime.Now);
+            string txnid1 = strHash.ToString().Substring(0, 20);
+
+            return txnid1;
         }
 
         [HttpPost]
@@ -438,7 +584,7 @@ namespace ArtGalleryECommerce.UI.Controllers
                 userOrderDetailsDto.TotalAmount = PaidPrice;
                 userOrderDetailsDto.PaymentType = PaymentType;
                 userOrderDetailsDto.Status = 0;
-                i = userOrderDetailsDal.SaveOrderDetails(userOrderDetailsDto);
+                //i = userOrderDetailsDal.SaveOrderDetails(userOrderDetailsDto);
             }
 
             return Json(i, JsonRequestBehavior.AllowGet);

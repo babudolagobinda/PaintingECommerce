@@ -117,16 +117,22 @@
             $.ajax({
                 type: 'POST',
                 dataType: 'JSON',
-                url: '/User/SaveUserOrderDetails',
-                data: { ItemId: itemId, AddressId: addressId, CurrencyType: currencyType, PaidPrice: paidPrice, PaymentType: paymentType },
+                url: '/User/Demo',
+                //data: { ItemId: itemId, AddressId: addressId, CurrencyType: currencyType, PaidPrice: paidPrice, PaymentType: paymentType },
+                data: {  },
                 success: function (res) {
-                    if (res > 0) {
-                        localStorage.removeItem('itemsArray');
-                        window.location.href = '/User/ThankYou';
-                    }
-                    else {
-                        alert('Out Of Stock.Sorry...')
-                    }
+                    debugger;
+                     window.location.href='https://test.payu.in/_payment';
+                    //if (res > 0) {
+                    //    localStorage.removeItem('itemsArray');
+                    //    window.location.href = 'https://test.payu.in/_payment';
+                    //}
+                    //else {
+                    //    alert('Out Of Stock.Sorry...')
+                    //}
+                },
+                error: function (xhr) {
+                    debugger;
                 }
             })
         };
@@ -286,7 +292,7 @@
                     <div class="order-summary clearfix">
                         <div class="pull-right">
                             <button class="main-btn">Go To Shopping</button>
-                            <button class="primary-btn" type="button" onclick="GotoPaymentMethod();">Payment</button>
+                            <button class="primary-btn" type="submit">Payment</button>
                         </div>
                     </div>
                 </div>
@@ -297,3 +303,4 @@
     <!-- /container -->
 </div>
 <!-- /section -->
+
