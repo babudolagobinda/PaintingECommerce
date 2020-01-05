@@ -59,6 +59,7 @@ app.controller("divItemMasterController", function ($scope, $http) {
         fd.append('CategoryId', $scope.CategoryId);
         fd.append('ItemId', $scope.ItemId);
         fd.append('ItemName', $scope.ItemName);
+        fd.append('ItemDetails', $scope.ItemDetails);
         fd.append('ItemDesc', $scope.ItemDesc);
         $http({
             method: 'POST',
@@ -86,6 +87,7 @@ app.controller("divItemMasterController", function ($scope, $http) {
         $scope.CategoryId = par.CategoryId;
         $scope.ItemId = par.ItemId;
         $scope.ItemName = par.ItemName;
+        $scope.ItemDetails = par.ItemDetails;
         $scope.ItemDesc = par.ItemDesc;
 
     };
@@ -131,6 +133,7 @@ app.controller("divItemMasterController", function ($scope, $http) {
         $scope.CategoryId = '';
         $scope.ItemId = '';
         $scope.ItemName = '';
+        $scope.ItemDetails = '';
         $scope.ItemDesc = '';
         $scope.ItemImage = '';
         angular.element("input[type='file']").val(null);

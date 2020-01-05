@@ -418,10 +418,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/14/2019 14:43:37</publishTime>
     </File>
     <File Include="AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/fortawesome/fontawesome-free/css/all.min.css">
-      <publishTime>06/23/2019 16:54:22</publishTime>
+      <publishTime>09/13/2019 12:31:50</publishTime>
+    </File>
+    <File Include="AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/fortawesome/fontawesome-free/webfonts/fa-brands-400.ttf">
+      <publishTime>09/13/2019 11:55:51</publishTime>
     </File>
     <File Include="AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/fortawesome/fontawesome-free/webfonts/fa-brands-400.woff2">
       <publishTime>06/14/2019 14:43:37</publishTime>
+    </File>
+    <File Include="AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/fortawesome/fontawesome-free/webfonts/fa-regular-400.eot">
+      <publishTime>09/13/2019 12:27:07</publishTime>
+    </File>
+    <File Include="AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/fortawesome/fontawesome-free/webfonts/fa-solid-900.eot">
+      <publishTime>09/13/2019 12:26:37</publishTime>
+    </File>
+    <File Include="AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/fortawesome/fontawesome-free/webfonts/fa-solid-900.ttf">
+      <publishTime>09/13/2019 12:31:38</publishTime>
     </File>
     <File Include="AdminTemplate/themepixels.me/bracketplus/1.4/app/lib/fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2">
       <publishTime>06/14/2019 14:43:37</publishTime>
@@ -613,22 +625,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/14/2019 14:43:38</publishTime>
     </File>
     <File Include="bin/ArtGalleryECommerce.Dal.dll">
-      <publishTime>09/12/2019 23:56:18</publishTime>
+      <publishTime>12/23/2019 17:57:17</publishTime>
     </File>
     <File Include="bin/ArtGalleryECommerce.Dal.pdb">
-      <publishTime>09/12/2019 23:56:18</publishTime>
+      <publishTime>12/23/2019 17:57:17</publishTime>
     </File>
     <File Include="bin/ArtGalleryECommerce.Model.dll">
-      <publishTime>09/12/2019 23:56:17</publishTime>
+      <publishTime>12/23/2019 17:57:17</publishTime>
     </File>
     <File Include="bin/ArtGalleryECommerce.Model.pdb">
-      <publishTime>09/12/2019 23:56:17</publishTime>
+      <publishTime>12/23/2019 17:57:17</publishTime>
     </File>
     <File Include="bin/ArtGalleryECommerce.UI.dll">
-      <publishTime>09/12/2019 23:56:21</publishTime>
+      <publishTime>12/23/2019 17:57:20</publishTime>
     </File>
     <File Include="bin/ArtGalleryECommerce.UI.pdb">
-      <publishTime>09/12/2019 23:56:21</publishTime>
+      <publishTime>12/23/2019 17:57:20</publishTime>
     </File>
     <File Include="bin/AutoMapper.dll">
       <publishTime>02/24/2016 19:36:08</publishTime>
@@ -808,7 +820,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/24/2019 15:06:27</publishTime>
     </File>
     <File Include="CustomScripts/ItemMaster.js">
-      <publishTime>08/06/2019 16:27:07</publishTime>
+      <publishTime>12/22/2019 23:04:07</publishTime>
     </File>
     <File Include="CustomScripts/MainBanner.js">
       <publishTime>06/23/2019 22:17:58</publishTime>
@@ -845,6 +857,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="fonts/aboutMeFinal.png">
       <publishTime>09/12/2019 20:24:35</publishTime>
+    </File>
+    <File Include="fonts/aboutMeFinal3.png">
+      <publishTime>10/21/2019 14:03:23</publishTime>
+    </File>
+    <File Include="fonts/About_me.jpg">
+      <publishTime>09/12/2019 16:27:01</publishTime>
     </File>
     <File Include="fonts/contact-banner.jpg">
       <publishTime>08/05/2019 15:31:40</publishTime>
@@ -1315,7 +1333,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/09/2019 16:06:06</publishTime>
     </File>
     <File Include="Views/Admin/Index.cshtml">
-      <publishTime>07/01/2019 11:52:28</publishTime>
+      <publishTime>12/22/2019 23:45:48</publishTime>
     </File>
     <File Include="Views/Admin/Invoice.cshtml">
       <publishTime>08/09/2019 17:38:30</publishTime>
@@ -1330,7 +1348,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/08/2019 11:44:05</publishTime>
     </File>
     <File Include="Views/Admin/ItemMaster.cshtml">
-      <publishTime>08/08/2019 11:42:52</publishTime>
+      <publishTime>12/22/2019 23:03:04</publishTime>
     </File>
     <File Include="Views/Admin/MainBanner.cshtml">
       <publishTime>08/08/2019 11:44:19</publishTime>
@@ -1360,25 +1378,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/12/2019 20:14:19</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutAdmin.cshtml">
-      <publishTime>08/08/2019 18:03:05</publishTime>
+      <publishTime>12/22/2019 23:51:06</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutUser.cshtml">
-      <publishTime>09/12/2019 18:55:30</publishTime>
+      <publishTime>12/22/2019 23:50:07</publishTime>
     </File>
     <File Include="Views/Shared/_PartialInvoice.cshtml">
       <publishTime>08/09/2019 15:15:24</publishTime>
     </File>
     <File Include="Views/Shared/_PartialMyCart.cshtml">
-      <publishTime>07/23/2019 16:31:13</publishTime>
+      <publishTime>09/16/2019 13:16:45</publishTime>
     </File>
     <File Include="Views/Shared/_PartialMyWishList.cshtml">
       <publishTime>08/06/2019 15:33:19</publishTime>
     </File>
     <File Include="Views/Shared/_PartialProductList.cshtml">
-      <publishTime>07/14/2019 15:43:02</publishTime>
+      <publishTime>12/13/2019 18:42:50</publishTime>
     </File>
     <File Include="Views/User/AboutMe.cshtml">
-      <publishTime>09/12/2019 20:26:20</publishTime>
+      <publishTime>11/20/2019 15:53:17</publishTime>
     </File>
     <File Include="Views/User/ContactUs.cshtml">
       <publishTime>08/05/2019 17:20:36</publishTime>
@@ -1399,10 +1417,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/12/2019 15:43:59</publishTime>
     </File>
     <File Include="Views/User/ProductDetails.cshtml">
-      <publishTime>08/06/2019 16:09:45</publishTime>
+      <publishTime>12/22/2019 23:31:18</publishTime>
     </File>
     <File Include="Views/User/ProductList.cshtml">
-      <publishTime>08/06/2019 16:09:12</publishTime>
+      <publishTime>12/22/2019 23:11:58</publishTime>
     </File>
     <File Include="Views/User/TermsAndConditions.cshtml">
       <publishTime>09/12/2019 16:09:40</publishTime>
@@ -1411,13 +1429,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/24/2019 19:13:07</publishTime>
     </File>
     <File Include="Views/User/UserCheckOut.cshtml">
-      <publishTime>08/06/2019 15:58:51</publishTime>
+      <publishTime>12/23/2019 16:43:26</publishTime>
     </File>
     <File Include="Views/User/UserLogin.cshtml">
-      <publishTime>07/02/2019 13:00:42</publishTime>
+      <publishTime>12/22/2019 23:48:57</publishTime>
     </File>
     <File Include="Views/User/UserRegister.cshtml">
-      <publishTime>07/02/2019 14:17:55</publishTime>
+      <publishTime>12/22/2019 23:49:44</publishTime>
     </File>
     <File Include="Views/User/WishList.cshtml">
       <publishTime>08/06/2019 15:58:32</publishTime>
@@ -1429,7 +1447,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/14/2019 14:43:37</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>09/12/2019 23:56:22</publishTime>
+      <publishTime>12/23/2019 17:57:21</publishTime>
     </File>
   </ItemGroup>
 </Project>

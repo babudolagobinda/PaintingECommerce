@@ -361,6 +361,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\roundButton.css" />
+    <Content Include="Content\style.css" />
     <Content Include="Content\ThankYou.css" />
     <Content Include="CustomScripts\AdminLogin.js" />
     <Content Include="CustomScripts\ItemCategory.js" />
@@ -379,6 +380,7 @@
     <Content Include="fonts\aboutMeFinal.jpg" />
     <Content Include="fonts\aboutMeFinal.png" />
     <Content Include="fonts\aboutMeFinal3.png" />
+    <Content Include="fonts\bg.jpg" />
     <Content Include="fonts\contact-banner.jpg" />
     <Content Include="fonts\emptyBag2.gif" />
     <Content Include="fonts\EmptyBag3.gif" />
@@ -598,6 +600,7 @@
     <Content Include="Views\User\PrivacyPolicy.cshtml" />
     <Content Include="Views\User\AboutMe.cshtml" />
     <Content Include="Views\User\TermsAndConditions.cshtml" />
+    <Content Include="Views\User\Failure.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

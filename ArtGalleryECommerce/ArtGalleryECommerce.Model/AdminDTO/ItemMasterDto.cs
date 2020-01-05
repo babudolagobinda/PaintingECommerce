@@ -14,6 +14,7 @@ namespace ArtGalleryECommerce.Model.AdminDTO
         public string CategoryName { get; set; }
         public int ItemId { get; set; }
         public string ItemName { get; set; }
+        public string ItemDetails { get; set; }
         public string ItemDesc { get; set; }
         public string ItemImage { get; set; }
         public string CreatedDate { get; set; }

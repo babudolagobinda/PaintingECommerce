@@ -100,6 +100,15 @@
                             </div>
                         </div>
                         <div class="row mg-t-20">
+                            <label class="col-sm-3 form-control-label"><span class="tx-danger">*</span> Item Details:</label>
+                            <div class="col-sm-9 mg-t-10 mg-sm-t-0">
+                                <input type="text" class="form-control" placeholder="Enter Item Details" name="ItemDetails" ng-model="ItemDetails" rows="2" required />
+                                <span style="color:red" ng-if="!ItemMasterForm.ItemDetails.$valid">
+                                    Please Provide Your Item Details
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row mg-t-20">
                             <label class="col-sm-3 form-control-label"><span class="tx-danger">*</span> Item Desc:</label>
                             <div class="col-sm-9 mg-t-10 mg-sm-t-0">
                                 <input type="text" class="form-control" placeholder="Enter Item Desc" name="ItemDesc" ng-model="ItemDesc" rows="2" required />
@@ -148,6 +157,7 @@
                         <th class="wd-15p">Group Name</th>
                         <th class="wd-15p">Category Name</th>
                         <th class="wd-15p">Item Name</th>
+                        <th class="wd-15p">Details</th>
                         <th class="wd-20p">Description</th>
                         <th class="wd-15p">Item Image</th>
                         <th class="wd-10p">Action</th>
@@ -158,18 +168,19 @@
                         <td>{{dataItemMaster.GroupName}}</td>
                         <td>{{dataItemMaster.CategoryName}}</td>
                         <td>{{dataItemMaster.ItemName}}</td>
+                        <td>{{dataItemMaster.ItemDetails}}</td>
                         <td>{{dataItemMaster.ItemDesc}}</td>
                         <td>
                             <img src="~/UploadImages/{{dataItemMaster.ItemImage}}" height="50" width="50" id="ItemImage" ng-click="zoomImage(dataItemMaster.ItemImage);" />
                             @*<div id="itemImageModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                <div class="modal-sm modal-dialog-centered">
+                <div class="modal-sm modal-dialog-centered">
 
-                                    <button type="button" class="btn btn-info btn-circle" ng-click="CloseItemImage()" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    <img class="modal-content" id="imgItemImage">
-                                </div>
-                            </div>*@
+                    <button type="button" class="btn btn-info btn-circle" ng-click="CloseItemImage()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <img class="modal-content" id="imgItemImage">
+                </div>
+            </div>*@
                         </td>
                         <td>
                             <button class="btn btn-info btn-circle" ng-click="EditItemMaster(dataItemMaster)"><i class="fa fa-pencil-alt"></i></button>

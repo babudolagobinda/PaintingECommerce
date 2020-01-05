@@ -14,6 +14,7 @@ namespace ArtGalleryECommerce.Model.UserDTO
         public string CategoryName { get; set; }
         public int ItemId { get; set; }
         public string ItemName { get; set; }
+        public string ItemDetails { get; set; }
         public string ItemDesc { get; set; }
         public string ItemImage { get; set; }
         public decimal Width { get; set; }
@@ -24,5 +25,20 @@ namespace ArtGalleryECommerce.Model.UserDTO
         public decimal Discount { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }
+    }
+    public class PagingInfo
+    {
+        public int TotalItems { get; set; }
+        public int ItemsPerPage { get; set; }
+        public int CurrentPage { get; set; }
+        public int TotalPages
+        {
+            get { return (int)Math.Ceiling((decimal)TotalItems / ItemsPerPage); }
+        }
+    }
+    public class ProductListViewModel
+    {
+        public IEnumerable<ProductListDto> lstProductListDto { get; set; }
+        public PagingInfo PagingInfo { get; set; }
     }
 }

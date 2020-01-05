@@ -97,39 +97,42 @@
             return false;
         }
         else {
-            var itemId = JSON.parse(localStorage.getItem('itemsArray')) || [];
-            var addressId = $('input[name="rbShipping"]:checked').val();
-            const splitTotalPaidPrice = $("#totalPaidPrice").text().split(" ");
-            var currencySymbol = splitTotalPaidPrice[0];
-            var currencyType = "";
-            if (currencySymbol == "₹") {
-                currencyType = "INR";
-            }
-            else if (currencySymbol == "$") {
-                currencyType = "USD";
-            }
-            else if (currencySymbol == "€") {
-                currencyType = "EUR";
-            }
+            return true;
+        }
+        //else {
+        //    var itemId = JSON.parse(localStorage.getItem('itemsArray')) || [];
+        //    var addressId = $('input[name="rbShipping"]:checked').val();
+        //    const splitTotalPaidPrice = $("#totalPaidPrice").text().split(" ");
+        //    var currencySymbol = splitTotalPaidPrice[0];
+        //    var currencyType = "";
+        //    if (currencySymbol == "₹") {
+        //        currencyType = "INR";
+        //    }
+        //    else if (currencySymbol == "$") {
+        //        currencyType = "USD";
+        //    }
+        //    else if (currencySymbol == "€") {
+        //        currencyType = "EUR";
+        //    }
 
-            var paidPrice = splitTotalPaidPrice[1];
-            var paymentType = "Cash On Delivery";
-            $.ajax({
-                type: 'POST',
-                dataType: 'JSON',
-                url: '/User/SaveUserOrderDetails',
-                data: { ItemId: itemId, AddressId: addressId, CurrencyType: currencyType, PaidPrice: paidPrice, PaymentType: paymentType },
-                success: function (res) {
-                    if (res > 0) {
-                        localStorage.removeItem('itemsArray');
-                        window.location.href = '/User/ThankYou';
-                    }
-                    else {
-                        alert('Out Of Stock.Sorry...')
-                    }
-                }
-            })
-        };
+        //    var paidPrice = splitTotalPaidPrice[1];
+        //    var paymentType = "Cash On Delivery";
+        //    $.ajax({
+        //        type: 'POST',
+        //        dataType: 'JSON',
+        //        url: '/User/SaveUserOrderDetails',
+        //        data: { ItemId: itemId, AddressId: addressId, CurrencyType: currencyType, PaidPrice: paidPrice, PaymentType: paymentType },
+        //        success: function (res) {
+        //            if (res > 0) {
+        //                localStorage.removeItem('itemsArray');
+        //                window.location.href = '/User/ThankYou';
+        //            }
+        //            else {
+        //                alert('Out Of Stock.Sorry...')
+        //            }
+        //        }
+        //    })
+        //};
     }
 </script>
 <!-- BREADCRUMB -->
@@ -148,7 +151,7 @@
     <div class="container">
         <!-- row -->
         <div class="row">
-            <form id="checkout-form" class="clearfix" action="UserCheckOut" method="post">
+            <form id="checkout-form" class="clearfix" action="UserCheckOutPayment" method="post">
                 <div class="col-md-6">
                     <div class="billing-details">
                         <div class="section-title">
@@ -192,7 +195,8 @@
                             <div class="order-summary clearfix">
                                 <div class="pull-right">
                                     <button type="button" onclick="resetUserAddress();" class="main-btn">CANCEL</button>
-                                    <button type="submit" class="primary-btn">SAVE</button>
+                                    @*<input type="submit" value="Submit" name="Edit" formaction="@Url.Action("edit_submit")" formmethod="post" class="btn btn-default" />*@
+                                    <button type="submit" class="primary-btn" formaction="@Url.Action("UserCheckOut")" formmethod="post">SAVE</button>
                                 </div>
                                 @if (ViewBag.successText != null || ViewBag.successText != "")
                                 {
@@ -286,7 +290,7 @@
                     <div class="order-summary clearfix">
                         <div class="pull-right">
                             <button class="main-btn">Go To Shopping</button>
-                            <button class="primary-btn" type="button" onclick="GotoPaymentMethod();">Payment</button>
+                            <button class="primary-btn" type="submit" onclick="GotoPaymentMethod();">Payment</button>
                         </div>
                     </div>
                 </div>

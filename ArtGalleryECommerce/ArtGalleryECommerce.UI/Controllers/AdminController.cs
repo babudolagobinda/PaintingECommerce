@@ -285,6 +285,7 @@ namespace ArtGalleryECommerce.UI.Controllers
             return Json("", JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
+        [Route("SaveItemMaster")]
         public ActionResult SaveItemMaster()
         {
             try
@@ -341,6 +342,7 @@ namespace ArtGalleryECommerce.UI.Controllers
                 itemMasterDto.GroupId = Convert.ToInt32(System.Web.HttpContext.Current.Request["GroupId"]);
                 itemMasterDto.CategoryId = Convert.ToInt32(System.Web.HttpContext.Current.Request["CategoryId"]);
                 itemMasterDto.ItemName = System.Web.HttpContext.Current.Request["ItemName"];
+                itemMasterDto.ItemDetails = System.Web.HttpContext.Current.Request["ItemDetails"];
                 itemMasterDto.ItemDesc = System.Web.HttpContext.Current.Request["ItemDesc"];
                 itemMasterDto.CreatedBy = Convert.ToInt32(Session["AdminId"]);
                 itemMasterDto.ModifiedBy = Convert.ToInt32(Session["AdminId"]);

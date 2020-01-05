@@ -24,6 +24,7 @@ namespace ArtGalleryECommerce.Dal.Admin
                 cmd.Parameters.AddWithValue("@GroupId", itemMasterDto.GroupId);
                 cmd.Parameters.AddWithValue("@CategoryId", itemMasterDto.CategoryId);
                 cmd.Parameters.AddWithValue("@ItemName", itemMasterDto.ItemName);
+                cmd.Parameters.AddWithValue("@ItemDetails", itemMasterDto.ItemDetails);
                 cmd.Parameters.AddWithValue("@ItemDesc", itemMasterDto.ItemDesc);
                 cmd.Parameters.AddWithValue("@ItemImage", itemMasterDto.ItemImage);
                 cmd.Parameters.AddWithValue("@CreatedBy", itemMasterDto.CreatedBy);
@@ -60,6 +61,7 @@ namespace ArtGalleryECommerce.Dal.Admin
                 itemMasterDto.CategoryId = Convert.ToInt32(dr["CategoryId"]);
                 itemMasterDto.CategoryName = Convert.ToString(dr["CategoryName"]);
                 itemMasterDto.ItemName = Convert.ToString(dr["ItemName"]);
+                itemMasterDto.ItemDetails = Convert.ToString(dr["ItemDetails"]);
                 itemMasterDto.ItemDesc = Convert.ToString(dr["ItemDesc"]);
                 itemMasterDto.ItemImage = Convert.ToString(dr["ItemImage"]);
                 itemMasterDto.CreatedBy = Convert.ToInt32(dr["CreatedBy"]);
@@ -105,6 +107,7 @@ namespace ArtGalleryECommerce.Dal.Admin
                 itemMasterDto.GroupId = Convert.ToInt32(dr["GroupId"]);
                 itemMasterDto.CategoryId = Convert.ToInt32(dr["CategoryId"]);
                 itemMasterDto.ItemName = Convert.ToString(dr["ItemName"]);
+                itemMasterDto.ItemDetails = Convert.ToString(dr["ItemDetails"]);
                 itemMasterDto.ItemDesc = Convert.ToString(dr["ItemDesc"]);
                 itemMasterDto.ItemImage = Convert.ToString(dr["ItemImage"]);
                 itemMasterDto.CreatedBy = Convert.ToInt32(dr["CreatedBy"]);

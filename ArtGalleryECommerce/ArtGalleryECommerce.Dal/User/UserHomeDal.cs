@@ -29,6 +29,7 @@ namespace ArtGalleryECommerce.Dal.User
                 ProductListDto productListDto = new ProductListDto();
                 productListDto.ItemId = Convert.ToInt32(dr["ItemId"]);
                 productListDto.ItemName = Convert.ToString(dr["ItemName"]);
+                productListDto.ItemDetails = Convert.ToString(dr["ItemDetails"]);
                 productListDto.ItemDesc = Convert.ToString(dr["ItemDesc"]);
                 productListDto.ItemImage = Convert.ToString(dr["ItemImage"]);
                 productListDto.Mrp = Convert.ToDecimal(dr["Mrp"]);
@@ -64,6 +65,7 @@ namespace ArtGalleryECommerce.Dal.User
                 ProductListDto productListDto = new ProductListDto();
                 productListDto.ItemId = Convert.ToInt32(dr["ItemId"]);
                 productListDto.ItemName = Convert.ToString(dr["ItemName"]);
+                productListDto.ItemDetails = Convert.ToString(dr["ItemDetails"]);
                 productListDto.ItemDesc = Convert.ToString(dr["ItemDesc"]);
                 productListDto.ItemImage = Convert.ToString(dr["ItemImage"]);
                 productListDto.Mrp = Convert.ToDecimal(dr["Mrp"]);
@@ -139,6 +141,7 @@ namespace ArtGalleryECommerce.Dal.User
                 productListDto.CategoryName = Convert.ToString(dr["CategoryName"]);
                 productListDto.ItemId = Convert.ToInt32(dr["ItemId"]);
                 productListDto.ItemName = Convert.ToString(dr["ItemName"]);
+                productListDto.ItemDetails= Convert.ToString(dr["ItemDetails"]);
                 productListDto.ItemDesc = Convert.ToString(dr["ItemDesc"]);
                 productListDto.ItemImage = Convert.ToString(dr["ItemImage"]);
                 productListDto.Mrp = Convert.ToDecimal(dr["Mrp"]);
@@ -178,6 +181,7 @@ namespace ArtGalleryECommerce.Dal.User
                 productListDto.CategoryName = Convert.ToString(dr["CategoryName"]);
                 productListDto.ItemId = Convert.ToInt32(dr["ItemId"]);
                 productListDto.ItemName = Convert.ToString(dr["ItemName"]);
+                productListDto.ItemDetails = Convert.ToString(dr["ItemDetails"]);
                 productListDto.ItemDesc = Convert.ToString(dr["ItemDesc"]);
                 productListDto.ItemImage = Convert.ToString(dr["ItemImage"]);
                 productListDto.Mrp = Convert.ToDecimal(dr["Mrp"]);
@@ -217,6 +221,7 @@ namespace ArtGalleryECommerce.Dal.User
                 productListDto.CategoryName = Convert.ToString(dr["CategoryName"]);
                 productListDto.ItemId = Convert.ToInt32(dr["ItemId"]);
                 productListDto.ItemName = Convert.ToString(dr["ItemName"]);
+                productListDto.ItemDetails = Convert.ToString(dr["ItemDetails"]);
                 productListDto.ItemDesc = Convert.ToString(dr["ItemDesc"]);
                 productListDto.ItemImage = Convert.ToString(dr["ItemImage"]);
                 productListDto.Mrp = Convert.ToDecimal(dr["Mrp"]);
