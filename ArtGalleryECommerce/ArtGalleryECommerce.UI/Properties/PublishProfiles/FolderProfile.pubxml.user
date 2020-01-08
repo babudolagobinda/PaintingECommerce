@@ -625,22 +625,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/14/2019 14:43:38</publishTime>
     </File>
     <File Include="bin/ArtGalleryECommerce.Dal.dll">
-      <publishTime>12/23/2019 17:57:17</publishTime>
+      <publishTime>01/05/2020 17:15:02</publishTime>
     </File>
     <File Include="bin/ArtGalleryECommerce.Dal.pdb">
-      <publishTime>12/23/2019 17:57:17</publishTime>
+      <publishTime>01/05/2020 17:15:02</publishTime>
     </File>
     <File Include="bin/ArtGalleryECommerce.Model.dll">
-      <publishTime>12/23/2019 17:57:17</publishTime>
+      <publishTime>01/05/2020 17:15:01</publishTime>
     </File>
     <File Include="bin/ArtGalleryECommerce.Model.pdb">
-      <publishTime>12/23/2019 17:57:17</publishTime>
+      <publishTime>01/05/2020 17:15:01</publishTime>
     </File>
     <File Include="bin/ArtGalleryECommerce.UI.dll">
-      <publishTime>12/23/2019 17:57:20</publishTime>
+      <publishTime>01/05/2020 18:01:30</publishTime>
     </File>
     <File Include="bin/ArtGalleryECommerce.UI.pdb">
-      <publishTime>12/23/2019 17:57:20</publishTime>
+      <publishTime>01/05/2020 18:01:30</publishTime>
     </File>
     <File Include="bin/AutoMapper.dll">
       <publishTime>02/24/2016 19:36:08</publishTime>
@@ -804,6 +804,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Content/Site.css">
       <publishTime>06/14/2019 14:43:37</publishTime>
     </File>
+    <File Include="Content/style.css">
+      <publishTime>01/05/2020 11:24:06</publishTime>
+    </File>
     <File Include="Content/ThankYou.css">
       <publishTime>07/17/2019 18:22:28</publishTime>
     </File>
@@ -820,7 +823,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/24/2019 15:06:27</publishTime>
     </File>
     <File Include="CustomScripts/ItemMaster.js">
-      <publishTime>12/22/2019 23:04:07</publishTime>
+      <publishTime>12/25/2019 14:50:58</publishTime>
     </File>
     <File Include="CustomScripts/MainBanner.js">
       <publishTime>06/23/2019 22:17:58</publishTime>
@@ -863,6 +866,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="fonts/About_me.jpg">
       <publishTime>09/12/2019 16:27:01</publishTime>
+    </File>
+    <File Include="fonts/bg.jpg">
+      <publishTime>01/05/2020 11:20:13</publishTime>
     </File>
     <File Include="fonts/contact-banner.jpg">
       <publishTime>08/05/2019 15:31:40</publishTime>
@@ -1285,7 +1291,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/27/2019 17:33:46</publishTime>
     </File>
     <File Include="UserTemplate/js/bootstrap.min.js">
-      <publishTime>06/27/2019 17:33:49</publishTime>
+      <publishTime>12/27/2019 17:19:04</publishTime>
     </File>
     <File Include="UserTemplate/js/jquery.min.js">
       <publishTime>06/27/2019 17:33:49</publishTime>
@@ -1348,7 +1354,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/08/2019 11:44:05</publishTime>
     </File>
     <File Include="Views/Admin/ItemMaster.cshtml">
-      <publishTime>12/22/2019 23:03:04</publishTime>
+      <publishTime>12/25/2019 14:26:55</publishTime>
     </File>
     <File Include="Views/Admin/MainBanner.cshtml">
       <publishTime>08/08/2019 11:44:19</publishTime>
@@ -1378,10 +1384,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/12/2019 20:14:19</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutAdmin.cshtml">
-      <publishTime>12/22/2019 23:51:06</publishTime>
+      <publishTime>12/25/2019 15:48:13</publishTime>
     </File>
     <File Include="Views/Shared/_LayoutUser.cshtml">
-      <publishTime>12/22/2019 23:50:07</publishTime>
+      <publishTime>12/31/2019 12:20:30</publishTime>
     </File>
     <File Include="Views/Shared/_PartialInvoice.cshtml">
       <publishTime>08/09/2019 15:15:24</publishTime>
@@ -1396,10 +1402,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/13/2019 18:42:50</publishTime>
     </File>
     <File Include="Views/User/AboutMe.cshtml">
-      <publishTime>11/20/2019 15:53:17</publishTime>
+      <publishTime>01/05/2020 17:08:28</publishTime>
     </File>
     <File Include="Views/User/ContactUs.cshtml">
-      <publishTime>08/05/2019 17:20:36</publishTime>
+      <publishTime>12/23/2019 19:28:51</publishTime>
+    </File>
+    <File Include="Views/User/Failure.cshtml">
+      <publishTime>01/05/2020 11:28:39</publishTime>
     </File>
     <File Include="Views/User/Index.cshtml">
       <publishTime>08/06/2019 16:08:23</publishTime>
@@ -1423,13 +1432,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/22/2019 23:11:58</publishTime>
     </File>
     <File Include="Views/User/TermsAndConditions.cshtml">
-      <publishTime>09/12/2019 16:09:40</publishTime>
+      <publishTime>01/05/2020 17:11:15</publishTime>
     </File>
     <File Include="Views/User/ThankYou.cshtml">
-      <publishTime>07/24/2019 19:13:07</publishTime>
+      <publishTime>01/05/2020 14:17:09</publishTime>
     </File>
     <File Include="Views/User/UserCheckOut.cshtml">
-      <publishTime>12/23/2019 16:43:26</publishTime>
+      <publishTime>01/05/2020 14:10:38</publishTime>
     </File>
     <File Include="Views/User/UserLogin.cshtml">
       <publishTime>12/22/2019 23:48:57</publishTime>
@@ -1447,7 +1456,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/14/2019 14:43:37</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>12/23/2019 17:57:21</publishTime>
+      <publishTime>01/05/2020 17:15:05</publishTime>
     </File>
   </ItemGroup>
 </Project>

@@ -20,8 +20,8 @@
         function GotoPaymentMethod() {
             debugger;
             //var selec = localStorage.getItem('drop')
-                var itemId = JSON.parse(localStorage.getItem('itemsArray')) || [];
-                var addressId = localStorage.getItem('AddressId');
+            var itemId = JSON.parse(localStorage.getItem('itemsArray')) || [];
+            var addressId = parseInt( localStorage.getItem('AddressId'));
                 //const splitTotalPaidPrice = $("#totalPaidPrice").text().split(" ");
                 var currencySymbol =localStorage.getItem('CurrencySymbol');
                 var currencyType = localStorage.getItem('CurrencyType');

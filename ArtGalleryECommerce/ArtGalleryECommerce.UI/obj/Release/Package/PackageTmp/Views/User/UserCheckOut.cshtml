@@ -9,7 +9,17 @@
     $(document).ready(function () {
         //$("#ddlCurrency").prop("disabled", true);
         $("#ddlCurrency").hide();
+        $('#btnPayment').prop('disabled', true);
+        $('#lblSelectAddress').show();
+
     })
+
+    function ShippingAddress(res) {
+        localStorage.setItem('addressId', res);
+        $('#btnPayment').prop('disabled', false);
+        $('#lblSelectAddress').hide();
+
+    }
 
     function EditUserAdress(par) {
         $.ajax({
@@ -92,48 +102,56 @@
         $("#msgCountry").text('');
     }
     function GotoPaymentMethod() {
-        if ($('input[name="rbShipping"]:checked').length == 0) {
-            alert('Please Add Address.');
-            return false;
-        }
-        else {
-            return true;
-        }
+        //if ($('input[name="rbShipping"]:checked').length == 0) {
+        //    alert('Please Add Address.');
+        //    return false;
+        //}
         //else {
-        //    var itemId = JSON.parse(localStorage.getItem('itemsArray')) || [];
-        //    var addressId = $('input[name="rbShipping"]:checked').val();
-        //    const splitTotalPaidPrice = $("#totalPaidPrice").text().split(" ");
-        //    var currencySymbol = splitTotalPaidPrice[0];
-        //    var currencyType = "";
-        //    if (currencySymbol == "₹") {
-        //        currencyType = "INR";
-        //    }
-        //    else if (currencySymbol == "$") {
-        //        currencyType = "USD";
-        //    }
-        //    else if (currencySymbol == "€") {
-        //        currencyType = "EUR";
-        //    }
+        //    return true;
+        //}
+        //else {
+        debugger;
+        var itemId = JSON.parse(localStorage.getItem('itemsArray')) || [];
+        //var addressId = $('input[name="rbShipping"]:checked').val();
+        var addressId =  localStorage.getItem('addressId');;
+        const splitTotalPaidPrice = $("#totalPaidPrice").text().split(" ");
+        var currencySymbol = splitTotalPaidPrice[0];
+        var currencyType = "";
+        if (currencySymbol == "₹") {
+            currencyType = "INR";
+        }
+        else if (currencySymbol == "$") {
+            currencyType = "USD";
+        }
+        else if (currencySymbol == "€") {
+            currencyType = "EUR";
+        }
 
-        //    var paidPrice = splitTotalPaidPrice[1];
-        //    var paymentType = "Cash On Delivery";
-        //    $.ajax({
-        //        type: 'POST',
-        //        dataType: 'JSON',
-        //        url: '/User/SaveUserOrderDetails',
-        //        data: { ItemId: itemId, AddressId: addressId, CurrencyType: currencyType, PaidPrice: paidPrice, PaymentType: paymentType },
-        //        success: function (res) {
-        //            if (res > 0) {
-        //                localStorage.removeItem('itemsArray');
-        //                window.location.href = '/User/ThankYou';
-        //            }
-        //            else {
-        //                alert('Out Of Stock.Sorry...')
-        //            }
+        var paidPrice = splitTotalPaidPrice[1];
+        var paymentType = "Card On Delivery";
+        localStorage.setItem('AddressId', addressId);
+        localStorage.setItem('TotalPaidPrice', splitTotalPaidPrice);
+        localStorage.setItem('CurrencySymbol', currencySymbol);
+        localStorage.setItem('CurrencyType', currencyType);
+        localStorage.setItem('PaidPrice', paidPrice);
+        localStorage.setItem('PaymentType', paymentType);
+        //$.ajax({
+        //    type: 'POST',
+        //    dataType: 'JSON',
+        //    url: '/User/SaveUserOrderDetails',
+        //    data: { ItemId: itemId, AddressId: addressId, CurrencyType: currencyType, PaidPrice: paidPrice, PaymentType: paymentType },
+        //    success: function (res) {
+        //        if (res > 0) {
+        //            localStorage.removeItem('itemsArray');
+        //            window.location.href = '/User/ThankYou';
         //        }
-        //    })
-        //};
-    }
+        //        else {
+        //            alert('Out Of Stock.Sorry...')
+        //        }
+        //    }
+        //})
+    };
+    //}
 </script>
 <!-- BREADCRUMB -->
 <div id="breadcrumb">
@@ -215,12 +233,14 @@
                         <div class="section-title">
                             <h4 class="title">Select Delivery Address</h4>
                         </div>
+                        <input type="hidden" name="totalPrice" value="@TempData["TotalPrice"]" />
+                        <input type="hidden" name="CustomerId" value="@Session["UserId"]" />
                         @if (ViewBag.UserAddress != null)
                         {
                             foreach (var item in ViewBag.UserAddress)
                             {
                                 <div class="input-checkbox">
-                                    <input type="radio" name="rbShipping" id="rbShipping" value="@item.AddressId">
+                                    <input type="radio" name="rbShipping_@item.AddressId" id="rbShipping_@item.AddressId" value="@item.AddressId" onclick="ShippingAddress(@item.AddressId)">
                                     <label for="shipping-1"><h4>@item.Name</h4></label>
                                     <div class="caption">
                                         <p>
@@ -290,9 +310,17 @@
                     <div class="order-summary clearfix">
                         <div class="pull-right">
                             <button class="main-btn">Go To Shopping</button>
-                            <button class="primary-btn" type="submit" onclick="GotoPaymentMethod();">Payment</button>
+                            <button class="primary-btn" type="submit" id="btnPayment" onclick="GotoPaymentMethod();">Payment</button>
+
+                        </div>
+
+                    </div>
+                    <div class="order-summary clearfix">
+                        <div class="pull-right">
+                            <h4><label class="text-danger" id="lblSelectAddress">Please Select Address</label></h4>
                         </div>
                     </div>
+
                 </div>
             </form>
         </div>

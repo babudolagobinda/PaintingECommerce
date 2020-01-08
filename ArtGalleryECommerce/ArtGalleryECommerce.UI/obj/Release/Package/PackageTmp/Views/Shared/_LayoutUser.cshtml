@@ -93,7 +93,7 @@
                                         </li>*@
                                     <li class="dropdown mega-dropdown">
                                         @*<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Category <i class="fa fa-caret-down"></i></a>*@
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" aria-expanded="true">Shop By Category <i class="fa fa-caret-down"></i></a>
+                                        <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" aria-expanded="true">Shop By Category <i class="fa fa-caret-down"></i></a>
                                         <div class="custom-menu">
                                             <div class="row">
                                                 @{
@@ -126,6 +126,7 @@
                                                                     @foreach (var itemCategory in ViewBag.ItemCategories)
                                                                     {
                                                                         <li><a href="@Url.Action("ProductList","User")?groupId=@item.GroupId&&categoryId=@itemCategory.CategoryId">@itemCategory.CategoryName</a></li>
+                                                                        <li>@*<a href="@Url.Action("ProductList","User")">ff</a>*@</li>
                                                                     }
                                                                 </ul>
                                                             </div>
@@ -211,122 +212,8 @@
         </div>
         <!-- container -->
     </header>
-    @*<header>
-            <div id="header">
-                <div class="container">
-                    <div class="pull-left">
-                        <div class="header-logo"> <a class="logo" href="#"> <img src="../fonts/logo-web.png" /> </a> </div>
-                        <div class="header-search"> </div>
-                    </div>
-                    <div class="pull-right">
-                        <ul class="header-btns">
-                            <li class="header-account dropdown default-dropdown">
-                                <div class="dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="true">
-                                    <div class="header-btns-icon"> <i class="fa fa-user-o"></i> </div>
-                                    <strong class="text-uppercase">My Account <i class="fa fa-caret-down"></i></strong>
-                                </div>
-                                <ul class="custom-menu">
-                                    @if (Session["UserId"] == null)
-                                    {
-                                        <li>
-                                            <a class="btn btn-warning" href="@Url.Action("UserLogin","User")">SignIn <i class="fa fa-sign-in"></i></a>
-                                            <a class="btn btn-link" href="@Url.Action("UserRegister","User")">SignUp</a>
-                                        </li>
-                                    }
-                                    else
-                                    {
-                                        <li><h3><b>Hello</b></h3> <h4>@Session["UserName"].ToString()</h4> </li>
-                                    }
-
-                                    <li><a href="@Url.Action("MyProfile","User")"><i class="fa fa-user-o"></i> My Profile</a></li>
-                                    <li><a href="#"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
-                                    <li><a href="#"><i class="fa fa-file-text-o"></i>My Orders</a></li>
-                                    @if (Session["UserId"] != null)
-                                    {
-                                        <li><a href="@Url.Action("SignOut", "User")"><i class="fa fa-sign-out"></i>Sign Out</a></li>
-                                    }
-                                </ul>
-                            </li>
-                            <li class="header-cart dropdown default-dropdown">
-                                <a class="dropdown-toggle" aria-expanded="true" href="@Url.Action("MyCart","User")">
-                                    <div class="header-btns-icon"> <i class="fa fa-shopping-cart shopping-cart"></i> <span class="qty" id="spnQuantity">0</span> </div>
-                                    <strong class="text-uppercase">My Bag</strong> <br>
-
-                                </a>
-
-                            </li>
-                            <li class="nav-toggle">
-                                <button class="nav-toggle-btn main-btn icon-btn"><i class="fa fa-bars"></i></button>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </header>*@
-    <!-- /HEADER -->
-    <!-- NAVIGATION -->
-    @*<div id="navigation">
-            <div class="container">
-                <div id="responsive-nav">
-                    <div class="menu-nav">
-                        <span class="menu-header">Menu <i class="fa fa-bars"></i></span>
-                        <ul class="menu-list">
-                            <li><a class="active" href="@Url.Action("Index", "User")">Home</a></li>
-                            <li class="dropdown mega-dropdown full-width">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" aria-expanded="true">Shop By Category <i class="fa fa-caret-down"></i></a>
-                                <div class="custom-menu">
-                                    <div class="row">
-                                        @{
-                                            if (ViewBag.ItemGroups != null)
-                                            {
-                                                foreach (var item in ViewBag.ItemGroups)
-                                                {
-                                                    <div class="col-md-2">
-
-                                                        <ul class="list-links">
-                                                            <li>
-                                                                <a href="@Url.Action("ProductList","User")?groupId=@item.GroupId&&categoryId=0"><h3 class="list-links-title">@item.GroupName</h3></a>
-                                                            </li>
-                                                            @{
-                                                                List<ItemCategoryDto> lstItemCategoryDto = new List<ItemCategoryDto>();
-                                                                SqlConnection con = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["conn"].ConnectionString);
-                                                                SqlCommand cmd = new SqlCommand("GetItemCategoryByGroupId", con);
-                                                                cmd.Parameters.AddWithValue("@GroupId", item.GroupId);
-                                                                cmd.CommandType = CommandType.StoredProcedure;
-                                                                con.Open();
-                                                                SqlDataReader dr = cmd.ExecuteReader();
-                                                                while (dr.Read())
-                                                                {
-                                                                    ItemCategoryDto itemCategoryDto = new ItemCategoryDto();
-                                                                    itemCategoryDto.GroupId = Convert.ToInt32(dr["GroupId"]);
-                                                                    itemCategoryDto.CategoryId = Convert.ToInt32(dr["CategoryId"]);
-                                                                    itemCategoryDto.CategoryName = Convert.ToString(dr["CategoryName"]);
-                                                                    lstItemCategoryDto.Add(itemCategoryDto);
-                                                                }
-                                                                con.Close();
-                                                                ViewBag.ItemCategories = lstItemCategoryDto;
-                                                            }
-                                                            @foreach (var itemCategory in ViewBag.ItemCategories)
-                                                            {
-                                                                <li><a href="@Url.Action("ProductList","User")?groupId=@item.GroupId&&categoryId=@itemCategory.CategoryId">@itemCategory.CategoryName</a></li>
-                                                            }
-                                                        </ul>
-                                                    </div>
-                                                }
-                                            }
-                                        }
-                                    </div>
-                                </div>
-                            </li>
-                            <li><a href="#">Contact</a></li>
-                        </ul>
-                    </div>
-                    <!-- menu nav -->
-                </div>
-            </div>
-            <!-- /container -->
-        </div>*@
-    <!-- /NAVIGATION -->
+   
+   
     @RenderBody()
 
     <!-- FOOTER -->

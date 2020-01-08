@@ -215,6 +215,7 @@ namespace ArtGalleryECommerce.UI.Controllers
             //string furl = "http://localhost:64535/User/Failure";
             string surl = "https://chandnicreativeart.com/User/ThankYou";
             string furl = "https://chandnicreativeart.com/User/Failure";
+            
 
             RemotePost myremotepost = new RemotePost();
             string key = "StLG15HX";
@@ -555,7 +556,7 @@ namespace ArtGalleryECommerce.UI.Controllers
             OrderNumber = "OD" + orderPart1 + orderPart2 + DateTime.Now.Day + DateTime.Now.Month + DateTime.Now.Year;
             return OrderNumber;
         }
-        [UserAuthenticationFilterForWebsite]
+        //[UserAuthenticationFilterForWebsite]
         public ActionResult ThankYou()
         {
             return View();
