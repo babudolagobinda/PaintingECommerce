@@ -674,7 +674,7 @@ namespace ArtGalleryECommerce.UI.Controllers
                 SmtpClient smtp = new SmtpClient();
                 smtp.Host = "smtp.gmail.com";
                 smtp.EnableSsl = true;
-                NetworkCredential NetworkCred = new NetworkCredential("chandnicreativeart@gmail.com", "ravenclaw12");
+                NetworkCredential NetworkCred = new NetworkCredential("chandnicreativeart@gmail.com", "tardisvortex");
                 smtp.UseDefaultCredentials = true;
                 smtp.Credentials = NetworkCred;
                 smtp.Port = 587;
@@ -699,7 +699,7 @@ namespace ArtGalleryECommerce.UI.Controllers
             smtp.Host = "smtp.gmail.com";
             smtp.Port = 587;
             smtp.UseDefaultCredentials = false;
-            smtp.Credentials = new NetworkCredential("chandnicreativeart@gmail.com", "ravenclaw12"); // Enter seders User name and password  
+            smtp.Credentials = new NetworkCredential("chandnicreativeart@gmail.com", "tardisvortex"); // Enter seders User name and password  
             smtp.EnableSsl = true;
             smtp.Send(mail);
         }
