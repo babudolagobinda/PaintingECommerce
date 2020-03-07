@@ -15,3 +15,11 @@ C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommer
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Dal\obj\Debug\ArtGalleryECommerce.Dal.csproj.CopyComplete
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Dal\obj\Debug\ArtGalleryECommerce.Dal.dll
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Dal\obj\Debug\ArtGalleryECommerce.Dal.pdb
+C:\PersonalWorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Dal\bin\Debug\ArtGalleryECommerce.Dal.dll
+C:\PersonalWorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Dal\bin\Debug\ArtGalleryECommerce.Dal.pdb
+C:\PersonalWorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Dal\bin\Debug\ArtGalleryECommerce.Model.dll
+C:\PersonalWorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Dal\bin\Debug\ArtGalleryECommerce.Model.pdb
+C:\PersonalWorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Dal\obj\Debug\ArtGalleryECommerce.Dal.csprojAssemblyReference.cache
+C:\PersonalWorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Dal\obj\Debug\ArtGalleryECommerce.Dal.csproj.CopyComplete
+C:\PersonalWorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Dal\obj\Debug\ArtGalleryECommerce.Dal.dll
+C:\PersonalWorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Dal\obj\Debug\ArtGalleryECommerce.Dal.pdb

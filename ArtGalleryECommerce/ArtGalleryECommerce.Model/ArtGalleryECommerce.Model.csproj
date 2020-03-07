@@ -56,6 +56,7 @@
     <Compile Include="UserDTO\UserOrderAndAddressDto.cs" />
     <Compile Include="UserDTO\UserOrderDetailsDto.cs" />
     <Compile Include="UserDTO\UserOrderDetailsResponseDto.cs" />
+    <Compile Include="UserDTO\UserResetPasswordDto.cs" />
     <Compile Include="UserDTO\UserReviewDto.cs" />
     <Compile Include="UserDTO\UserSignUpDto.cs" />
   </ItemGroup>

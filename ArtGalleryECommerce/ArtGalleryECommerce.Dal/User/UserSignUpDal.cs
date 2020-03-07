@@ -121,5 +121,45 @@ namespace ArtGalleryECommerce.Dal.User
                 throw ex;
             }
         }
+        public bool CheckValidEmailId(string ForgotPasswordEmailid)
+        {
+            try
+            {
+                bool i = false;
+                SqlCommand cmd = new SqlCommand("CheckValidEmailID", connectionRepository.con);
+                cmd.Parameters.AddWithValue("@ForgotPasswordEmailid", ForgotPasswordEmailid);
+                cmd.CommandType = CommandType.StoredProcedure;
+                connectionRepository.con.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                while(dr.Read())
+                {
+                    i = true;
+                }
+                connectionRepository.con.Close();
+                return i;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public int ResetPasswordForUser(UserResetPasswordDto userResetPasswordDto)
+        {
+            try
+            {
+                SqlCommand cmd = new SqlCommand("UserResetPassword", connectionRepository.con);
+                cmd.Parameters.AddWithValue("@EmailId", userResetPasswordDto.EmailId);
+                cmd.Parameters.AddWithValue("@Password", userResetPasswordDto.Password);
+                cmd.CommandType = CommandType.StoredProcedure;
+                connectionRepository.con.Open();
+                int i = cmd.ExecuteNonQuery();
+                connectionRepository.con.Close();
+                return i;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

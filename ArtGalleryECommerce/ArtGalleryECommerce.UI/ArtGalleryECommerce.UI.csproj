@@ -164,6 +164,7 @@
     <Compile Include="Models\ItemGroupModel.cs" />
     <Compile Include="Models\UserAddressModel.cs" />
     <Compile Include="Models\UserLoginModel.cs" />
+    <Compile Include="Models\UserResetPasswordModel.cs" />
     <Compile Include="Models\UserSignUpModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -602,6 +603,7 @@
     <Content Include="Views\User\AboutMe.cshtml" />
     <Content Include="Views\User\TermsAndConditions.cshtml" />
     <Content Include="Views\User\Failure.cshtml" />
+    <Content Include="Views\User\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

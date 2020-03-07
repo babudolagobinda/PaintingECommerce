@@ -19,6 +19,8 @@ using AutoMapper;
 using System.Text.RegularExpressions;
 using System.Security.Cryptography;
 using System.Text;
+using System.Net.Mail;
+using System.Net;
 
 namespace ArtGalleryECommerce.UI.Controllers
 {
@@ -215,7 +217,7 @@ namespace ArtGalleryECommerce.UI.Controllers
             //string furl = "http://localhost:64535/User/Failure";
             string surl = "https://chandnicreativeart.com/User/ThankYou";
             string furl = "https://chandnicreativeart.com/User/Failure";
-            
+
 
             RemotePost myremotepost = new RemotePost();
             string key = "StLG15HX";
@@ -243,7 +245,7 @@ namespace ArtGalleryECommerce.UI.Controllers
 
             myremotepost.Post();
         }
-        
+
         public class RemotePost
         {
             private System.Collections.Specialized.NameValueCollection Inputs = new System.Collections.Specialized.NameValueCollection();
@@ -367,14 +369,22 @@ namespace ArtGalleryECommerce.UI.Controllers
                 userSignUpDto.MobileNo = userSignUpModel.MobileNo;
                 userSignUpDto.Gender = userSignUpModel.Gender;
                 userSignUpDto.IsActive = 1;
-                int i = userSignUpDal.SaveUserDetails(userSignUpDto);
-                if (i > 0)
+                bool existUser = userSignUpDal.CheckValidEmailId(userSignUpModel.EmailId);
+                if (existUser == false)
                 {
-                    ViewBag.successText = "Successfully Registered.Please Login to Your Account";
+                    int i = userSignUpDal.SaveUserDetails(userSignUpDto);
+                    if (i > 0)
+                    {
+                        ViewBag.successText = "Successfully Registered.Please Login to Your Account";
+                    }
+                    else
+                    {
+                        ViewBag.failureText = "You are not Registered. Please Try after Sometime ";
+                    }
                 }
                 else
                 {
-                    ViewBag.failureText = "You are not Registered. Please Try after Sometime ";
+                    ViewBag.failureText = "This MailId already Exist.";
                 }
                 return View();
             }
@@ -588,6 +598,71 @@ namespace ArtGalleryECommerce.UI.Controllers
         public ActionResult Failure()
         {
             return View();
+        }
+        [HttpPost]
+        public ActionResult ForgotPassword(string ForgotPasswordEmailid)
+        {
+            string msg = "";
+            bool i = userSignUpDal.CheckValidEmailId(ForgotPasswordEmailid);
+            if (i == true)
+            {
+                MailMessage mail = new MailMessage();
+                mail.To.Add(ForgotPasswordEmailid);
+                mail.From = new MailAddress("admin@chandnicreativeart.com");
+                mail.Subject = "Forgot Password";
+                string body = "Dear Customer, <br /><br />We received a request to reset the password for your account. If you made this request,please click the following link: <a href='https://chandnicreativeart.com/User/ChangePassword'>Reset Password</a>";
+                mail.Body = body;
+                mail.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "relay-hosting.secureserver.net";
+                //smtp.EnableSsl = true;
+                smtp.Port = 25;
+                smtp.UseDefaultCredentials = true;
+                smtp.Credentials = new NetworkCredential("admin@chandnicreativeart.com", "Cybria@0909"); // Enter seders User name and password  
+                smtp.Send(mail);
+                msg = "We have sent a reset password link to your Registered Email account,Please Check";
+            }
+            else
+            {
+                msg = "Please Enter Valid EmailId !";
+            }
+            return Json(msg, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ChangePassword(UserResetPasswordModel userResetPasswordModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(userResetPasswordModel);
+            }
+            else
+            {
+                UserResetPasswordDto userResetPasswordDto = new UserResetPasswordDto();
+                userResetPasswordDto.EmailId = userResetPasswordModel.EmailId;
+                userResetPasswordDto.Password = userResetPasswordModel.Password;
+                bool existUser = userSignUpDal.CheckValidEmailId(userResetPasswordModel.EmailId);
+                if (existUser == true)
+                {
+                    int i = userSignUpDal.ResetPasswordForUser(userResetPasswordDto);
+                    if (i > 0)
+                    {
+                        ViewBag.successText = "Successfully Updated Your Password";
+                    }
+                    else
+                    {
+                        ViewBag.failureText = "Your Password has not updated. Please try some time ";
+                    }
+                }
+                else
+                {
+                    ViewBag.failureText = "This MailId is not Exist.";
+                }
+                return View();
+            }
         }
     }
 }
