@@ -12,7 +12,6 @@ C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommer
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Dal\bin\Debug\ArtGalleryECommerce.Model.dll
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Dal\bin\Debug\ArtGalleryECommerce.Model.pdb
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Dal\obj\Debug\ArtGalleryECommerce.Dal.csprojAssemblyReference.cache
-C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Dal\obj\Debug\ArtGalleryECommerce.Dal.csproj.CoreCompileInputs.cache
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Dal\obj\Debug\ArtGalleryECommerce.Dal.csproj.CopyComplete
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Dal\obj\Debug\ArtGalleryECommerce.Dal.dll
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Dal\obj\Debug\ArtGalleryECommerce.Dal.pdb

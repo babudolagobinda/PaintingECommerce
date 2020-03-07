@@ -1,0 +1,42 @@
+﻿-----------------------------------------------------------------------------
+Date : 3/4/2020 6:30:38 PM
+
+System.Net.Mail.SmtpException
+Message : Failure sending mail.
+StackTrace :    at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at ArtGalleryECommerce.UI.Controllers.AdminController.SendApproveMail(String OrderNo) in C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\Controllers\AdminController.cs:line 687
+System.Net.WebException
+Message : Unable to connect to the remote server
+StackTrace :    at System.Net.ServicePoint.GetConnection(PooledStream PooledStream, Object owner, Boolean async, IPAddress& address, Socket& abortSocket, Socket& abortSocket6)
+   at System.Net.PooledStream.Activate(Object owningObject, Boolean async, GeneralAsyncDelegate asyncCallback)
+   at System.Net.PooledStream.Activate(Object owningObject, GeneralAsyncDelegate asyncCallback)
+   at System.Net.ConnectionPool.GetConnection(Object owningObject, GeneralAsyncDelegate asyncCallback, Int32 creationTimeout)
+   at System.Net.Mail.SmtpConnection.GetConnection(ServicePoint servicePoint)
+   at System.Net.Mail.SmtpTransport.GetConnection(ServicePoint servicePoint)
+   at System.Net.Mail.SmtpClient.GetConnection()
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+System.Net.Sockets.SocketException
+Message : A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 72.167.234.197:25
+StackTrace :    at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)
+-----------------------------------------------------------------------------
+Date : 3/4/2020 6:31:28 PM
+
+System.Net.Mail.SmtpException
+Message : Failure sending mail.
+StackTrace :    at System.Net.Mail.SmtpClient.Send(MailMessage message)
+   at ArtGalleryECommerce.UI.Controllers.AdminController.SendDeclineMail(String OrderNo) in C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\Controllers\AdminController.cs:line 721
+System.Net.WebException
+Message : Unable to connect to the remote server
+StackTrace :    at System.Net.ServicePoint.GetConnection(PooledStream PooledStream, Object owner, Boolean async, IPAddress& address, Socket& abortSocket, Socket& abortSocket6)
+   at System.Net.PooledStream.Activate(Object owningObject, Boolean async, GeneralAsyncDelegate asyncCallback)
+   at System.Net.PooledStream.Activate(Object owningObject, GeneralAsyncDelegate asyncCallback)
+   at System.Net.ConnectionPool.GetConnection(Object owningObject, GeneralAsyncDelegate asyncCallback, Int32 creationTimeout)
+   at System.Net.Mail.SmtpConnection.GetConnection(ServicePoint servicePoint)
+   at System.Net.Mail.SmtpTransport.GetConnection(ServicePoint servicePoint)
+   at System.Net.Mail.SmtpClient.GetConnection()
+   at System.Net.Mail.SmtpClient.Send(MailMessage message)
+System.Net.Sockets.SocketException
+Message : A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond 72.167.234.197:25
+StackTrace :    at System.Net.Sockets.Socket.DoConnect(EndPoint endPointSnapshot, SocketAddress socketAddress)
+   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)

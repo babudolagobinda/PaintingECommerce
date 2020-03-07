@@ -210,8 +210,6 @@ D:\BackUpDdreive\Dolagobinda\Project\WorkSpace\PaintingEcommerce\ArtGalleryEComm
 D:\BackUpDdreive\Dolagobinda\Project\WorkSpace\PaintingEcommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\obj\Debug\ArtGalleryECommerce.UI.csproj.CopyComplete
 D:\BackUpDdreive\Dolagobinda\Project\WorkSpace\PaintingEcommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\obj\Debug\ArtGalleryECommerce.UI.dll
 D:\BackUpDdreive\Dolagobinda\Project\WorkSpace\PaintingEcommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\obj\Debug\ArtGalleryECommerce.UI.pdb
-C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\bin\Antlr3.Runtime.pdb
-C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\bin\PagedList.Mvc.xml
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\bin\roslyn\csc.exe
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\bin\roslyn\csc.exe.config
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\bin\roslyn\csc.rsp
@@ -270,6 +268,7 @@ C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommer
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\bin\AutoMapper.xml
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\bin\PagedList.xml
+C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\bin\PagedList.Mvc.xml
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\bin\System.Web.Helpers.xml
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\bin\System.Web.Mvc.xml
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\bin\System.Web.Optimization.xml
@@ -277,6 +276,7 @@ C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommer
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\bin\System.Web.WebPages.xml
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\bin\System.Web.WebPages.Deployment.xml
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\bin\System.Web.WebPages.Razor.xml
+C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\bin\Antlr3.Runtime.pdb
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\bin\Newtonsoft.Json.xml
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\bin\Microsoft.ApplicationInsights.xml
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\bin\Microsoft.AI.DependencyCollector.xml
@@ -284,7 +284,6 @@ C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommer
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\bin\Microsoft.AI.WindowsServer.xml
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\bin\Microsoft.AI.Web.xml
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\obj\Debug\ArtGalleryECommerce.UI.csprojAssemblyReference.cache
-C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\obj\Debug\ArtGalleryECommerce.UI.csproj.CoreCompileInputs.cache
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\obj\Debug\ArtGalleryECommerce.UI.csproj.CopyComplete
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\obj\Debug\ArtGalleryECommerce.UI.dll
 C:\Dolagobinda\WorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.UI\obj\Debug\ArtGalleryECommerce.UI.pdb

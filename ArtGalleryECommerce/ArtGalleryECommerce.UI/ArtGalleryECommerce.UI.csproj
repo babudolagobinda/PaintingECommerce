@@ -510,6 +510,7 @@
     <Content Include="UserTemplate\css\slick-theme.css" />
     <Content Include="UserTemplate\css\slick.css" />
     <Content Include="UserTemplate\css\style.css" />
+    <Content Include="UserTemplate\Error.txt" />
     <Content Include="UserTemplate\fonts\fontawesome-webfont.svg" />
     <Content Include="UserTemplate\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="UserTemplate\img\banner01.jpg" />

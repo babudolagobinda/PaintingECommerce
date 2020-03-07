@@ -20,6 +20,7 @@ using System.Drawing.Imaging;
 using PagedList;
 using System.Net.Mail;
 using System.Net;
+using System.Web.UI;
 
 namespace ArtGalleryECommerce.UI.Controllers
 {
@@ -640,68 +641,114 @@ namespace ArtGalleryECommerce.UI.Controllers
         }
         public void SendApproveMail(string OrderNo)
         {
-            UserOrderDetailsDal userOrderDetailsDal = new UserOrderDetailsDal();
-            List<UserOrderDetailsResponseDto> userOrderDetailsResponseDto = userOrderDetailsDal.GetAllOrderDetails(OrderNo);
-            List<UserOrderAndAddressDto> userOrderAndAddressDto = userOrderDetailsDal.GetUserAddressDetails(OrderNo);
-            using (MailMessage mm = new MailMessage(userOrderDetailsResponseDto[0].EmailId, userOrderDetailsResponseDto[0].EmailId))
+            try
             {
-                mm.Subject = "Order Confirmation";
-                string body = System.IO.File.ReadAllText(HttpContext.Server.MapPath("../EmailTemplate/ApproveEmailTemplate.html"));
-                body = body.Replace("#OrderNumber", OrderNo);
-                var itemListBody = string.Empty;
-                var userAddressBody = string.Empty;
-                var billingDetailsBody = string.Empty;
-                userAddressBody += "<tr><td>" + userOrderAndAddressDto[0].Address + "</td></tr>";
-                userAddressBody += "<tr><td>" + userOrderAndAddressDto[0].Locality + "," + userOrderAndAddressDto[0].City + "," + userOrderAndAddressDto[0].State + "," + userOrderAndAddressDto[0].Country + "</td></tr>";
-                userAddressBody += "<tr><td>" + userOrderAndAddressDto[0].Pincode + "</td></tr>";
-
-                billingDetailsBody += "<tr><td>Total Amount:</td><td>" + userOrderAndAddressDto[0].TotalAmount + "</td></tr>";
-                billingDetailsBody+= "<tr><td>Shipping Charge:</td><td>0.00</td></tr>";
-                billingDetailsBody += "<tr><td>Mode Of Payment:</td><td>" + userOrderAndAddressDto[0].PaymentType + "</td></tr>";
-
-                foreach (var item in userOrderDetailsResponseDto)
+                UserOrderDetailsDal userOrderDetailsDal = new UserOrderDetailsDal();
+                List<UserOrderDetailsResponseDto> userOrderDetailsResponseDto = userOrderDetailsDal.GetAllOrderDetails(OrderNo);
+                List<UserOrderAndAddressDto> userOrderAndAddressDto = userOrderDetailsDal.GetUserAddressDetails(OrderNo);
+                using (MailMessage mm = new MailMessage("admin@chandnicreativeart.com", userOrderDetailsResponseDto[0].EmailId))
                 {
-                    itemListBody += "<tr class='tr'><td class='td'><img src = '" + "~/UploadImages/" + item.ItemImage + "' height='80' width='80' /></td><td class='td'>";
-                    itemListBody += "<table class='table' style='font-family:'Open Sans', Arial, sans-serif; font-size:14px; line-height:17px; color:black;' valign='top'>";
-                    itemListBody += "<tr><td><b>" + item.ItemName + "</b></td></tr><tr><td>Quantity</td><td>" + item.Quantity + "</td></tr><tr><td>Price</td>";
-                    itemListBody += "<td><b>" + item.Price + "</b></td></tr></table></td></tr>";
+                    mm.Subject = "Order Confirmation";
+                    string body = System.IO.File.ReadAllText(HttpContext.Server.MapPath("../EmailTemplate/ApproveEmailTemplate.html"));
+                    body = body.Replace("#OrderNumber", OrderNo);
+                    var itemListBody = string.Empty;
+                    var userAddressBody = string.Empty;
+                    var billingDetailsBody = string.Empty;
+                    userAddressBody += "<tr><td>" + userOrderAndAddressDto[0].Address + "</td></tr>";
+                    userAddressBody += "<tr><td>" + userOrderAndAddressDto[0].Locality + "," + userOrderAndAddressDto[0].City + "," + userOrderAndAddressDto[0].State + "," + userOrderAndAddressDto[0].Country + "</td></tr>";
+                    userAddressBody += "<tr><td>" + userOrderAndAddressDto[0].Pincode + "</td></tr>";
+
+                    billingDetailsBody += "<tr><td>Total Amount:</td><td>" + userOrderAndAddressDto[0].TotalAmount + "</td></tr>";
+                    billingDetailsBody += "<tr><td>Shipping Charge:</td><td>0.00</td></tr>";
+                    //billingDetailsBody += "<tr><td>Mode Of Payment:</td><td>" + userOrderAndAddressDto[0].PaymentType + "</td></tr>";
+
+                    foreach (var item in userOrderDetailsResponseDto)
+                    {
+                        itemListBody += "<tr class='tr'><td class='td'><img src = '" + "https://chandnicreativeart.com/UploadImages/" + item.ItemImage + "' height='80' width='80' /></td><td class='td'>";
+                        itemListBody += "<table class='table' style='font-family:'Open Sans', Arial, sans-serif; font-size:14px; line-height:17px; color:black;' valign='top'>";
+                        itemListBody += "<tr><td><b>" + item.ItemName + "</b></td></tr><tr><td>Quantity</td><td>" + item.Quantity + "</td></tr><tr><td>Price</td>";
+                        itemListBody += "<td><b>" + item.Price + "</b></td></tr></table></td></tr>";
+                    }
+                    body = body.Replace("#userAddress", userAddressBody);
+                    body = body.Replace("#billingDetails", billingDetailsBody);
+                    body = body.Replace("#itemList", itemListBody);
+                    mm.Body = body;
+                    mm.IsBodyHtml = true;
+                    SmtpClient smtp = new SmtpClient();
+                    //smtp.Host = "smtp.gmail.com";
+                    smtp.Host = "relay-hosting.secureserver.net";
+                    //smtp.EnableSsl = true;
+                    //smtp.Timeout = 2000000;
+                    NetworkCredential NetworkCred = new NetworkCredential("admin@chandnicreativeart.com", "Cybria@0909");
+                    smtp.UseDefaultCredentials = true;
+                    smtp.Credentials = NetworkCred;
+                    //smtp.Port = 587;
+                    smtp.Port = 25;
+                    smtp.Send(mm);
                 }
-                body = body.Replace("#userAddress", userAddressBody);
-                body = body.Replace("#billingDetails", billingDetailsBody);
-                body = body.Replace("#itemList", itemListBody);
-                mm.Body = body;
-                mm.IsBodyHtml = true;
-                SmtpClient smtp = new SmtpClient();
-                smtp.Host = "smtp.gmail.com";
-                smtp.EnableSsl = true;
-                NetworkCredential NetworkCred = new NetworkCredential("chandnicreativeart@gmail.com", "tardisvortex");
-                smtp.UseDefaultCredentials = true;
-                smtp.Credentials = NetworkCred;
-                smtp.Port = 587;
-                smtp.Send(mm);
+            }
+            catch (Exception ex)
+            {
+                ErrorLogFile(ex);
+                
             }
         }
 
 
         public void SendDeclineMail(string OrderNo)
         {
-            UserOrderDetailsDal userOrderDetailsDal = new UserOrderDetailsDal();
-            List<UserOrderDetailsResponseDto> userOrderDetailsResponseDto = userOrderDetailsDal.GetAllOrderDetails(OrderNo);
-            List<UserOrderAndAddressDto> userOrderAndAddressDto = userOrderDetailsDal.GetUserAddressDetails(OrderNo);
-            MailMessage mail = new MailMessage();
-            mail.To.Add(userOrderDetailsResponseDto[0].EmailId);
-            mail.From = new MailAddress(userOrderDetailsResponseDto[0].EmailId);
-            mail.Subject = "Order Rejected";
-            string body = System.IO.File.ReadAllText(HttpContext.Server.MapPath("../EmailTemplate/DeclineEmailTemplate.html"));
-            mail.Body = body;
-            mail.IsBodyHtml = true;
-            SmtpClient smtp = new SmtpClient();
-            smtp.Host = "smtp.gmail.com";
-            smtp.Port = 587;
-            smtp.UseDefaultCredentials = false;
-            smtp.Credentials = new NetworkCredential("chandnicreativeart@gmail.com", "tardisvortex"); // Enter seders User name and password  
-            smtp.EnableSsl = true;
-            smtp.Send(mail);
+            try
+            {
+                UserOrderDetailsDal userOrderDetailsDal = new UserOrderDetailsDal();
+                List<UserOrderDetailsResponseDto> userOrderDetailsResponseDto = userOrderDetailsDal.GetAllOrderDetails(OrderNo);
+                List<UserOrderAndAddressDto> userOrderAndAddressDto = userOrderDetailsDal.GetUserAddressDetails(OrderNo);
+                MailMessage mail = new MailMessage();
+                mail.To.Add(userOrderDetailsResponseDto[0].EmailId);
+                mail.From = new MailAddress("admin@chandnicreativeart.com");
+                mail.Subject = "Order Rejected";
+                string body = System.IO.File.ReadAllText(HttpContext.Server.MapPath("../EmailTemplate/DeclineEmailTemplate.html"));
+                mail.Body = body;
+                mail.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient();
+                //smtp.Host = "smtp.gmail.com";
+                smtp.Host = "relay-hosting.secureserver.net";
+                smtp.Port = 25;
+                //smtp.Timeout = 2000000;
+                //smtp.Port = 465;
+                smtp.UseDefaultCredentials = true;
+                smtp.Credentials = new NetworkCredential("admin@chandnicreativeart.com", "Cybria@0909"); // Enter seders User name and password  
+                //smtp.EnableSsl = true;
+                smtp.Send(mail);
+            }
+            catch(Exception ex)
+            {
+                ErrorLogFile(ex);
+                //Console.Write(ex.ToString());
+            }
+        }
+        public void ErrorLogFile(Exception ex1)
+        {
+            string filePath = Server.MapPath(@"~/UserTemplate/Error.txt");
+
+
+            //fileContent.SaveAs(Path.Combine(Server.MapPath("~/UploadImages/"), fileName));
+            Exception ex = ex1;
+
+            using (StreamWriter writer = new StreamWriter(filePath, true))
+            {
+                writer.WriteLine("-----------------------------------------------------------------------------");
+                writer.WriteLine("Date : " + DateTime.Now.ToString());
+                writer.WriteLine();
+
+                while (ex != null)
+                {
+                    writer.WriteLine(ex.GetType().FullName);
+                    writer.WriteLine("Message : " + ex.Message);
+                    writer.WriteLine("StackTrace : " + ex.StackTrace);
+
+                    ex = ex.InnerException;
+                }
+            }
         }
     }
 }
