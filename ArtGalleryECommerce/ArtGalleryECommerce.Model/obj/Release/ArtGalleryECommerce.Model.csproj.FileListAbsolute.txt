@@ -9,3 +9,8 @@ C:\PersonalWorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.M
 C:\PersonalWorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Model\obj\Release\ArtGalleryECommerce.Model.csprojAssemblyReference.cache
 C:\PersonalWorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Model\obj\Release\ArtGalleryECommerce.Model.dll
 C:\PersonalWorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Model\obj\Release\ArtGalleryECommerce.Model.pdb
+C:\Dolagobinda\ChandniCreativeArtProject\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Model\bin\Release\ArtGalleryECommerce.Model.dll
+C:\Dolagobinda\ChandniCreativeArtProject\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Model\bin\Release\ArtGalleryECommerce.Model.pdb
+C:\Dolagobinda\ChandniCreativeArtProject\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Model\obj\Release\ArtGalleryECommerce.Model.csprojAssemblyReference.cache
+C:\Dolagobinda\ChandniCreativeArtProject\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Model\obj\Release\ArtGalleryECommerce.Model.dll
+C:\Dolagobinda\ChandniCreativeArtProject\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Model\obj\Release\ArtGalleryECommerce.Model.pdb

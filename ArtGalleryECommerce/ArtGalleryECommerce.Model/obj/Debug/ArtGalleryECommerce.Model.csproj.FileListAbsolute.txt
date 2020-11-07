@@ -19,3 +19,7 @@ C:\PersonalWorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.M
 C:\PersonalWorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Model\obj\Debug\ArtGalleryECommerce.Model.csprojAssemblyReference.cache
 C:\PersonalWorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Model\obj\Debug\ArtGalleryECommerce.Model.dll
 C:\PersonalWorkSpace\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Model\obj\Debug\ArtGalleryECommerce.Model.pdb
+C:\Dolagobinda\ChandniCreativeArtProject\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Model\bin\Debug\ArtGalleryECommerce.Model.dll
+C:\Dolagobinda\ChandniCreativeArtProject\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Model\bin\Debug\ArtGalleryECommerce.Model.pdb
+C:\Dolagobinda\ChandniCreativeArtProject\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Model\obj\Debug\ArtGalleryECommerce.Model.dll
+C:\Dolagobinda\ChandniCreativeArtProject\PaintingECommerce\ArtGalleryECommerce\ArtGalleryECommerce.Model\obj\Debug\ArtGalleryECommerce.Model.pdb

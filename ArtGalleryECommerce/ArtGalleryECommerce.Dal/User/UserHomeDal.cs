@@ -34,7 +34,7 @@ namespace ArtGalleryECommerce.Dal.User
                 productListDto.ItemImage = Convert.ToString(dr["ItemImage"]);
                 productListDto.Mrp = Convert.ToDecimal(dr["Mrp"]);
                 productListDto.Discount = Convert.ToDecimal(dr["Discount"]);
-                productListDto.Price = CurrencyConverter(Convert.ToDecimal(dr["Price"]));
+                productListDto.Price = Convert.ToDecimal(dr["Price"]);
                 productListDto.Height = Convert.ToDecimal(dr["Height"]);
                 productListDto.HeightType = Convert.ToString(dr["HeightType"]);
                 productListDto.Width = Convert.ToDecimal(dr["Width"]);
@@ -70,7 +70,7 @@ namespace ArtGalleryECommerce.Dal.User
                 productListDto.ItemImage = Convert.ToString(dr["ItemImage"]);
                 productListDto.Mrp = Convert.ToDecimal(dr["Mrp"]);
                 productListDto.Discount = Convert.ToDecimal(dr["Discount"]);
-                productListDto.Price = CurrencyConverter(Convert.ToDecimal(dr["Price"]));
+                productListDto.Price = Convert.ToDecimal(dr["Price"]);
                 productListDto.Height = Convert.ToDecimal(dr["Height"]);
                 productListDto.HeightType = Convert.ToString(dr["HeightType"]);
                 productListDto.Width = Convert.ToDecimal(dr["Width"]);
@@ -146,7 +146,7 @@ namespace ArtGalleryECommerce.Dal.User
                 productListDto.ItemImage = Convert.ToString(dr["ItemImage"]);
                 productListDto.Mrp = Convert.ToDecimal(dr["Mrp"]);
                 productListDto.Discount = Convert.ToDecimal(dr["Discount"]);
-                productListDto.Price = CurrencyConverter(Convert.ToDecimal(dr["Price"]));
+                productListDto.Price = Convert.ToDecimal(dr["Price"]);
                 productListDto.Height = Convert.ToDecimal(dr["Height"]);
                 productListDto.HeightType = Convert.ToString(dr["HeightType"]);
                 productListDto.Width = Convert.ToDecimal(dr["Width"]);
@@ -186,7 +186,7 @@ namespace ArtGalleryECommerce.Dal.User
                 productListDto.ItemImage = Convert.ToString(dr["ItemImage"]);
                 productListDto.Mrp = Convert.ToDecimal(dr["Mrp"]);
                 productListDto.Discount = Convert.ToDecimal(dr["Discount"]);
-                productListDto.Price = CurrencyConverter(Convert.ToDecimal(dr["Price"]));
+                productListDto.Price = Convert.ToDecimal(dr["Price"]);
                 productListDto.Height = Convert.ToDecimal(dr["Height"]);
                 productListDto.HeightType = Convert.ToString(dr["HeightType"]);
                 productListDto.Width = Convert.ToDecimal(dr["Width"]);
@@ -226,7 +226,7 @@ namespace ArtGalleryECommerce.Dal.User
                 productListDto.ItemImage = Convert.ToString(dr["ItemImage"]);
                 productListDto.Mrp = Convert.ToDecimal(dr["Mrp"]);
                 productListDto.Discount = Convert.ToDecimal(dr["Discount"]);
-                productListDto.Price = CurrencyConverter(Convert.ToDecimal(dr["Price"]));
+                productListDto.Price = Convert.ToDecimal(dr["Price"]);
                 productListDto.Height = Convert.ToDecimal(dr["Height"]);
                 productListDto.HeightType = Convert.ToString(dr["HeightType"]);
                 productListDto.Width = Convert.ToDecimal(dr["Width"]);

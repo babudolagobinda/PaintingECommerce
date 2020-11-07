@@ -156,11 +156,11 @@
                             @*@Html.Hidden("hdnCurrency", new { @value = Session["currency"] })*@
                             <input type="hidden" value="@Session["currency"]" id="hdnCurrency" />
                             <input type="hidden" value="@Session["PrevCurrency"]" id="hdnPrevCurrency" />
-                            @Html.DropDownList("Currency",
+                            @*@Html.DropDownList("Currency",
                            new List<SelectListItem> { new SelectListItem { Text="INR",Value="INR"},
                                                       new SelectListItem { Text="USD",Value="USD"},
                                                       new SelectListItem { Text="EUR",Value="EUR"}
-                           }, new { @class = "input", id = "ddlCurrency", @onchange = "CurrencyConverter(this.value)" })
+                           }, new { @class = "input", id = "ddlCurrency", @onchange = "CurrencyConverter(this.value)" })*@
                         </li>
                         <!-- Account -->
                         <li class="header-account dropdown default-dropdown">
