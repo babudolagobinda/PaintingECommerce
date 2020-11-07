@@ -146,7 +146,7 @@ namespace ArtGalleryECommerce.UI.Controllers
             dynamic totalValue = TempData["TotalPricetemp"];
             //dynamic totalValue = Session["TotalPrice"];
             //dynamic currencySymbol = Session["currency"].ToString();
-            decimal totalPriceValue = userHomeDal.CurrencyConverter(totalValue);
+            decimal totalPriceValue = totalValue;
             UserAddressDal userAddressDal = new UserAddressDal();
             List<ItemGroupDto> lstItemGroupDto = itemGroupDal.GetAndEditItemGroup(0, 1);
             ViewBag.ItemGroups = lstItemGroupDto;
@@ -569,13 +569,104 @@ namespace ArtGalleryECommerce.UI.Controllers
         //[UserAuthenticationFilterForWebsite]
         public ActionResult ThankYou()
         {
+            UserOrderMailTemplate();
             return View();
+        }
+        public void UserOrderMailTemplate()
+        {
+            MailMessage mail = new MailMessage();
+            mail.To.Add("chandnicreativeart@gmail.com");
+            mail.From = new MailAddress("admin@chandnicreativeart.com");
+            mail.Subject = "New Order";
+            //string body = "Dear Customer, <br /><br />We received a request to reset the password for your account. If you made this request,please click the following link: <a href='https://chandnicreativeart.com/User/ChangePassword'>Reset Password</a>";
+            string body = System.IO.File.ReadAllText(HttpContext.Server.MapPath("../EmailTemplate/ApproveOrderForAdmin.html"));
+            mail.Body = body;
+            mail.IsBodyHtml = true;
+            SmtpClient smtp = new SmtpClient();
+            smtp.Host = "relay-hosting.secureserver.net";
+            //smtp.EnableSsl = true;
+            smtp.Port = 25;
+            smtp.UseDefaultCredentials = true;
+            smtp.Credentials = new NetworkCredential("admin@chandnicreativeart.com", "Cybria@0909"); // Enter seders User name and password  
+            smtp.Send(mail);
+            //MailMessage mail = new MailMessage();
+            //mail.To.Add("babudolagobinda@gmail.com");
+            //mail.From = new MailAddress("admin@chandnicreativeart.com");
+            //mail.Subject = "New Order";
+            //string body = System.IO.File.ReadAllText(HttpContext.Server.MapPath("../EmailTemplate/ApproveOrderForAdmin.html"));
+            ////string body = "New Order has come";
+            //mail.Body = body;
+            //mail.IsBodyHtml = true;
+            //SmtpClient smtp = new SmtpClient();
+            ////smtp.Host = "smtp.gmail.com";
+            //smtp.Host = "relay-hosting.secureserver.net";
+            //smtp.Port = 25;
+            ////smtp.Timeout = 2000000;
+            ////smtp.Port = 465;
+            //smtp.EnableSsl = true;
+            //smtp.UseDefaultCredentials = true;
+            //smtp.Credentials = new NetworkCredential("admin@chandnicreativeart.com", "Cybria@0909"); // Enter seders User name and password  
+            //                                                                                         //smtp.EnableSsl = true;
+            //smtp.Send(mail);
+            //var emilid = "chandnicreativeart@gmail.com";
+            //MailMessage mail = new MailMessage();
+            //mail.To.Add(emilid);
+            //mail.From = new MailAddress("chandnicreativeart@gmail.com");
+            //mail.Subject = "New Order";
+            //string body = System.IO.File.ReadAllText(HttpContext.Server.MapPath("../EmailTemplate/ApproveOrderForAdmin.html"));
+            ////string body = "New Order has come";
+            //mail.Body = body;
+            //mail.IsBodyHtml = true;
+            //SmtpClient smtp = new SmtpClient();
+            //smtp.Host = "smtp.gmail.com";
+            ////smtp.Host = "relay-hosting.secureserver.net";
+            ////smtp.Port = 25;
+            ////smtp.Timeout = 2000000;
+            //smtp.EnableSsl = true;
+            //smtp.Port = 587;
+            //smtp.UseDefaultCredentials = false;
+            //smtp.Credentials = new NetworkCredential("chandnicreativeart@gmail.com", "tardisvortex"); // Enter seders User name and password  
+            ////tardisvortex                                                                                        //smtp.EnableSsl = true;
+            //smtp.Send(mail);
         }
         public ActionResult ContactUs()
         {
             List<ItemGroupDto> lstItemGroupDto = itemGroupDal.GetAndEditItemGroup(0, 1);
             ViewBag.ItemGroups = lstItemGroupDto;
             return View();
+        }
+        [HttpPost]
+        public ActionResult ContactUs(ContactUs contactUs)
+        {
+            var msg = "";
+            if (!ModelState.IsValid)
+            {
+                return View(contactUs);
+            }
+            else
+            {
+                MailMessage mail = new MailMessage();
+                mail.To.Add("chandnicreativeart@gmail.com");
+                mail.From = new MailAddress("admin@chandnicreativeart.com");
+                mail.Subject = contactUs.Subject;
+                //string body = "Dear Customer, <br /><br />We received a request to reset the password for your account. If you made this request,please click the following link: <a href='https://chandnicreativeart.com/User/ChangePassword'>Reset Password</a>";
+                string body = "Name: '"+ contactUs.Name+ "'<br /><br />Email:'" + contactUs.EmailId+ "'<br /><br />Subject:'" + contactUs.Subject + "'<br /><br />Message:'"+ contactUs.Message+ "'";
+                mail.Body = body;
+                mail.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "relay-hosting.secureserver.net";
+                //smtp.EnableSsl = true;
+                smtp.Port = 25;
+                smtp.UseDefaultCredentials = true;
+                smtp.Credentials = new NetworkCredential("admin@chandnicreativeart.com", "Cybria@0909"); // Enter seders User name and password  
+                smtp.Send(mail);
+                msg = "Your message is saved successfully. Our Admin will contact you soon.";
+                ViewBag.successText = msg;
+                ModelState.Clear();
+                List<ItemGroupDto> lstItemGroupDto = itemGroupDal.GetAndEditItemGroup(0, 1);
+                ViewBag.ItemGroups = lstItemGroupDto;
+                return View(contactUs);
+            }
         }
         public ActionResult PrivacyPolicy()
         {

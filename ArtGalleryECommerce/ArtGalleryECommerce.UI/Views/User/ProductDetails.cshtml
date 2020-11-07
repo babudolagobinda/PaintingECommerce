@@ -67,7 +67,7 @@
                         }
                         <div>
 
-                            <div class="product-rating">
+                            @*<div class="product-rating">
                                 @if (ViewBag.AverageRatingPerItem == 0)
                                 {
                                     <i class="fa fa-star-o empty"></i><i class="fa fa-star-o empty"></i><i class="fa fa-star-o empty"></i><i class="fa fa-star-o empty"></i><i class="fa fa-star-o empty"></i>
@@ -92,7 +92,7 @@
                                 {
                                     <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
                                 }
-                            </div>
+                            </div>*@
 
                             @*<a href="#">3 Review(s) / Add Review</a>*@
                             <a data-toggle="tab" href="#tab2">@ViewBag.TotalCountRatingPerItem Review(s) / Add Review</a>
@@ -103,20 +103,20 @@
                                 <strong>Availability:</strong>
                                 @if (ViewBag.ItemDetails.Quantity > 0)
                                 {
-                                    availability = "In Stock";
+                                    availability = "In Stuck";
                                 }
                                 else
                                 {
-                                    availability = "Out Of Stock";
+                                    availability = "Out Of Stuck";
                                 }
                                 @availability
 
                             </p>
                         }
                         <p><strong>Brand:</strong> Painting</p>
-                        <p>
+                        @*<p>
                             @ViewBag.ItemDetails.ItemDesc
-                        </p>
+                        </p>*@
                         <div class="product-options">
                             <ul class="size-option">
                                 <li><span class="text-uppercase">Size:</span></li>
@@ -136,7 +136,7 @@
                             }
                             else
                             {
-                                <button class="main-btn" disabled data-pid="@ViewBag.ItemDetails.ItemId"><i class="fa fa-truck add-to-cart"></i> Out Of Stock</button>
+                                <button class="main-btn" disabled data-pid="@ViewBag.ItemDetails.ItemId"><i class="fa fa-truck add-to-cart"></i> Out Of Stuck</button>
                             }
                             <div class="pull-right">
                                 <button class="main-btn icon-btn" onclick="AddToWishList(@ViewBag.ItemDetails.ItemId);"><i class="fa fa-heart"></i></button><button class="main-btn icon-btn"><i class="fa fa-share-alt"></i></button>
@@ -293,7 +293,7 @@
                                 }
                                 else
                                 {
-                                    <button class="main-btn" disabled data-pid="@item.ItemId"><i class="fa fa-truck add-to-cart"></i> Out Of Stock</button>
+                                    <button class="main-btn" disabled data-pid="@item.ItemId"><i class="fa fa-truck add-to-cart"></i> Out Of Stuck</button>
                                 }
                             </div>
 

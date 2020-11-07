@@ -160,6 +160,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AdminLoginModel.cs" />
+    <Compile Include="Models\ContactUs.cs" />
     <Compile Include="Models\DashBoardViewModel.cs" />
     <Compile Include="Models\ItemGroupModel.cs" />
     <Compile Include="Models\UserAddressModel.cs" />
@@ -374,6 +375,7 @@
     <Content Include="CustomScripts\StockMaster.js" />
     <Content Include="CustomScripts\UserSignUp.js" />
     <Content Include="EmailTemplate\ApproveEmailTemplate.html" />
+    <Content Include="EmailTemplate\ApproveOrderForAdmin.html" />
     <Content Include="EmailTemplate\DeclineEmailTemplate.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\About_me.jpg" />
@@ -399,6 +401,7 @@
     <Content Include="fonts\mailbox.png" />
     <Content Include="fonts\Preloader_8.gif" />
     <Content Include="fonts\Ripple-1s-200px.gif" />
+    <Content Include="fonts\smiley.jpg" />
     <Content Include="fonts\sorry.gif" />
     <Content Include="fonts\success.gif" />
     <Content Include="fonts\thanku.gif" />

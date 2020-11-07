@@ -9,6 +9,7 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>ThankYou</title>
+    <link rel="icon" href="~/fonts/LogoPrefinal6.jpg" type="image/x-icon">
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/UserTemplate/css/font-awesome.min.css">
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
@@ -18,31 +19,30 @@
             GotoPaymentMethod();
         })
         function GotoPaymentMethod() {
-            debugger;
             //var selec = localStorage.getItem('drop')
             var itemId = JSON.parse(localStorage.getItem('itemsArray')) || [];
-            var addressId = parseInt( localStorage.getItem('AddressId'));
-                //const splitTotalPaidPrice = $("#totalPaidPrice").text().split(" ");
-                var currencySymbol =localStorage.getItem('CurrencySymbol');
-                var currencyType = localStorage.getItem('CurrencyType');
-                var paidPrice = localStorage.getItem('PaidPrice');
-                var paymentType = localStorage.getItem('PaymentType');
-                $.ajax({
-                    type: 'POST',
-                    dataType: 'JSON',
-                    url: '/User/SaveUserOrderDetails',
-                    data: { ItemId: itemId, AddressId: addressId, CurrencyType: currencyType, PaidPrice: paidPrice, PaymentType: paymentType },
-                    success: function (res) {
-                        if (res > 0) {
-                            localStorage.removeItem('itemsArray');
-                            //window.location.href = '/User/Index';
-                        }
-                        else {
-                            alert('Out Of Stock.Sorry...')
-                        }
+            var addressId = parseInt(localStorage.getItem('AddressId'));
+            //const splitTotalPaidPrice = $("#totalPaidPrice").text().split(" ");
+            var currencySymbol = localStorage.getItem('CurrencySymbol');
+            var currencyType = localStorage.getItem('CurrencyType');
+            var paidPrice = localStorage.getItem('PaidPrice');
+            var paymentType = localStorage.getItem('PaymentType');
+            $.ajax({
+                type: 'POST',
+                dataType: 'JSON',
+                url: '/User/SaveUserOrderDetails',
+                data: { ItemId: itemId, AddressId: addressId, CurrencyType: currencyType, PaidPrice: paidPrice, PaymentType: paymentType },
+                success: function (res) {
+                    if (res > 0) {
+                        localStorage.removeItem('itemsArray');
+                        //window.location.href = '/User/Index';
                     }
-                })
-            };        
+                    else {
+                        alert('Out Of Stock.Sorry...')
+                    }
+                }
+            })
+        };
     </script>
 </head>
 <body>
